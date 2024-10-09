@@ -58,7 +58,10 @@ class ValueParameterCheckStatementsProducer(
         val body = declaration.body
         when (body) {
             is IrBlockBody -> body.statements.addAll(0, statementsToAdd)
-            is IrExpressionBody -> irBuilder.irBlockBody(body.expression) { +statementsToAdd }
+            is IrExpressionBody -> irBuilder.irBlockBody(body.expression) {
+                +body.expression
+                +statementsToAdd
+            }
         }
         declaration.body = body
 
