@@ -15,6 +15,7 @@ dependencyResolutionManagement {
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+includeBuild("build-logic")
 include(":compiler")
 include(":core")
 include(":test")
