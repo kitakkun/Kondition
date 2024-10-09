@@ -21,31 +21,30 @@ class KonditionIrContext(
 
     val requireFunction by lazy { getKonditionNamedFunction("require", "core.internal") }
 
-    // int annotations
-    val rangedIntAnnotation by lazy { getKonditionIrClassSymbol("RangedInt", "core.annotation") }
-
+    // number utils
     val greaterThan by lazy { getKonditionNamedFunction("greaterThan", "core.internal") }
     val lessThan by lazy { getKonditionNamedFunction("lessThan", "core.internal") }
     val greaterThanOrEquals by lazy { getKonditionNamedFunction("greaterThanOrEquals", "core.internal") }
     val lessThanOrEquals by lazy { getKonditionNamedFunction("lessThanOrEquals", "core.internal") }
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
-    val intCompareToFunction by lazy { getIrClassSymbol("kotlin", "Int").getSimpleFunction("compareTo")!! }
-
-    @OptIn(UnsafeDuringIrConstructionAPI::class)
     val booleanAndFunction by lazy { getIrClassSymbol("kotlin", "Boolean").getSimpleFunction("and")!! }
 
-    // string annotations
-    val nonBlankAnnotation by lazy { getKonditionIrClassSymbol("NonBlank", "core.annotation") }
+    // string functions
     val isNotEmptyFunction by lazy { namedFunction("kotlin.text", "isNotEmpty") }
-    val nonEmptyAnnotation by lazy { getKonditionIrClassSymbol("NonEmpty", "core.annotation") }
     val isNotBlankFunction by lazy { namedFunction("kotlin.text", "isNotBlank") }
-    val matchRegexAnnotation by lazy { getKonditionIrClassSymbol("MatchRegex", "core.annotation") }
     val matchRegexFunction by lazy { getKonditionNamedFunction("matchRegex", "core.internal") }
     val isAlphaFunction by lazy { getKonditionNamedFunction("isAlpha", "core.internal") }
     val isNumericFunction by lazy { getKonditionNamedFunction("isNumeric", "core.internal") }
 
-    fun namedFunction(packageName: String, name: String, filter: (IrSimpleFunctionSymbol) -> Boolean = { true }): IrSimpleFunctionSymbol = pluginContext.referenceFunctions(CallableId(FqName(packageName), Name.identifier(name))).filter(filter).first()
+    fun namedFunction(
+        packageName: String,
+        name: String,
+        filter: (IrSimpleFunctionSymbol) -> Boolean = { true }
+    ): IrSimpleFunctionSymbol {
+        val callableId = CallableId(FqName(packageName), Name.identifier(name))
+        return pluginContext.referenceFunctions(callableId).filter(filter).first()
+    }
 
     fun getKonditionNamedFunction(name: String, subpackage: String? = null): IrFunctionSymbol {
         val suffix = subpackage?.let { ".$subpackage" } ?: ""
@@ -57,5 +56,8 @@ class KonditionIrContext(
         return getIrClassSymbol("io.github.kitakkun.kondition$suffix", name)
     }
 
-    fun getIrClassSymbol(packageName: String, name: String): IrClassSymbol = pluginContext.referenceClass(classId(packageName, name)) ?: error("Unable to find symbol. Package: $packageName, Name: $name")
+    fun getIrClassSymbol(packageName: String, name: String): IrClassSymbol {
+        return pluginContext.referenceClass(classId(packageName, name))
+            ?: error("Unable to find symbol. Package: $packageName, Name: $name")
+    }
 }
