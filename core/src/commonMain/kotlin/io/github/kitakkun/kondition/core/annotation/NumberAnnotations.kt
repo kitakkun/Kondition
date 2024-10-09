@@ -60,6 +60,13 @@ annotation class RangedDouble(
 )
 
 @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
+annotation class RangedFloat(
+    val start: Float,
+    val end: Float,
+    val rule: RangeRule = RangeRule.InclusiveInclusive,
+)
+
+@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
 annotation class GreaterThan(val threshold: Double)
 
 @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)

@@ -16,9 +16,11 @@
 |      `@LessThan`       | `value < threshold`                   |         x          |
 |  `@LessThanOrEquals`   | `value <= threshold`                  |         x          |
 |      `@RangedInt`      | `value >(=) start && value <(=) end ` | :white_check_mark: |
-|     `@RangedLong`      | same as above for `Long`              |         x          |
-|     `@RangedShort`     | same as above for `Short`             |         x          |
-|     `@RangedByte`      | same as above for `Byte`              |         x          |
+|     `@RangedLong`      | same as above for `Long`              | :white_check_mark: |
+|     `@RangedShort`     | same as above for `Short`             | :white_check_mark: |
+|     `@RangedByte`      | same as above for `Byte`              | :white_check_mark: |
+|     `@RangedFloat`     | same as above for `Float`             | :white_check_mark: |
+|    `@RangedDouble`     | same as above for `Double`            | :white_check_mark: |
 
 ## String
 
