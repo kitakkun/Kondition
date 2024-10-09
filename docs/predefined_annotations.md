@@ -29,8 +29,8 @@
 |  `@NonEmpty`  | `value != ""`                              | :white_check_mark: |
 |  `@NonBlank`  | `value != "" or value != " "`              | :white_check_mark: |
 |   `@Regex`    | `Regex(pattern).matches(value) == true`    | :white_check_mark: |
-| `@Alphabetic` | `value` contains only alphabet characters. |         x          |
-|  `@Numeric`   | `value` contains only numeric characters.  |         x          |
+| `@Alphabetic` | `value` contains only alphabet characters. | :white_check_mark: |
+|  `@Numeric`   | `value` contains only numeric characters.  | :white_check_mark: |
 |   `@Length`   | `value.length = length`                    |         x          |
 | `@MinLength`  | `value.length >= length`                   |         x          |
 | `@MaxLength`  | `value.length <= length`                   |         x          |

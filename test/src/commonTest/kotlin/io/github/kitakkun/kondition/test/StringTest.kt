@@ -1,8 +1,10 @@
 package io.github.kitakkun.kondition.test
 
+import io.github.kitakkun.kondition.core.annotation.Alphabetic
 import io.github.kitakkun.kondition.core.annotation.MatchRegex
 import io.github.kitakkun.kondition.core.annotation.NonBlank
 import io.github.kitakkun.kondition.core.annotation.NonEmpty
+import io.github.kitakkun.kondition.core.annotation.Numeric
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -45,6 +47,35 @@ class StringTest {
         matchRegex("test@example.com")
         assertFailsWith(IllegalArgumentException::class) {
             matchRegex("non email pattern string")
+        }
+    }
+
+    @Test
+    fun testAlphabetic() {
+        fun alpha(@Alphabetic value: String) {
+            // compiler will generate:
+            // require(value.isAlpha()) { ... }
+        }
+
+        alpha("abcdefg")
+        alpha("日本語")
+
+        assertFailsWith(IllegalArgumentException::class) {
+            alpha("12days")
+        }
+    }
+
+    @Test
+    fun testNumeric() {
+        fun numeric(@Numeric value: String) {
+            // compiler will generate:
+            // require(value.isNumeric()) { ... }
+        }
+
+        numeric("123456")
+
+        assertFailsWith(IllegalArgumentException::class) {
+            numeric("12days")
         }
     }
 }

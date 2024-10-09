@@ -42,6 +42,8 @@ class KonditionIrContext(
     val isNotBlankFunction by lazy { namedFunction("kotlin.text", "isNotBlank") }
     val matchRegexAnnotation by lazy { getKonditionIrClassSymbol("MatchRegex", "core.annotation") }
     val matchRegexFunction by lazy { getKonditionNamedFunction("matchRegex", "core.internal") }
+    val isAlphaFunction by lazy { getKonditionNamedFunction("isAlpha", "core.internal") }
+    val isNumericFunction by lazy { getKonditionNamedFunction("isNumeric", "core.internal") }
 
     fun namedFunction(packageName: String, name: String, filter: (IrSimpleFunctionSymbol) -> Boolean = { true }): IrSimpleFunctionSymbol = pluginContext.referenceFunctions(CallableId(FqName(packageName), Name.identifier(name))).filter(filter).first()
 
