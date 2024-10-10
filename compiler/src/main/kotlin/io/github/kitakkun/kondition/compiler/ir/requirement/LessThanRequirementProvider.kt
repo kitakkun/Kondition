@@ -2,8 +2,8 @@ package io.github.kitakkun.kondition.compiler.ir.requirement
 
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
 import io.github.kitakkun.kondition.compiler.ir.util.getConstArgument
-import io.github.kitakkun.kondition.core.annotation.GreaterThan
-import io.github.kitakkun.kondition.core.annotation.GreaterThanDecimal
+import io.github.kitakkun.kondition.core.annotation.LessThan
+import io.github.kitakkun.kondition.core.annotation.LessThanDecimal
 import org.jetbrains.kotlin.descriptors.runtime.structure.classId
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
@@ -16,10 +16,10 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.util.toIrConst
 import org.jetbrains.kotlin.name.ClassId
 
-class GreaterThanRequirementProvider : GreaterThanNumberRequirementProvider<Long>(GreaterThan::class.java.classId)
-class GreaterThanDecimalRequirementProvider : GreaterThanNumberRequirementProvider<Double>(GreaterThanDecimal::class.java.classId)
+class LessThanLongRequirementProvider : LessThanRequirementProvider<Long>(LessThan::class.java.classId)
+class LessThanDecimalRequirementProvider : LessThanRequirementProvider<Double>(LessThanDecimal::class.java.classId)
 
-sealed class GreaterThanNumberRequirementProvider<T : Number>(
+sealed class LessThanRequirementProvider<T : Number>(
     override val annotationClassId: ClassId,
 ) : RequirementProvider {
     override fun IrBuilderWithScope.produceErrorMessage(
@@ -29,7 +29,7 @@ sealed class GreaterThanNumberRequirementProvider<T : Number>(
         annotation: IrConstructorCall,
     ): IrExpression? {
         val threshold = annotation.getConstArgument<T>(0) ?: error("can't get argument of annotation.")
-        return irString("${value.name} in ${parentDeclaration.name} must be greater than $threshold")
+        return irString("${value.name} in ${parentDeclaration.name} must be less than $threshold")
     }
 
     override fun IrBuilderWithScope.produceRequiredCondition(
@@ -40,7 +40,7 @@ sealed class GreaterThanNumberRequirementProvider<T : Number>(
     ): IrExpression {
         val threshold = annotation.getConstArgument<T>(0) ?: error("can't get argument of annotation.")
 
-        return irCall(irContext.greaterThan).apply {
+        return irCall(irContext.lessThan).apply {
             extensionReceiver = irGet(value)
             putValueArgument(0, threshold.toIrConst(value.type))
         }

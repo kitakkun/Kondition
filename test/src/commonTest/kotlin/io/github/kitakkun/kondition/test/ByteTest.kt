@@ -1,6 +1,9 @@
 package io.github.kitakkun.kondition.test
 
 import io.github.kitakkun.kondition.core.annotation.GreaterThan
+import io.github.kitakkun.kondition.core.annotation.GreaterThanOrEquals
+import io.github.kitakkun.kondition.core.annotation.LessThan
+import io.github.kitakkun.kondition.core.annotation.LessThanOrEquals
 import io.github.kitakkun.kondition.core.annotation.Negative
 import io.github.kitakkun.kondition.core.annotation.NonNegative
 import io.github.kitakkun.kondition.core.annotation.NonPositive
@@ -179,6 +182,50 @@ class ByteTest {
         }
         assertFailsWith(IllegalArgumentException::class) {
             greaterThan(-1)
+        }
+    }
+
+    @Test
+    fun testGreaterThanOrEquals() {
+        fun greaterThanOrEquals(@GreaterThanOrEquals(0) value: Byte) {
+            // compiler will generate:
+            // require(value >= 0) { ... }
+        }
+
+        greaterThanOrEquals(10)
+        greaterThanOrEquals(0)
+        assertFailsWith(IllegalArgumentException::class) {
+            greaterThanOrEquals(-1)
+        }
+    }
+
+    @Test
+    fun testLessThan() {
+        fun lessThan(@LessThan(0) value: Byte) {
+            // compiler will generate:
+            // require(value < 0) { ... }
+        }
+
+        lessThan(-10)
+        assertFailsWith(IllegalArgumentException::class) {
+            lessThan(0)
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            lessThan(1)
+        }
+    }
+
+    @Test
+    fun testLessThanOrEquals() {
+        fun lessThanOrEquals(@LessThanOrEquals(0) value: Byte) {
+            // compiler will generate:
+            // require(value < 0) { ... }
+        }
+
+        lessThanOrEquals(-10)
+        lessThanOrEquals(0)
+        assertFailsWith(IllegalArgumentException::class) {
+            lessThanOrEquals(1)
         }
     }
 }

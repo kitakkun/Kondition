@@ -2,7 +2,13 @@ package io.github.kitakkun.kondition.compiler.ir
 
 import io.github.kitakkun.kondition.compiler.ir.requirement.AlphabeticRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanDecimalRequirementProvider
-import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanLongRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanOrEqualsDecimalRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanOrEqualsLongRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanDecimalRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanLongRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanOrEqualsDecimalRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanOrEqualsLongRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.MatchRegexRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NegativeRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonBlankRequirementProvider
@@ -41,8 +47,14 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
             RangedLongRequirementProvider(),
             RangedDecimalRequirementProvider(),
 
-            GreaterThanRequirementProvider(),
+            GreaterThanLongRequirementProvider(),
             GreaterThanDecimalRequirementProvider(),
+            GreaterThanOrEqualsLongRequirementProvider(),
+            GreaterThanOrEqualsDecimalRequirementProvider(),
+            LessThanLongRequirementProvider(),
+            LessThanDecimalRequirementProvider(),
+            LessThanOrEqualsLongRequirementProvider(),
+            LessThanOrEqualsDecimalRequirementProvider(),
 
             PositiveRequirementProvider(),
             NonPositiveRequirementProvider(),

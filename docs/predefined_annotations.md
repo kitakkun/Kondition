@@ -4,19 +4,23 @@
 
 `Number`: `Int`, `Long`, `Short`, `Byte`, `Float`, `Double`
 
-|       Annotation       | Will check                            |     Supported      |
-|:----------------------:|:--------------------------------------|:------------------:|
-|       `@NonZero`       | `value != 0`                          | :white_check_mark: |
-|      `@Positive`       | `value > 0`                           | :white_check_mark: |
-|      `@Negative`       | `value < 0`                           | :white_check_mark: |
-|     `@NonPositive`     | `value <= 0`                          | :white_check_mark: |
-|     `@NonNegative`     | `value >= 0`                          | :white_check_mark: |
-|     `@GreaterThan`     | `value  > threshold`                  |         x          |
-| `@GreaterThanOrEquals` | `value >= threshold`                  |         x          |
-|      `@LessThan`       | `value < threshold`                   |         x          |
-|  `@LessThanOrEquals`   | `value <= threshold`                  |         x          |
-|       `@Ranged`        | `value >(=) start && value <(=) end ` | :white_check_mark: |
-|    `@RangedDecimal`    | decimal range version of the above    | :white_check_mark: |
+|          Annotation           | Will check                                |     Supported      |
+|:-----------------------------:|:------------------------------------------|:------------------:|
+|          `@NonZero`           | `value != 0`                              | :white_check_mark: |
+|          `@Positive`          | `value > 0`                               | :white_check_mark: |
+|          `@Negative`          | `value < 0`                               | :white_check_mark: |
+|        `@NonPositive`         | `value <= 0`                              | :white_check_mark: |
+|        `@NonNegative`         | `value >= 0`                              | :white_check_mark: |
+|        `@GreaterThan`         | `value  > threshold`                      | :white_check_mark: |
+|    `@GreaterThanOrEquals`     | `value >= threshold`                      | :white_check_mark: |
+|          `@LessThan`          | `value < threshold`                       | :white_check_mark: |
+|      `@LessThanOrEquals`      | `value <= threshold`                      | :white_check_mark: |
+|           `@Ranged`           | `value >(=) start && value <(=) end `     | :white_check_mark: |
+|     `@GreaterThanDecimal`     | decimal version of `@GreaterThan`         | :white_check_mark: |
+| `@GreaterThanOrEqualsDecimal` | decimal version of `@GreaterThanOrEquals` | :white_check_mark: |
+|      `@LessThanDecimal`       | decimal version of `@LessThan`            | :white_check_mark: |
+|  `@LessThanOrEqualsDecimal`   | decimal version of `@LessThanOrEquals`    | :white_check_mark: |
+|       `@RangedDecimal`        | decimal version of `@Ranged`              | :white_check_mark: |
 
 ## String
 

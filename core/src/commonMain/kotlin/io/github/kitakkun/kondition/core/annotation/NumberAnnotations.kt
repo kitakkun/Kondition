@@ -69,7 +69,7 @@ annotation class LessThan(val threshold: Long)
 annotation class LessThanDecimal(val threshold: Double)
 
 @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
-annotation class LessThanOrEquals(val threshold: Double)
+annotation class LessThanOrEquals(val threshold: Long)
 
 @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
-annotation class LessThanOrEqualsDecimal(val threshold: Long)
+annotation class LessThanOrEqualsDecimal(val threshold: Double)

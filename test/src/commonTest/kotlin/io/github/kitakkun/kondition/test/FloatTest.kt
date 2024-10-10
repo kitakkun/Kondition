@@ -1,6 +1,9 @@
 package io.github.kitakkun.kondition.test
 
 import io.github.kitakkun.kondition.core.annotation.GreaterThanDecimal
+import io.github.kitakkun.kondition.core.annotation.GreaterThanOrEqualsDecimal
+import io.github.kitakkun.kondition.core.annotation.LessThanDecimal
+import io.github.kitakkun.kondition.core.annotation.LessThanOrEqualsDecimal
 import io.github.kitakkun.kondition.core.annotation.Negative
 import io.github.kitakkun.kondition.core.annotation.NonNegative
 import io.github.kitakkun.kondition.core.annotation.NonPositive
@@ -179,6 +182,50 @@ class FloatTest {
         }
         assertFailsWith(IllegalArgumentException::class) {
             greaterThan(-1.0f)
+        }
+    }
+
+    @Test
+    fun testGreaterThanOrEquals() {
+        fun greaterThanOrEquals(@GreaterThanOrEqualsDecimal(0.0) value: Float) {
+            // compiler will generate:
+            // require(value >= 0.0f) { ... }
+        }
+
+        greaterThanOrEquals(10.0f)
+        greaterThanOrEquals(0.0f)
+        assertFailsWith(IllegalArgumentException::class) {
+            greaterThanOrEquals(-1.0f)
+        }
+    }
+
+    @Test
+    fun testLessThan() {
+        fun lessThan(@LessThanDecimal(0.0) value: Float) {
+            // compiler will generate:
+            // require(value < 0.0f) { ... }
+        }
+
+        lessThan(-10.0f)
+        assertFailsWith(IllegalArgumentException::class) {
+            lessThan(0.0f)
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            lessThan(1.0f)
+        }
+    }
+
+    @Test
+    fun testLessThanOrEquals() {
+        fun lessThanOrEquals(@LessThanOrEqualsDecimal(0.0) value: Float) {
+            // compiler will generate:
+            // require(value < 0.0f) { ... }
+        }
+
+        lessThanOrEquals(-10.0f)
+        lessThanOrEquals(0.0f)
+        assertFailsWith(IllegalArgumentException::class) {
+            lessThanOrEquals(1.0f)
         }
     }
 }
