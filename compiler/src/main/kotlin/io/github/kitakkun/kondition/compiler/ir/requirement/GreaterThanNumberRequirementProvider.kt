@@ -17,7 +17,7 @@ import org.jetbrains.kotlin.ir.util.toIrConst
 import org.jetbrains.kotlin.name.ClassId
 
 class GreaterThanRequirementProvider : GreaterThanNumberRequirementProvider<Long>(GreaterThan::class.java.classId)
-class GreaterThanDecimalRequirementProvider : GreaterThanNumberRequirementProvider<Long>(GreaterThanDecimal::class.java.classId)
+class GreaterThanDecimalRequirementProvider : GreaterThanNumberRequirementProvider<Double>(GreaterThanDecimal::class.java.classId)
 
 sealed class GreaterThanNumberRequirementProvider<T : Number>(
     override val annotationClassId: ClassId,
