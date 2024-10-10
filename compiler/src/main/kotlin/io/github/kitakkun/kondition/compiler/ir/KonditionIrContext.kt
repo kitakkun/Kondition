@@ -40,7 +40,7 @@ class KonditionIrContext(
     fun namedFunction(
         packageName: String,
         name: String,
-        filter: (IrSimpleFunctionSymbol) -> Boolean = { true }
+        filter: (IrSimpleFunctionSymbol) -> Boolean = { true },
     ): IrSimpleFunctionSymbol {
         val callableId = CallableId(FqName(packageName), Name.identifier(name))
         return pluginContext.referenceFunctions(callableId).filter(filter).first()
@@ -56,8 +56,6 @@ class KonditionIrContext(
         return getIrClassSymbol("io.github.kitakkun.kondition$suffix", name)
     }
 
-    fun getIrClassSymbol(packageName: String, name: String): IrClassSymbol {
-        return pluginContext.referenceClass(classId(packageName, name))
-            ?: error("Unable to find symbol. Package: $packageName, Name: $name")
-    }
+    fun getIrClassSymbol(packageName: String, name: String): IrClassSymbol = pluginContext.referenceClass(classId(packageName, name))
+        ?: error("Unable to find symbol. Package: $packageName, Name: $name")
 }

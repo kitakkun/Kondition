@@ -20,19 +20,15 @@ class AlphabeticRequirementProvider : RequirementProvider {
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
         valueParameter: IrValueParameter,
-        annotation: IrConstructorCall
-    ): IrExpression? {
-        return irString("${valueParameter.name} in ${parentDeclaration.name} can't contain non-alphabetic characters.")
-    }
+        annotation: IrConstructorCall,
+    ): IrExpression? = irString("${valueParameter.name} in ${parentDeclaration.name} can't contain non-alphabetic characters.")
 
     override fun IrBuilderWithScope.produceRequiredCondition(
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
         valueParameter: IrValueParameter,
-        annotation: IrConstructorCall
-    ): IrExpression {
-        return irCall(irContext.isAlphaFunction).apply {
-            extensionReceiver = irGet(valueParameter)
-        }
+        annotation: IrConstructorCall,
+    ): IrExpression = irCall(irContext.isAlphaFunction).apply {
+        extensionReceiver = irGet(valueParameter)
     }
 }

@@ -62,7 +62,7 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
         valueParameter: IrValueParameter,
-        annotation: IrConstructorCall
+        annotation: IrConstructorCall,
     ): IrExpression? {
         val (start, end, rangeRule) = AnnotationValue.convert<T>(annotation)
 
@@ -80,7 +80,7 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
         valueParameter: IrValueParameter,
-        annotation: IrConstructorCall
+        annotation: IrConstructorCall,
     ): IrExpression {
         val (start, end, rangeRule) = AnnotationValue.convert<T>(annotation)
 
@@ -115,15 +115,13 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
         }
     }
 
-    private fun <T> IrBuilderWithScope.getConstExpression(value: T): IrExpression {
-        return when (value) {
-            is Int -> irInt(value)
-            is Long -> irLong(value)
-            is Double -> irDouble(value)
-            is Short -> irShort(value)
-            is Byte -> irByte(value)
-            is Float -> irFloat(value)
-            else -> error("Unexpected type")
-        }
+    private fun <T> IrBuilderWithScope.getConstExpression(value: T): IrExpression = when (value) {
+        is Int -> irInt(value)
+        is Long -> irLong(value)
+        is Double -> irDouble(value)
+        is Short -> irShort(value)
+        is Byte -> irByte(value)
+        is Float -> irFloat(value)
+        else -> error("Unexpected type")
     }
 }
