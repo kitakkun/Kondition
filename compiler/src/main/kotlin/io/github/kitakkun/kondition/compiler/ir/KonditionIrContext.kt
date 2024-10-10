@@ -20,6 +20,7 @@ class KonditionIrContext(
     val irFactory = pluginContext.irFactory
 
     val requireFunction by lazy { getKonditionNamedFunction("require", "core.internal") }
+    val checkFunction by lazy { getKonditionNamedFunction("check", "core.internal") }
 
     // number utils
     val greaterThan by lazy { getKonditionNamedFunction("greaterThan", "core.internal") }

@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
 import org.jetbrains.kotlin.ir.builders.irString
 import org.jetbrains.kotlin.ir.declarations.IrFunction
-import org.jetbrains.kotlin.ir.declarations.IrValueParameter
+import org.jetbrains.kotlin.ir.declarations.IrValueDeclaration
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.name.ClassId
@@ -17,21 +17,21 @@ import org.jetbrains.kotlin.name.ClassId
 class MatchRegexRequirementProvider : RequirementProvider {
     override val annotationClassId: ClassId = MatchRegex::class.java.classId
 
-    override fun IrBuilderWithScope.produceErrorMessage(irContext: KonditionIrContext, parentDeclaration: IrFunction, valueParameter: IrValueParameter, annotation: IrConstructorCall): IrExpression? {
+    override fun IrBuilderWithScope.produceErrorMessage(irContext: KonditionIrContext, parentDeclaration: IrFunction, value: IrValueDeclaration, annotation: IrConstructorCall): IrExpression? {
         val pattern = annotation.getStringConstArgument(0)
-        return irString("${valueParameter.name} doesn't match the regex pattern \"$pattern\"")
+        return irString("${value.name} doesn't match the regex pattern \"$pattern\"")
     }
 
     override fun IrBuilderWithScope.produceRequiredCondition(
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
-        valueParameter: IrValueParameter,
+        value: IrValueDeclaration,
         annotation: IrConstructorCall,
     ): IrExpression {
         val pattern = annotation.getStringConstArgument(0)
 
         return irCall(irContext.matchRegexFunction).apply {
-            extensionReceiver = irGet(valueParameter)
+            extensionReceiver = irGet(value)
             putValueArgument(0, irString(pattern))
         }
     }

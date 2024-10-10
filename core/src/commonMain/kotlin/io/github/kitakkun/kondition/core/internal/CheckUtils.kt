@@ -10,3 +10,12 @@ internal fun require(condition: Boolean, message: String? = null) {
         require(value = condition)
     }
 }
+
+@KonditionInternalApi
+internal fun check(condition: Boolean, message: String? = null) {
+    if (message != null) {
+        check(value = condition) { message }
+    } else {
+        check(value = condition)
+    }
+}

@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
 import org.jetbrains.kotlin.ir.builders.irString
 import org.jetbrains.kotlin.ir.declarations.IrFunction
-import org.jetbrains.kotlin.ir.declarations.IrValueParameter
+import org.jetbrains.kotlin.ir.declarations.IrValueDeclaration
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.name.ClassId
@@ -19,16 +19,16 @@ class NonBlankRequirementProvider : RequirementProvider {
     override fun IrBuilderWithScope.produceErrorMessage(
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
-        valueParameter: IrValueParameter,
+        value: IrValueDeclaration,
         annotation: IrConstructorCall,
-    ): IrExpression? = irString("${valueParameter.name} in ${parentDeclaration.name} can't be blank.")
+    ): IrExpression? = irString("${value.name} in ${parentDeclaration.name} can't be blank.")
 
     override fun IrBuilderWithScope.produceRequiredCondition(
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
-        valueParameter: IrValueParameter,
+        value: IrValueDeclaration,
         annotation: IrConstructorCall,
     ): IrExpression = irCall(irContext.isNotBlankFunction).apply {
-        extensionReceiver = irGet(valueParameter)
+        extensionReceiver = irGet(value)
     }
 }

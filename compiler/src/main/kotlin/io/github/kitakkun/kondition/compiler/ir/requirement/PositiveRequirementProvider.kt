@@ -9,7 +9,7 @@ import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
 import org.jetbrains.kotlin.ir.builders.irString
 import org.jetbrains.kotlin.ir.declarations.IrFunction
-import org.jetbrains.kotlin.ir.declarations.IrValueParameter
+import org.jetbrains.kotlin.ir.declarations.IrValueDeclaration
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
@@ -23,18 +23,18 @@ class PositiveRequirementProvider : RequirementProvider {
     override fun IrBuilderWithScope.produceErrorMessage(
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
-        valueParameter: IrValueParameter,
+        value: IrValueDeclaration,
         annotation: IrConstructorCall,
-    ): IrExpression? = irString("${valueParameter.name} in ${parentDeclaration.name} must be greater than 0.")
+    ): IrExpression? = irString("${value.name} in ${parentDeclaration.name} must be greater than 0.")
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
     override fun IrBuilderWithScope.produceRequiredCondition(
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
-        valueParameter: IrValueParameter,
+        value: IrValueDeclaration,
         annotation: IrConstructorCall,
     ): IrExpression = irCall(irContext.greaterThan).apply {
-        extensionReceiver = irGet(valueParameter)
-        putValueArgument(0, irZero(valueParameter.type.classOrFail.owner.classId!!))
+        extensionReceiver = irGet(value)
+        putValueArgument(0, irZero(value.type.classOrFail.owner.classId!!))
     }
 }

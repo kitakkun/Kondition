@@ -20,7 +20,7 @@ import org.jetbrains.kotlin.ir.builders.irLong
 import org.jetbrains.kotlin.ir.builders.irShort
 import org.jetbrains.kotlin.ir.builders.irString
 import org.jetbrains.kotlin.ir.declarations.IrFunction
-import org.jetbrains.kotlin.ir.declarations.IrValueParameter
+import org.jetbrains.kotlin.ir.declarations.IrValueDeclaration
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
@@ -61,7 +61,7 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
     override fun IrBuilderWithScope.produceErrorMessage(
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
-        valueParameter: IrValueParameter,
+        value: IrValueDeclaration,
         annotation: IrConstructorCall,
     ): IrExpression? {
         val (start, end, rangeRule) = AnnotationValue.convert<T>(annotation)
@@ -73,18 +73,18 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
             RangeRule.InclusiveExclusive -> "must be greater than or equals to $start and less than $end"
         }
 
-        return irString("${valueParameter.name} in ${parentDeclaration.name} $suffix")
+        return irString("${value.name} in ${parentDeclaration.name} $suffix")
     }
 
     override fun IrBuilderWithScope.produceRequiredCondition(
         irContext: KonditionIrContext,
         parentDeclaration: IrFunction,
-        valueParameter: IrValueParameter,
+        value: IrValueDeclaration,
         annotation: IrConstructorCall,
     ): IrExpression {
         val (start, end, rangeRule) = AnnotationValue.convert<T>(annotation)
 
-        val irGetValueParameter = irGet(valueParameter)
+        val irGetValueParameter = irGet(value)
 
         val startCompareFunction = when (rangeRule) {
             RangeRule.InclusiveInclusive -> irContext.greaterThanOrEquals

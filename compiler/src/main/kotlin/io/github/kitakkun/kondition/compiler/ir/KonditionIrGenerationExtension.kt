@@ -16,6 +16,8 @@ import io.github.kitakkun.kondition.compiler.ir.requirement.RangedFloatRequireme
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedIntRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedLongRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedShortRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.statement.StatementsProducer
+import io.github.kitakkun.kondition.compiler.ir.transformer.LocalVariablesCheckProducer
 import io.github.kitakkun.kondition.compiler.ir.transformer.ValueParameterCheckStatementsProducer
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
@@ -30,30 +32,30 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
 
     override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
         val context = KonditionIrContext(pluginContext, messageCollector)
-        moduleFragment.transformChildrenVoid(
-            ValueParameterCheckStatementsProducer(
-                irContext = context,
-                requirements = listOf(
-                    NonEmptyRequirementProvider(),
-                    NonBlankRequirementProvider(),
-                    MatchRegexRequirementProvider(),
-                    AlphabeticRequirementProvider(),
-                    NumericRequirementProvider(),
-                    // number ranges
-                    RangedIntRequirementProvider(),
-                    RangedFloatRequirementProvider(),
-                    RangedDoubleRequirementProvider(),
-                    RangedLongRequirementProvider(),
-                    RangedShortRequirementProvider(),
-                    RangedByteRequirementProvider(),
 
-                    PositiveRequirementProvider(),
-                    NonPositiveRequirementProvider(),
-                    NegativeRequirementProvider(),
-                    NonNegativeRequirementProvider(),
-                    NonZeroRequirementProvider(),
-                ),
-            ),
+        val requirementProviders = listOf(
+            NonEmptyRequirementProvider(),
+            NonBlankRequirementProvider(),
+            MatchRegexRequirementProvider(),
+            AlphabeticRequirementProvider(),
+            NumericRequirementProvider(),
+            // number ranges
+            RangedIntRequirementProvider(),
+            RangedFloatRequirementProvider(),
+            RangedDoubleRequirementProvider(),
+            RangedLongRequirementProvider(),
+            RangedShortRequirementProvider(),
+            RangedByteRequirementProvider(),
+
+            PositiveRequirementProvider(),
+            NonPositiveRequirementProvider(),
+            NegativeRequirementProvider(),
+            NonNegativeRequirementProvider(),
+            NonZeroRequirementProvider(),
         )
+
+        val statementsProducer = StatementsProducer(requirementProviders)
+        moduleFragment.transformChildrenVoid(ValueParameterCheckStatementsProducer(context, statementsProducer))
+        moduleFragment.transformChildrenVoid(LocalVariablesCheckProducer(context, statementsProducer))
     }
 }
