@@ -15,7 +15,7 @@ WIP
 For example:
 
 ```kotlin
-fun hoge(@RangedInt(0, 10) val value) {
+fun hoge(@Ranged(0, 10) val value) {
     println(value)
 }
 ```
@@ -23,7 +23,7 @@ fun hoge(@RangedInt(0, 10) val value) {
 will be transformed to:
 
 ```kotlin
-fun hoge(@RangedInt(0, 10) val value) {
+fun hoge(@Ranged(0, 10) val value) {
     require(value in 0..10) { "the parameter \"value\" has to be in the range from 0 to 10." }
     println(value)
 }
