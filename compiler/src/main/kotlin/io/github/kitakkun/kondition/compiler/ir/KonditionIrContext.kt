@@ -44,7 +44,7 @@ class KonditionIrContext(
         filter: (IrSimpleFunctionSymbol) -> Boolean = { true },
     ): IrSimpleFunctionSymbol {
         val callableId = CallableId(FqName(packageName), Name.identifier(name))
-        return pluginContext.referenceFunctions(callableId).filter(filter).first()
+        return pluginContext.referenceFunctions(callableId).first(filter)
     }
 
     fun getKonditionNamedFunction(name: String, subpackage: String? = null): IrFunctionSymbol {
