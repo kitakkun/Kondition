@@ -3,6 +3,7 @@ package io.github.kitakkun.kondition.test
 import io.github.kitakkun.kondition.core.annotation.Negative
 import io.github.kitakkun.kondition.core.annotation.NonNegative
 import io.github.kitakkun.kondition.core.annotation.NonPositive
+import io.github.kitakkun.kondition.core.annotation.NonZero
 import io.github.kitakkun.kondition.core.annotation.Positive
 import io.github.kitakkun.kondition.core.annotation.RangeRule
 import io.github.kitakkun.kondition.core.annotation.RangedInt
@@ -147,6 +148,20 @@ class IntTest {
         nonPositive(-1)
         assertFailsWith(IllegalArgumentException::class) {
             nonPositive(1)
+        }
+    }
+
+    @Test
+    fun testNonZero() {
+        fun nonZero(@NonZero value: Int) {
+            // compiler will generate:
+            // require(value != 0) { ... }
+        }
+
+        nonZero(1)
+        nonZero(-1)
+        assertFailsWith(IllegalArgumentException::class) {
+            nonZero(0)
         }
     }
 }

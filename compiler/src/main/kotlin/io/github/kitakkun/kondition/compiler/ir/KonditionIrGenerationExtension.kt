@@ -7,6 +7,7 @@ import io.github.kitakkun.kondition.compiler.ir.requirement.NonBlankRequirementP
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonEmptyRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonNegativeRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonPositiveRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.NonZeroRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NumericRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.PositiveRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedByteRequirementProvider
@@ -50,6 +51,7 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
                     NonPositiveRequirementProvider(),
                     NegativeRequirementProvider(),
                     NonNegativeRequirementProvider(),
+                    NonZeroRequirementProvider(),
                 ),
             ),
         )

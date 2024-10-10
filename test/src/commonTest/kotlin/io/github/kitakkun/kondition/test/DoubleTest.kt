@@ -3,6 +3,7 @@ package io.github.kitakkun.kondition.test
 import io.github.kitakkun.kondition.core.annotation.Negative
 import io.github.kitakkun.kondition.core.annotation.NonNegative
 import io.github.kitakkun.kondition.core.annotation.NonPositive
+import io.github.kitakkun.kondition.core.annotation.NonZero
 import io.github.kitakkun.kondition.core.annotation.Positive
 import io.github.kitakkun.kondition.core.annotation.RangeRule
 import io.github.kitakkun.kondition.core.annotation.RangedDouble
@@ -147,6 +148,20 @@ class DoubleTest {
         nonPositive(-1.0)
         assertFailsWith(IllegalArgumentException::class) {
             nonPositive(1.0)
+        }
+    }
+
+    @Test
+    fun testNonZero() {
+        fun nonZero(@NonZero value: Double) {
+            // compiler will generate:
+            // require(value != 0.0) { ... }
+        }
+
+        nonZero(1.0)
+        nonZero(-1.0)
+        assertFailsWith(IllegalArgumentException::class) {
+            nonZero(0.0)
         }
     }
 }

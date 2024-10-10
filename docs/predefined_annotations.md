@@ -6,7 +6,7 @@
 
 |       Annotation       | Will check                            |     Supported      |
 |:----------------------:|:--------------------------------------|:------------------:|
-|       `@NonZero`       | `value != 0`                          |         x          |
+|       `@NonZero`       | `value != 0`                          | :white_check_mark: |
 |      `@Positive`       | `value > 0`                           | :white_check_mark: |
 |      `@Negative`       | `value < 0`                           | :white_check_mark: |
 |     `@NonPositive`     | `value <= 0`                          | :white_check_mark: |
