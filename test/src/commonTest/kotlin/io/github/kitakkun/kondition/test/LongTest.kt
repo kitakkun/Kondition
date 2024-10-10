@@ -1,5 +1,9 @@
 package io.github.kitakkun.kondition.test
 
+import io.github.kitakkun.kondition.core.annotation.Negative
+import io.github.kitakkun.kondition.core.annotation.NonNegative
+import io.github.kitakkun.kondition.core.annotation.NonPositive
+import io.github.kitakkun.kondition.core.annotation.Positive
 import io.github.kitakkun.kondition.core.annotation.RangeRule
 import io.github.kitakkun.kondition.core.annotation.RangedLong
 import kotlin.test.Test
@@ -83,6 +87,66 @@ class LongTest {
         ranged(9)
         assertFailsWith(IllegalArgumentException::class) {
             ranged(10)
+        }
+    }
+
+    @Test
+    fun testNegative() {
+        fun negative(@Negative value: Long) {
+            // compiler will generate:
+            // require(value < 0) { ... }
+        }
+
+        negative(-1)
+        assertFailsWith(IllegalArgumentException::class) {
+            negative(0)
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            negative(1)
+        }
+    }
+
+    @Test
+    fun testNonNegative() {
+        fun nonNegative(@NonNegative value: Long) {
+            // compiler will generate:
+            // require(value >= 0) { ... }
+        }
+
+        nonNegative(0)
+        nonNegative(1)
+        assertFailsWith(IllegalArgumentException::class) {
+            nonNegative(-1)
+        }
+    }
+
+    @Test
+    fun testPositive() {
+        fun positive(@Positive value: Long) {
+            // compiler will generate:
+            // require(value > 0) { ... }
+        }
+
+        positive(1)
+        assertFailsWith(IllegalArgumentException::class) {
+            positive(0)
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            positive(-1)
+        }
+    }
+
+    @Test
+    fun testNonPositive() {
+        fun nonPositive(@NonPositive value: Long) {
+            // compiler will generate:
+            // require(value <= 0) { ... }
+        }
+
+        nonPositive(0)
+        nonPositive(-1)
+        assertFailsWith(IllegalArgumentException::class) {
+            nonPositive(1)
         }
     }
 }

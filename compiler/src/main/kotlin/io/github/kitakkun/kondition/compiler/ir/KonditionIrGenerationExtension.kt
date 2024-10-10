@@ -2,9 +2,13 @@ package io.github.kitakkun.kondition.compiler.ir
 
 import io.github.kitakkun.kondition.compiler.ir.requirement.AlphabeticRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.MatchRegexRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.NegativeRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonBlankRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonEmptyRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.NonNegativeRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.NonPositiveRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NumericRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.PositiveRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedByteRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedDoubleRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedFloatRequirementProvider
@@ -41,6 +45,11 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
                     RangedLongRequirementProvider(),
                     RangedShortRequirementProvider(),
                     RangedByteRequirementProvider(),
+
+                    PositiveRequirementProvider(),
+                    NonPositiveRequirementProvider(),
+                    NegativeRequirementProvider(),
+                    NonNegativeRequirementProvider(),
                 ),
             ),
         )

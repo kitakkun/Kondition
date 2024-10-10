@@ -7,10 +7,10 @@
 |       Annotation       | Will check                            |     Supported      |
 |:----------------------:|:--------------------------------------|:------------------:|
 |       `@NonZero`       | `value != 0`                          |         x          |
-|      `@Positive`       | `value > 0`                           |         x          |
-|      `@Negative`       | `value < 0`                           |         x          |
-|     `@NonPositive`     | `value <= 0`                          |         x          |
-|     `@NonNegative`     | `value >= 0`                          |         x          |
+|      `@Positive`       | `value > 0`                           | :white_check_mark: |
+|      `@Negative`       | `value < 0`                           | :white_check_mark: |
+|     `@NonPositive`     | `value <= 0`                          | :white_check_mark: |
+|     `@NonNegative`     | `value >= 0`                          | :white_check_mark: |
 |     `@GreaterThan`     | `value  > threshold`                  |         x          |
 | `@GreaterThanOrEquals` | `value >= threshold`                  |         x          |
 |      `@LessThan`       | `value < threshold`                   |         x          |
