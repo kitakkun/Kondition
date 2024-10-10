@@ -18,5 +18,13 @@ object KonditionErrorMessages : BaseDiagnosticRendererFactory() {
             rendererA = TO_STRING,
             rendererB = TO_STRING,
         )
+        put(
+            KonditionErrors.INVALID_NUMBER_ANNOTATION_USAGE,
+            "Invalid usage of Number annotation",
+        )
+        put(
+            KonditionErrors.INVALID_STRING_ANNOTATION_USAGE,
+            "Invalid usage of String annotation",
+        )
     }
 }

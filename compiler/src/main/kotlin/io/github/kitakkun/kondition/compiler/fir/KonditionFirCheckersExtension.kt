@@ -12,6 +12,6 @@ class KonditionFirCheckersExtension(session: FirSession) : FirAdditionalCheckers
         override val simpleFunctionCheckers: Set<FirSimpleFunctionChecker> = setOf(AbortStrategyChecker)
     }
     override val expressionCheckers = object : ExpressionCheckers() {
-        override val annotationCheckers: Set<FirAnnotationChecker> = setOf(OutOfRangeValueChecker)
+        override val annotationCheckers: Set<FirAnnotationChecker> = setOf(OutOfRangeValueChecker, UnexpectedAnnotationUsageChecker)
     }
 }
