@@ -1,6 +1,8 @@
 package io.github.kitakkun.kondition.compiler.ir.requirement
 
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
+import io.github.kitakkun.kondition.compiler.ir.util.getConstArgument
+import io.github.kitakkun.kondition.compiler.ir.util.getEnumValueArgument
 import io.github.kitakkun.kondition.compiler.ir.util.irDouble
 import io.github.kitakkun.kondition.compiler.ir.util.irFloat
 import io.github.kitakkun.kondition.core.annotation.RangeRule
@@ -21,10 +23,8 @@ import org.jetbrains.kotlin.ir.builders.irShort
 import org.jetbrains.kotlin.ir.builders.irString
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrValueDeclaration
-import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
-import org.jetbrains.kotlin.ir.expressions.IrGetEnumValue
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.name.ClassId
 
@@ -42,17 +42,18 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
         val rule: RangeRule,
     ) {
         companion object {
-            @Suppress("UNCHECKED_CAST")
             @OptIn(UnsafeDuringIrConstructionAPI::class)
             fun <T : Number> convert(annotation: IrConstructorCall): AnnotationValue<T> {
-                val start = (annotation.getValueArgument(0) as? IrConst<*>)?.value as T
-                val end = (annotation.getValueArgument(1) as? IrConst<*>)?.value as T
+                val start = annotation.getConstArgument<T>(0) ?: error("cannot convert $annotation")
+                val end = annotation.getConstArgument<T>(1) ?: error("cannot convert $annotation")
                 return AnnotationValue(
                     start = start,
                     end = end,
-                    rule = RangeRule.entries.find {
-                        it.name == (annotation.getValueArgument(2) as? IrGetEnumValue)?.symbol?.owner?.name?.asString()
-                    } ?: RangeRule.InclusiveInclusive,
+                    rule = annotation.getEnumValueArgument(
+                        index = 2,
+                        enumEntries = RangeRule.entries,
+                        defaultValue = RangeRule.InclusiveInclusive,
+                    )
                 )
             }
         }
