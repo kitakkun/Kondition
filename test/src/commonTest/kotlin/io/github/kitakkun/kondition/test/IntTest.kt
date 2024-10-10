@@ -1,5 +1,6 @@
 package io.github.kitakkun.kondition.test
 
+import io.github.kitakkun.kondition.core.annotation.GreaterThan
 import io.github.kitakkun.kondition.core.annotation.Negative
 import io.github.kitakkun.kondition.core.annotation.NonNegative
 import io.github.kitakkun.kondition.core.annotation.NonPositive
@@ -162,6 +163,22 @@ class IntTest {
         nonZero(-1)
         assertFailsWith(IllegalArgumentException::class) {
             nonZero(0)
+        }
+    }
+
+    @Test
+    fun testGreaterThan() {
+        fun greaterThan(@GreaterThan(0) value: Int) {
+            // compiler will generate:
+            // require(value > 0.0) { ... }
+        }
+
+        greaterThan(10)
+        assertFailsWith(IllegalArgumentException::class) {
+            greaterThan(0)
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            greaterThan(-1)
         }
     }
 }

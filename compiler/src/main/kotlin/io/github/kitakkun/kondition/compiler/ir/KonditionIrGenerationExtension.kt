@@ -1,6 +1,8 @@
 package io.github.kitakkun.kondition.compiler.ir
 
 import io.github.kitakkun.kondition.compiler.ir.requirement.AlphabeticRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanDecimalRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.MatchRegexRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NegativeRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonBlankRequirementProvider
@@ -38,6 +40,9 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
             // number ranges
             RangedLongRequirementProvider(),
             RangedDecimalRequirementProvider(),
+
+            GreaterThanRequirementProvider(),
+            GreaterThanDecimalRequirementProvider(),
 
             PositiveRequirementProvider(),
             NonPositiveRequirementProvider(),

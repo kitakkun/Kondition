@@ -1,5 +1,6 @@
 package io.github.kitakkun.kondition.test
 
+import io.github.kitakkun.kondition.core.annotation.GreaterThanDecimal
 import io.github.kitakkun.kondition.core.annotation.Negative
 import io.github.kitakkun.kondition.core.annotation.NonNegative
 import io.github.kitakkun.kondition.core.annotation.NonPositive
@@ -162,6 +163,22 @@ class DoubleTest {
         nonZero(-1.0)
         assertFailsWith(IllegalArgumentException::class) {
             nonZero(0.0)
+        }
+    }
+
+    @Test
+    fun testGreaterThan() {
+        fun greaterThan(@GreaterThanDecimal(0.0) value: Double) {
+            // compiler will generate:
+            // require(value > 0.0) { ... }
+        }
+
+        greaterThan(10.0)
+        assertFailsWith(IllegalArgumentException::class) {
+            greaterThan(0.0)
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            greaterThan(-1.0)
         }
     }
 }
