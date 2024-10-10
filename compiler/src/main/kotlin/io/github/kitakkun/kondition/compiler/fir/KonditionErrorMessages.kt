@@ -12,5 +12,11 @@ object KonditionErrorMessages : BaseDiagnosticRendererFactory() {
             "{0}: RETURN strategy can't be applied to the function with non-Unit return type.",
             rendererA = TO_STRING,
         )
+        put(
+            KonditionErrors.OUT_OF_RANGE,
+            "{0} is out of range of {1} type. It may cause unexpected behavior.",
+            rendererA = TO_STRING,
+            rendererB = TO_STRING,
+        )
     }
 }
