@@ -10,12 +10,8 @@ import io.github.kitakkun.kondition.compiler.ir.requirement.NonPositiveRequireme
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonZeroRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NumericRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.PositiveRequirementProvider
-import io.github.kitakkun.kondition.compiler.ir.requirement.RangedByteRequirementProvider
-import io.github.kitakkun.kondition.compiler.ir.requirement.RangedDoubleRequirementProvider
-import io.github.kitakkun.kondition.compiler.ir.requirement.RangedFloatRequirementProvider
-import io.github.kitakkun.kondition.compiler.ir.requirement.RangedIntRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.RangedDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedLongRequirementProvider
-import io.github.kitakkun.kondition.compiler.ir.requirement.RangedShortRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.statement.StatementsProducer
 import io.github.kitakkun.kondition.compiler.ir.transformer.LocalVariablesCheckProducer
 import io.github.kitakkun.kondition.compiler.ir.transformer.ValueParameterCheckStatementsProducer
@@ -40,12 +36,8 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
             AlphabeticRequirementProvider(),
             NumericRequirementProvider(),
             // number ranges
-            RangedIntRequirementProvider(),
-            RangedFloatRequirementProvider(),
-            RangedDoubleRequirementProvider(),
             RangedLongRequirementProvider(),
-            RangedShortRequirementProvider(),
-            RangedByteRequirementProvider(),
+            RangedDecimalRequirementProvider(),
 
             PositiveRequirementProvider(),
             NonPositiveRequirementProvider(),

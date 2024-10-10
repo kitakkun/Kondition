@@ -6,14 +6,14 @@ import io.github.kitakkun.kondition.core.annotation.NonPositive
 import io.github.kitakkun.kondition.core.annotation.NonZero
 import io.github.kitakkun.kondition.core.annotation.Positive
 import io.github.kitakkun.kondition.core.annotation.RangeRule
-import io.github.kitakkun.kondition.core.annotation.RangedByte
+import io.github.kitakkun.kondition.core.annotation.Ranged
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 class ByteTest {
     @Test
     fun testRanged_InclusiveInclusive() {
-        fun ranged(@RangedByte(start = 0, end = 10) value: Byte) {
+        fun ranged(@Ranged(start = 0, end = 10) value: Byte) {
             // compiler will generate:
             // require(value in 0..10)
         }
@@ -33,7 +33,7 @@ class ByteTest {
 
     @Test
     fun testRanged_InclusiveExclusive() {
-        fun ranged(@RangedByte(start = 0, end = 10, rule = RangeRule.InclusiveExclusive) value: Byte) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.InclusiveExclusive) value: Byte) {
             // compiler will generate:
             // require(value in 0 until 10)
         }
@@ -53,7 +53,7 @@ class ByteTest {
 
     @Test
     fun testRanged_ExclusiveInclusive() {
-        fun ranged(@RangedByte(start = 0, end = 10, rule = RangeRule.ExclusiveInclusive) value: Byte) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveInclusive) value: Byte) {
             // compiler will generate:
             // require(value > 0 && value <= 10)
         }
@@ -73,7 +73,7 @@ class ByteTest {
 
     @Test
     fun testRanged_ExclusiveExclusive() {
-        fun ranged(@RangedByte(start = 0, end = 10, rule = RangeRule.ExclusiveExclusive) value: Byte) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveExclusive) value: Byte) {
             // compiler will generate:
             // require(value > 0 && value < 10)
         }

@@ -6,14 +6,14 @@ import io.github.kitakkun.kondition.core.annotation.NonPositive
 import io.github.kitakkun.kondition.core.annotation.NonZero
 import io.github.kitakkun.kondition.core.annotation.Positive
 import io.github.kitakkun.kondition.core.annotation.RangeRule
-import io.github.kitakkun.kondition.core.annotation.RangedInt
+import io.github.kitakkun.kondition.core.annotation.Ranged
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 class IntTest {
     @Test
     fun testRanged_InclusiveInclusive() {
-        fun ranged(@RangedInt(start = 0, end = 10) value: Int) {
+        fun ranged(@Ranged(start = 0, end = 10) value: Int) {
             // compiler will generate:
             // require(value in 0..10)
         }
@@ -33,7 +33,7 @@ class IntTest {
 
     @Test
     fun testRanged_InclusiveExclusive() {
-        fun ranged(@RangedInt(start = 0, end = 10, rule = RangeRule.InclusiveExclusive) value: Int) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.InclusiveExclusive) value: Int) {
             // compiler will generate:
             // require(value in 0 until 10)
         }
@@ -53,7 +53,7 @@ class IntTest {
 
     @Test
     fun testRanged_ExclusiveInclusive() {
-        fun ranged(@RangedInt(start = 0, end = 10, rule = RangeRule.ExclusiveInclusive) value: Int) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveInclusive) value: Int) {
             // compiler will generate:
             // require(value > 0 && value <= 10)
         }
@@ -73,7 +73,7 @@ class IntTest {
 
     @Test
     fun testRanged_ExclusiveExclusive() {
-        fun ranged(@RangedInt(start = 0, end = 10, rule = RangeRule.ExclusiveExclusive) value: Int) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveExclusive) value: Int) {
             // compiler will generate:
             // require(value > 0 && value < 10)
         }

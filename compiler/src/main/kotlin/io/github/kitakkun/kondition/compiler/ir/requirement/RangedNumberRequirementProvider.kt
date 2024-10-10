@@ -3,37 +3,24 @@ package io.github.kitakkun.kondition.compiler.ir.requirement
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
 import io.github.kitakkun.kondition.compiler.ir.util.getConstArgument
 import io.github.kitakkun.kondition.compiler.ir.util.getEnumValueArgument
-import io.github.kitakkun.kondition.compiler.ir.util.irDouble
-import io.github.kitakkun.kondition.compiler.ir.util.irFloat
 import io.github.kitakkun.kondition.core.annotation.RangeRule
-import io.github.kitakkun.kondition.core.annotation.RangedByte
-import io.github.kitakkun.kondition.core.annotation.RangedDouble
-import io.github.kitakkun.kondition.core.annotation.RangedFloat
-import io.github.kitakkun.kondition.core.annotation.RangedInt
-import io.github.kitakkun.kondition.core.annotation.RangedLong
-import io.github.kitakkun.kondition.core.annotation.RangedShort
+import io.github.kitakkun.kondition.core.annotation.Ranged
+import io.github.kitakkun.kondition.core.annotation.RangedDecimal
 import org.jetbrains.kotlin.descriptors.runtime.structure.classId
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
-import org.jetbrains.kotlin.ir.builders.irByte
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
-import org.jetbrains.kotlin.ir.builders.irInt
-import org.jetbrains.kotlin.ir.builders.irLong
-import org.jetbrains.kotlin.ir.builders.irShort
 import org.jetbrains.kotlin.ir.builders.irString
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrValueDeclaration
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
+import org.jetbrains.kotlin.ir.util.toIrConst
 import org.jetbrains.kotlin.name.ClassId
 
-class RangedIntRequirementProvider : RangedNumberRequirementProvider<Int>(RangedInt::class.java.classId)
-class RangedFloatRequirementProvider : RangedNumberRequirementProvider<Float>(RangedFloat::class.java.classId)
-class RangedDoubleRequirementProvider : RangedNumberRequirementProvider<Double>(RangedDouble::class.java.classId)
-class RangedLongRequirementProvider : RangedNumberRequirementProvider<Long>(RangedLong::class.java.classId)
-class RangedShortRequirementProvider : RangedNumberRequirementProvider<Short>(RangedShort::class.java.classId)
-class RangedByteRequirementProvider : RangedNumberRequirementProvider<Byte>(RangedByte::class.java.classId)
+class RangedLongRequirementProvider : RangedNumberRequirementProvider<Long>(Ranged::class.java.classId)
+class RangedDecimalRequirementProvider : RangedNumberRequirementProvider<Double>(RangedDecimal::class.java.classId)
 
 sealed class RangedNumberRequirementProvider<T : Number>(override val annotationClassId: ClassId) : RequirementProvider {
     private data class AnnotationValue<T : Number>(
@@ -53,7 +40,7 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
                         index = 2,
                         enumEntries = RangeRule.entries,
                         defaultValue = RangeRule.InclusiveInclusive,
-                    )
+                    ),
                 )
             }
         }
@@ -85,6 +72,7 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
     ): IrExpression {
         val (start, end, rangeRule) = AnnotationValue.convert<T>(annotation)
 
+        val valueType = value.type
         val irGetValueParameter = irGet(value)
 
         val startCompareFunction = when (rangeRule) {
@@ -102,27 +90,17 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
 
         val irCompareStart = irCall(startCompareFunction).apply {
             extensionReceiver = irGetValueParameter
-            putValueArgument(0, getConstExpression(start))
+            putValueArgument(0, start.toIrConst(valueType))
         }
 
         val irCompareEnd = irCall(endCompareFunction).apply {
             extensionReceiver = irGetValueParameter
-            putValueArgument(0, getConstExpression(end))
+            putValueArgument(0, end.toIrConst(valueType))
         }
 
         return irCall(irContext.booleanAndFunction).apply {
             dispatchReceiver = irCompareStart
             putValueArgument(0, irCompareEnd)
         }
-    }
-
-    private fun <T> IrBuilderWithScope.getConstExpression(value: T): IrExpression = when (value) {
-        is Int -> irInt(value)
-        is Long -> irLong(value)
-        is Double -> irDouble(value)
-        is Short -> irShort(value)
-        is Byte -> irByte(value)
-        is Float -> irFloat(value)
-        else -> error("Unexpected type")
     }
 }

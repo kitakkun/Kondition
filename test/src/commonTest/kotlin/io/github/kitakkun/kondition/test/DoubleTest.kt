@@ -6,14 +6,14 @@ import io.github.kitakkun.kondition.core.annotation.NonPositive
 import io.github.kitakkun.kondition.core.annotation.NonZero
 import io.github.kitakkun.kondition.core.annotation.Positive
 import io.github.kitakkun.kondition.core.annotation.RangeRule
-import io.github.kitakkun.kondition.core.annotation.RangedDouble
+import io.github.kitakkun.kondition.core.annotation.RangedDecimal
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 class DoubleTest {
     @Test
     fun testRanged_InclusiveInclusive() {
-        fun ranged(@RangedDouble(start = 0.0, end = 10.0) value: Double) {
+        fun ranged(@RangedDecimal(start = 0.0, end = 10.0) value: Double) {
             // compiler will generate:
             // require(value in 0.0..10.0)
         }
@@ -33,7 +33,7 @@ class DoubleTest {
 
     @Test
     fun testRanged_InclusiveExclusive() {
-        fun ranged(@RangedDouble(start = 0.0, end = 10.0, rule = RangeRule.InclusiveExclusive) value: Double) {
+        fun ranged(@RangedDecimal(start = 0.0, end = 10.0, rule = RangeRule.InclusiveExclusive) value: Double) {
             // compiler will generate:
             // require(value in 0.0 until 10.0)
         }
@@ -53,7 +53,7 @@ class DoubleTest {
 
     @Test
     fun testRanged_ExclusiveInclusive() {
-        fun ranged(@RangedDouble(start = 0.0, end = 10.0, rule = RangeRule.ExclusiveInclusive) value: Double) {
+        fun ranged(@RangedDecimal(start = 0.0, end = 10.0, rule = RangeRule.ExclusiveInclusive) value: Double) {
             // compiler will generate:
             // require(value > 0.0 && value <= 10.0)
         }
@@ -73,7 +73,7 @@ class DoubleTest {
 
     @Test
     fun testRanged_ExclusiveExclusive() {
-        fun ranged(@RangedDouble(start = 0.0, end = 10.0, rule = RangeRule.ExclusiveExclusive) value: Double) {
+        fun ranged(@RangedDecimal(start = 0.0, end = 10.0, rule = RangeRule.ExclusiveExclusive) value: Double) {
             // compiler will generate:
             // require(value > 0.0 && value < 10.0)
         }

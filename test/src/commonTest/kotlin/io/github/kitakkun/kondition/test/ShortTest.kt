@@ -6,14 +6,14 @@ import io.github.kitakkun.kondition.core.annotation.NonPositive
 import io.github.kitakkun.kondition.core.annotation.NonZero
 import io.github.kitakkun.kondition.core.annotation.Positive
 import io.github.kitakkun.kondition.core.annotation.RangeRule
-import io.github.kitakkun.kondition.core.annotation.RangedShort
+import io.github.kitakkun.kondition.core.annotation.Ranged
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
 class ShortTest {
     @Test
     fun testRanged_InclusiveInclusive() {
-        fun ranged(@RangedShort(start = 0, end = 10) value: Short) {
+        fun ranged(@Ranged(start = 0, end = 10) value: Short) {
             // compiler will generate:
             // require(value in 0..10)
         }
@@ -33,7 +33,7 @@ class ShortTest {
 
     @Test
     fun testRanged_InclusiveExclusive() {
-        fun ranged(@RangedShort(start = 0, end = 10, rule = RangeRule.InclusiveExclusive) value: Short) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.InclusiveExclusive) value: Short) {
             // compiler will generate:
             // require(value in 0 until 10)
         }
@@ -53,7 +53,7 @@ class ShortTest {
 
     @Test
     fun testRanged_ExclusiveInclusive() {
-        fun ranged(@RangedShort(start = 0, end = 10, rule = RangeRule.ExclusiveInclusive) value: Short) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveInclusive) value: Short) {
             // compiler will generate:
             // require(value > 0 && value <= 10)
         }
@@ -73,7 +73,7 @@ class ShortTest {
 
     @Test
     fun testRanged_ExclusiveExclusive() {
-        fun ranged(@RangedShort(start = 0, end = 10, rule = RangeRule.ExclusiveExclusive) value: Short) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveExclusive) value: Short) {
             // compiler will generate:
             // require(value > 0 && value < 10)
         }

@@ -24,45 +24,23 @@ enum class RangeRule {
     InclusiveExclusive,
 }
 
+/**
+ * the argument type is [Long], but applicable for [Int], [Short], [Byte], or other numbers.
+ */
 @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
-annotation class RangedInt(
-    val start: Int,
-    val end: Int,
-    val rule: RangeRule = RangeRule.InclusiveInclusive,
-)
-
-@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
-annotation class RangedLong(
+annotation class Ranged(
     val start: Long,
     val end: Long,
     val rule: RangeRule = RangeRule.InclusiveInclusive,
 )
 
+/**
+ * the argument type is [Double], but applicable for [Float] or other numbers.
+ */
 @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
-annotation class RangedShort(
-    val start: Short,
-    val end: Short,
-    val rule: RangeRule = RangeRule.InclusiveInclusive,
-)
-
-@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
-annotation class RangedByte(
-    val start: Byte,
-    val end: Byte,
-    val rule: RangeRule = RangeRule.InclusiveInclusive,
-)
-
-@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
-annotation class RangedDouble(
+annotation class RangedDecimal(
     val start: Double,
     val end: Double,
-    val rule: RangeRule = RangeRule.InclusiveInclusive,
-)
-
-@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
-annotation class RangedFloat(
-    val start: Float,
-    val end: Float,
     val rule: RangeRule = RangeRule.InclusiveInclusive,
 )
 
