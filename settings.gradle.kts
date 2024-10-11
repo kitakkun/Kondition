@@ -19,5 +19,6 @@ includeBuild("build-logic")
 include(":compiler")
 include(":core")
 include(":test")
+include(":examples:playground")
 
 rootProject.name = "Kondition"
