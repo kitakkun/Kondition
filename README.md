@@ -1,5 +1,8 @@
 # Kondition
 
+![version](https://img.shields.io/badge/version-0.0.0--alpha01-blue)
+![platform](https://img.shields.io/badge/platform-jvm-purple)
+
 Kondition makes sure that your Kotlin code runs under certain conditions.
 Functions or class constructors are invoked after checking specified conditions are met.
 
@@ -8,14 +11,26 @@ Functions or class constructors are invoked after checking specified conditions 
 
 ## Installation
 
-WIP
+Make sure you are using Kotlin 2.0.0 or above.
+
+```kotlin
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    val version = "0.0.0-alhpa01"
+    kotlinCompilerPluginClasspath("io.github.kitakkun.kondition:compiler:$version")
+    implementation("io.github.kitakkun.kondition:core:$version")
+}
+```
 
 ## Usage
 
 For example:
 
 ```kotlin
-fun hoge(@Ranged(0, 10) val value) {
+fun playWithInt(@Ranged(0, 10) val value) {
     println(value)
 }
 ```
@@ -23,11 +38,14 @@ fun hoge(@Ranged(0, 10) val value) {
 will be transformed to:
 
 ```kotlin
-fun hoge(@Ranged(0, 10) val value) {
-    require(value in 0..10) { "the parameter \"value\" has to be in the range from 0 to 10." }
+fun playWithInt(@Ranged(0, 10) val value) {
+    require(value in 0..10) { "\"value\" in playWithInt must be in range 0..10" }
     println(value)
 }
 ```
+
+> [!NOTE]
+> You can play with sample projects under the [examples](examples).
 
 ## Available Annotations
 
@@ -41,8 +59,8 @@ You can create a new kondition by combine existent annotations.
 
 ```kotlin
 @Combine(with = CombineRule.AND)
-@RangedInt(0, 10)
-@RangedInt(5, 10)
+@Ranged(0, 10)
+@Ranged(5, 10)
 annotation class MyAnnotation
 ```
 
