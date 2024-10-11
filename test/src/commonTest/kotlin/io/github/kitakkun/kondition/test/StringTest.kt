@@ -1,7 +1,10 @@
 package io.github.kitakkun.kondition.test
 
 import io.github.kitakkun.kondition.core.annotation.Alphabetic
+import io.github.kitakkun.kondition.core.annotation.Length
 import io.github.kitakkun.kondition.core.annotation.MatchRegex
+import io.github.kitakkun.kondition.core.annotation.MaxLength
+import io.github.kitakkun.kondition.core.annotation.MinLength
 import io.github.kitakkun.kondition.core.annotation.NonBlank
 import io.github.kitakkun.kondition.core.annotation.NonEmpty
 import io.github.kitakkun.kondition.core.annotation.Numeric
@@ -76,6 +79,50 @@ class StringTest {
 
         assertFailsWith(IllegalArgumentException::class) {
             numeric("12days")
+        }
+    }
+
+    @Test
+    fun testLength() {
+        fun length(@Length(10) value: String) {
+            // compiler will generate:
+            // require(value.length == 10) { ... }
+        }
+
+        length("0123456789")
+
+        assertFailsWith(IllegalArgumentException::class) {
+            length("hogehgoe")
+        }
+    }
+
+    @Test
+    fun testMinLength() {
+        fun minLength(@MinLength(10) value: String) {
+            // compiler will generate:
+            // require(value.length => 10) { ... }
+        }
+
+        minLength("0123456789")
+        minLength("0123456789012345")
+
+        assertFailsWith(IllegalArgumentException::class) {
+            minLength("012345678")
+        }
+    }
+
+    @Test
+    fun testMaxLength() {
+        fun maxLength(@MaxLength(10) value: String) {
+            // compiler will generate:
+            // require(value.length <= 10) { ... }
+        }
+
+        maxLength("01234")
+        maxLength("0123456789")
+
+        assertFailsWith(IllegalArgumentException::class) {
+            maxLength("01234567890")
         }
     }
 }

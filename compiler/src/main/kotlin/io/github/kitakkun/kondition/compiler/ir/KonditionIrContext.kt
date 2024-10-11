@@ -38,6 +38,10 @@ class KonditionIrContext(
     val isAlphaFunction by lazy { getKonditionNamedFunction("isAlpha", "core.internal") }
     val isNumericFunction by lazy { getKonditionNamedFunction("isNumeric", "core.internal") }
 
+    val lengthEquals by lazy { getKonditionNamedFunction("lengthEquals", "core.internal") }
+    val lengthGreaterThanOrEquals by lazy { getKonditionNamedFunction("lengthGreaterThanOrEquals", "core.internal") }
+    val lengthLessThanOrEquals by lazy { getKonditionNamedFunction("lengthLessThanOrEquals", "core.internal") }
+
     fun namedFunction(
         packageName: String,
         name: String,

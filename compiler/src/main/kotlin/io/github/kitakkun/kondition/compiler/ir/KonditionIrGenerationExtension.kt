@@ -5,11 +5,14 @@ import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanDecimalRe
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanLongRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanOrEqualsDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanOrEqualsLongRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.LengthRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanLongRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanOrEqualsDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanOrEqualsLongRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.MatchRegexRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.MaxLengthRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.MinLengthRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NegativeRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonBlankRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonEmptyRequirementProvider
@@ -43,6 +46,11 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
             MatchRegexRequirementProvider(),
             AlphabeticRequirementProvider(),
             NumericRequirementProvider(),
+
+            LengthRequirementProvider(),
+            MinLengthRequirementProvider(),
+            MaxLengthRequirementProvider(),
+
             // number ranges
             RangedLongRequirementProvider(),
             RangedDecimalRequirementProvider(),

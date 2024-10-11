@@ -31,6 +31,6 @@
 |   `@Regex`    | `Regex(pattern).matches(value) == true`    | :white_check_mark: |
 | `@Alphabetic` | `value` contains only alphabet characters. | :white_check_mark: |
 |  `@Numeric`   | `value` contains only numeric characters.  | :white_check_mark: |
-|   `@Length`   | `value.length = length`                    |         x          |
-| `@MinLength`  | `value.length >= length`                   |         x          |
-| `@MaxLength`  | `value.length <= length`                   |         x          |
+|   `@Length`   | `value.length = length`                    | :white_check_mark: |
+| `@MinLength`  | `value.length >= length`                   | :white_check_mark: |
+| `@MaxLength`  | `value.length <= length`                   | :white_check_mark: |
