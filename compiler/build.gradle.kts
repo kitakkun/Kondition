@@ -5,7 +5,6 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.core)
     implementation(libs.kotlin.compiler.embeddable)
 }
 

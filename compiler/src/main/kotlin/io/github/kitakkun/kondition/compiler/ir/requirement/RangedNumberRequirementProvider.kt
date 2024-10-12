@@ -1,12 +1,9 @@
 package io.github.kitakkun.kondition.compiler.ir.requirement
 
+import io.github.kitakkun.kondition.compiler.KonditionConsts
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
 import io.github.kitakkun.kondition.compiler.ir.util.getConstArgument
-import io.github.kitakkun.kondition.compiler.ir.util.getEnumValueArgument
-import io.github.kitakkun.kondition.core.annotation.RangeRule
-import io.github.kitakkun.kondition.core.annotation.Ranged
-import io.github.kitakkun.kondition.core.annotation.RangedDecimal
-import org.jetbrains.kotlin.descriptors.runtime.structure.classId
+import io.github.kitakkun.kondition.compiler.ir.util.getEnumNameOfArgument
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -19,8 +16,8 @@ import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.ir.util.toIrConst
 import org.jetbrains.kotlin.name.ClassId
 
-class RangedLongRequirementProvider : RangedNumberRequirementProvider<Long>(Ranged::class.java.classId)
-class RangedDecimalRequirementProvider : RangedNumberRequirementProvider<Double>(RangedDecimal::class.java.classId)
+class RangedLongRequirementProvider : RangedNumberRequirementProvider<Long>(KonditionConsts.RangedClassId)
+class RangedDecimalRequirementProvider : RangedNumberRequirementProvider<Double>(KonditionConsts.RangedDecimalClassId)
 
 sealed class RangedNumberRequirementProvider<T : Number>(override val annotationClassId: ClassId) : RequirementProvider {
     private data class AnnotationValue<T : Number>(
@@ -28,19 +25,23 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
         val end: T,
         val rule: RangeRule,
     ) {
+        enum class RangeRule {
+            InclusiveInclusive,
+            InclusiveExclusive,
+            ExclusiveInclusive,
+            ExclusiveExclusive,
+        }
+
         companion object {
             @OptIn(UnsafeDuringIrConstructionAPI::class)
             fun <T : Number> convert(annotation: IrConstructorCall): AnnotationValue<T> {
                 val start = annotation.getConstArgument<T>(0) ?: error("cannot convert $annotation")
                 val end = annotation.getConstArgument<T>(1) ?: error("cannot convert $annotation")
+                val rangeRuleName = annotation.getEnumNameOfArgument(2)
                 return AnnotationValue(
                     start = start,
                     end = end,
-                    rule = annotation.getEnumValueArgument(
-                        index = 2,
-                        enumEntries = RangeRule.entries,
-                        defaultValue = RangeRule.InclusiveInclusive,
-                    ),
+                    rule = RangeRule.entries.find { it.name == rangeRuleName } ?: RangeRule.InclusiveInclusive
                 )
             }
         }
@@ -55,10 +56,10 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
         val (start, end, rangeRule) = AnnotationValue.convert<T>(annotation)
 
         val suffix = when (rangeRule) {
-            RangeRule.InclusiveInclusive -> "must be in range $start..$end"
-            RangeRule.ExclusiveExclusive -> "must be greater than $start and less than $end"
-            RangeRule.ExclusiveInclusive -> "must be grater than $start and less than or equals to $end"
-            RangeRule.InclusiveExclusive -> "must be greater than or equals to $start and less than $end"
+            AnnotationValue.RangeRule.InclusiveInclusive -> "must be in range $start..$end"
+            AnnotationValue.RangeRule.ExclusiveExclusive -> "must be greater than $start and less than $end"
+            AnnotationValue.RangeRule.ExclusiveInclusive -> "must be grater than $start and less than or equals to $end"
+            AnnotationValue.RangeRule.InclusiveExclusive -> "must be greater than or equals to $start and less than $end"
         }
 
         return irString("${value.name} in ${parentDeclaration.name} $suffix")
@@ -76,16 +77,16 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
         val irGetValueParameter = irGet(value)
 
         val startCompareFunction = when (rangeRule) {
-            RangeRule.InclusiveInclusive -> irContext.greaterThanOrEquals
-            RangeRule.ExclusiveExclusive -> irContext.greaterThan
-            RangeRule.ExclusiveInclusive -> irContext.greaterThan
-            RangeRule.InclusiveExclusive -> irContext.greaterThanOrEquals
+            AnnotationValue.RangeRule.InclusiveInclusive -> irContext.greaterThanOrEquals
+            AnnotationValue.RangeRule.ExclusiveExclusive -> irContext.greaterThan
+            AnnotationValue.RangeRule.ExclusiveInclusive -> irContext.greaterThan
+            AnnotationValue.RangeRule.InclusiveExclusive -> irContext.greaterThanOrEquals
         }
         val endCompareFunction = when (rangeRule) {
-            RangeRule.InclusiveInclusive -> irContext.lessThanOrEquals
-            RangeRule.ExclusiveExclusive -> irContext.lessThan
-            RangeRule.ExclusiveInclusive -> irContext.lessThanOrEquals
-            RangeRule.InclusiveExclusive -> irContext.lessThan
+            AnnotationValue.RangeRule.InclusiveInclusive -> irContext.lessThanOrEquals
+            AnnotationValue.RangeRule.ExclusiveExclusive -> irContext.lessThan
+            AnnotationValue.RangeRule.ExclusiveInclusive -> irContext.lessThanOrEquals
+            AnnotationValue.RangeRule.InclusiveExclusive -> irContext.lessThan
         }
 
         val irCompareStart = irCall(startCompareFunction).apply {

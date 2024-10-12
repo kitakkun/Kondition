@@ -1,9 +1,8 @@
 package io.github.kitakkun.kondition.compiler.ir.requirement
 
+import io.github.kitakkun.kondition.compiler.KonditionConsts
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
 import io.github.kitakkun.kondition.compiler.ir.util.getConstArgument
-import io.github.kitakkun.kondition.core.annotation.MaxLength
-import org.jetbrains.kotlin.descriptors.runtime.structure.classId
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -16,7 +15,7 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.name.ClassId
 
 class MaxLengthRequirementProvider : RequirementProvider {
-    override val annotationClassId: ClassId = MaxLength::class.java.classId
+    override val annotationClassId: ClassId = KonditionConsts.MaxLengthClassId
 
     override fun IrBuilderWithScope.produceErrorMessage(
         irContext: KonditionIrContext,

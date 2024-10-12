@@ -1,10 +1,8 @@
 package io.github.kitakkun.kondition.compiler.ir.requirement
 
+import io.github.kitakkun.kondition.compiler.KonditionConsts
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
 import io.github.kitakkun.kondition.compiler.ir.util.getConstArgument
-import io.github.kitakkun.kondition.core.annotation.LessThan
-import io.github.kitakkun.kondition.core.annotation.LessThanDecimal
-import org.jetbrains.kotlin.descriptors.runtime.structure.classId
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -16,8 +14,8 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.util.toIrConst
 import org.jetbrains.kotlin.name.ClassId
 
-class LessThanLongRequirementProvider : LessThanRequirementProvider<Long>(LessThan::class.java.classId)
-class LessThanDecimalRequirementProvider : LessThanRequirementProvider<Double>(LessThanDecimal::class.java.classId)
+class LessThanLongRequirementProvider : LessThanRequirementProvider<Long>(KonditionConsts.LessThanClassId)
+class LessThanDecimalRequirementProvider : LessThanRequirementProvider<Double>(KonditionConsts.LessThanDecimalClassId)
 
 sealed class LessThanRequirementProvider<T : Number>(
     override val annotationClassId: ClassId,
