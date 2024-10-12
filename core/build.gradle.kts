@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.konditionLint)
-    alias(libs.plugins.konditionKmpPublish)
+    alias(libs.plugins.konditionPublish)
 }
 
 kotlin {
