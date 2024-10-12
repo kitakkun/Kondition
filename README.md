@@ -1,6 +1,6 @@
 # Kondition
 
-![version](https://img.shields.io/badge/version-0.0.0--alpha01-blue)
+![version](https://img.shields.io/badge/version-0.0.0--alpha02-blue)
 ![platform](https://img.shields.io/badge/platform-jvm-purple)
 
 Kondition makes sure that your Kotlin code runs under certain conditions.
@@ -18,10 +18,8 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    val version = "0.0.0-alhpa01"
-    kotlinCompilerPluginClasspath("io.github.kitakkun.kondition:compiler:$version")
-    implementation("io.github.kitakkun.kondition:core:$version")
+plugins {
+    id("io.github.kitakkun.kondition") version "0.0.0-alpha02"
 }
 ```
 
