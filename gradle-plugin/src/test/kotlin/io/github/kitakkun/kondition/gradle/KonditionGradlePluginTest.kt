@@ -1,6 +1,8 @@
 package io.github.kitakkun.kondition.gradle
 
 import org.gradle.testkit.runner.GradleRunner
+import org.gradle.testkit.runner.TaskOutcome
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
@@ -82,9 +84,9 @@ class KonditionGradlePluginTest {
             .withProjectDir(testProjectDir)
             .withArguments("run")
             .withPluginClasspath()
-            .buildAndFail()
+            .run()
 
-        // FIXME: This assertion fails on CI
-        // Assertions.assertEquals(TaskOutcome.FAILED, result.task(":run")?.outcome)
+        println(result.output)
+        Assertions.assertEquals(TaskOutcome.FAILED, result.task(":run")?.outcome)
     }
 }

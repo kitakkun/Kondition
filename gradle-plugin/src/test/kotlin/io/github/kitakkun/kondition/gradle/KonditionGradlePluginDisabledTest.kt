@@ -83,8 +83,9 @@ class KonditionGradlePluginDisabledTest {
             .withProjectDir(testProjectDir)
             .withArguments("run")
             .withPluginClasspath()
-            .build()
+            .run()
 
+        println(result.output)
         Assertions.assertEquals(TaskOutcome.SUCCESS, result.task(":run")?.outcome)
     }
 }
