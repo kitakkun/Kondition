@@ -1,13 +1,35 @@
 # Kondition
 
-![version](https://img.shields.io/badge/version-0.0.0--alpha02-blue)
-![platform](https://img.shields.io/badge/platform-jvm-purple)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.kitakkun.kondition/compiler)](https://central.sonatype.com/search?namespace=io.github.kitakkun.kondition)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.0.0-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://github.com/kitakkun/Kondition/blob/master/LICENSE)
+![Platform](https://img.shields.io/badge/platform-Android_JVM_iOS_macOS_watchOS_tvOS_Linux_Windows-blue)
 
-Kondition makes sure that your Kotlin code runs under certain conditions.
-Functions or class constructors are invoked after checking specified conditions are met.
+Kondition is a multiplatform compiler plugin which ensures that your Kotlin code runs under certain conditions.
+You can provide requirements to parameters simply by annotating them.
+
+## Example
+
+For instance:
+
+```kotlin
+fun myFunction(@Ranged(0, 10) val value) {
+    println(value)
+}
+```
+
+will be transformed to:
+
+```kotlin
+fun myFunction(@Ranged(0, 10) val value) {
+    require(value in 0..10) { "\"value\" in playWithInt must be in range 0..10" }
+    println(value)
+}
+```
 
 > [!IMPORTANT]
-> 🚧 THIS PROJECT IS STILL A WORK IN PROGRESS 🚧
+> 🚧 THIS PROJECT IS STILL A WORK IN PROGRESS. 🚧
+> API IS UNSTABLE AND MAY CHANGE IN THE FUTURE.
 
 ## Installation
 
@@ -23,28 +45,6 @@ plugins {
 }
 ```
 
-## Usage
-
-For example:
-
-```kotlin
-fun playWithInt(@Ranged(0, 10) val value) {
-    println(value)
-}
-```
-
-will be transformed to:
-
-```kotlin
-fun playWithInt(@Ranged(0, 10) val value) {
-    require(value in 0..10) { "\"value\" in playWithInt must be in range 0..10" }
-    println(value)
-}
-```
-
-> [!NOTE]
-> You can play with sample projects under the [examples](examples).
-
 ## Available Annotations
 
 See [Predefined Annotations](docs/predefined_annotations.md) for details.
@@ -53,7 +53,7 @@ See [Predefined Annotations](docs/predefined_annotations.md) for details.
 
 ### Combine predefined annotations
 
-You can create a new kondition by combine existent annotations.
+You can create a new Kondition by combine existent annotations.
 
 ```kotlin
 @Combine(with = CombineRule.AND)

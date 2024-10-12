@@ -4,17 +4,11 @@ import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrGetEnumValue
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
-import kotlin.enums.EnumEntries
 
-/**
- * When an annotation constructor has an enum value argument,
- * passed expression should have type of `IrGetEnumValue`.
- * We can extract the enum entry's name from it, then convert it to the actual enum value.
- */
 @OptIn(UnsafeDuringIrConstructionAPI::class)
-inline fun <reified E : Enum<E>> IrConstructorCall.getEnumValueArgument(index: Int, enumEntries: EnumEntries<E>, defaultValue: E): E {
-    val enumName = (getValueArgument(index) as? IrGetEnumValue)?.symbol?.owner?.name?.asString()
-    return enumEntries.find { it.name == enumName } ?: defaultValue
+fun IrConstructorCall.getEnumNameOfArgument(index: Int): String? {
+    val irGetEnumValue = getValueArgument(index) as? IrGetEnumValue ?: return null
+    return irGetEnumValue.symbol.owner.name.asString()
 }
 
 /**

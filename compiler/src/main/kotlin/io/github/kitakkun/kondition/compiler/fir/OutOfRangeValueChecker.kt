@@ -1,16 +1,6 @@
 package io.github.kitakkun.kondition.compiler.fir
 
-import io.github.kitakkun.kondition.core.annotation.GreaterThan
-import io.github.kitakkun.kondition.core.annotation.GreaterThanDecimal
-import io.github.kitakkun.kondition.core.annotation.GreaterThanOrEquals
-import io.github.kitakkun.kondition.core.annotation.GreaterThanOrEqualsDecimal
-import io.github.kitakkun.kondition.core.annotation.LessThan
-import io.github.kitakkun.kondition.core.annotation.LessThanDecimal
-import io.github.kitakkun.kondition.core.annotation.LessThanOrEquals
-import io.github.kitakkun.kondition.core.annotation.LessThanOrEqualsDecimal
-import io.github.kitakkun.kondition.core.annotation.Ranged
-import io.github.kitakkun.kondition.core.annotation.RangedDecimal
-import org.jetbrains.kotlin.descriptors.runtime.structure.classId
+import io.github.kitakkun.kondition.compiler.KonditionConsts
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.reportOn
 import org.jetbrains.kotlin.fir.FirSession
@@ -30,16 +20,16 @@ import kotlin.math.absoluteValue
 
 object OutOfRangeValueChecker : FirAnnotationChecker(mppKind = MppCheckerKind.Common) {
     private val numberAnnotations = setOf(
-        Ranged::class.java.classId,
-        RangedDecimal::class.java.classId,
-        GreaterThan::class.java.classId,
-        GreaterThanDecimal::class.java.classId,
-        GreaterThanOrEquals::class.java.classId,
-        GreaterThanOrEqualsDecimal::class.java.classId,
-        LessThan::class.java.classId,
-        LessThanDecimal::class.java.classId,
-        LessThanOrEquals::class.java.classId,
-        LessThanOrEqualsDecimal::class.java.classId,
+        KonditionConsts.RangedClassId,
+        KonditionConsts.RangedDecimalClassId,
+        KonditionConsts.GreaterThanClassId,
+        KonditionConsts.GreaterThanDecimalClassId,
+        KonditionConsts.GreaterThanOrEqualsClassId,
+        KonditionConsts.GreaterThanOrEqualsDecimalClassId,
+        KonditionConsts.LessThanClassId,
+        KonditionConsts.LessThanDecimalClassId,
+        KonditionConsts.LessThanOrEqualsClassId,
+        KonditionConsts.LessThanOrEqualsDecimalClassId,
     )
 
     override fun check(expression: FirAnnotation, context: CheckerContext, reporter: DiagnosticReporter) {

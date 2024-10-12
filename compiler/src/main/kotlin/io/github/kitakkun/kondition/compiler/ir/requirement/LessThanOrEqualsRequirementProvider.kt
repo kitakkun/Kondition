@@ -1,10 +1,8 @@
 package io.github.kitakkun.kondition.compiler.ir.requirement
 
+import io.github.kitakkun.kondition.compiler.KonditionConsts
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
 import io.github.kitakkun.kondition.compiler.ir.util.getConstArgument
-import io.github.kitakkun.kondition.core.annotation.LessThanOrEquals
-import io.github.kitakkun.kondition.core.annotation.LessThanOrEqualsDecimal
-import org.jetbrains.kotlin.descriptors.runtime.structure.classId
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -17,14 +15,10 @@ import org.jetbrains.kotlin.ir.util.toIrConst
 import org.jetbrains.kotlin.name.ClassId
 
 class LessThanOrEqualsLongRequirementProvider :
-    LessThanOrEqualsRequirementProvider<Long>(
-        LessThanOrEquals::class.java.classId,
-    )
+    LessThanOrEqualsRequirementProvider<Long>(KonditionConsts.LessThanOrEqualsClassId)
 
 class LessThanOrEqualsDecimalRequirementProvider :
-    LessThanOrEqualsRequirementProvider<Double>(
-        LessThanOrEqualsDecimal::class.java.classId,
-    )
+    LessThanOrEqualsRequirementProvider<Double>(KonditionConsts.LessThanOrEqualsDecimalClassId)
 
 sealed class LessThanOrEqualsRequirementProvider<T : Number>(
     override val annotationClassId: ClassId,

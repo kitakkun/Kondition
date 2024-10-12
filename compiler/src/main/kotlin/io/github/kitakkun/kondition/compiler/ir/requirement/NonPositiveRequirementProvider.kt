@@ -1,9 +1,8 @@
 package io.github.kitakkun.kondition.compiler.ir.requirement
 
+import io.github.kitakkun.kondition.compiler.KonditionConsts
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
 import io.github.kitakkun.kondition.compiler.ir.util.irZero
-import io.github.kitakkun.kondition.core.annotation.NonPositive
-import org.jetbrains.kotlin.descriptors.runtime.structure.classId
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -18,7 +17,7 @@ import org.jetbrains.kotlin.ir.util.classId
 import org.jetbrains.kotlin.name.ClassId
 
 class NonPositiveRequirementProvider : RequirementProvider {
-    override val annotationClassId: ClassId = NonPositive::class.java.classId
+    override val annotationClassId: ClassId = KonditionConsts.NonPositiveClassId
 
     override fun IrBuilderWithScope.produceErrorMessage(
         irContext: KonditionIrContext,

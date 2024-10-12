@@ -1,9 +1,8 @@
 package io.github.kitakkun.kondition.compiler.ir.requirement
 
+import io.github.kitakkun.kondition.compiler.KonditionConsts
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
 import io.github.kitakkun.kondition.compiler.ir.util.irZero
-import io.github.kitakkun.kondition.core.annotation.Negative
-import org.jetbrains.kotlin.descriptors.runtime.structure.classId
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -18,7 +17,7 @@ import org.jetbrains.kotlin.ir.util.classId
 import org.jetbrains.kotlin.name.ClassId
 
 class NegativeRequirementProvider : RequirementProvider {
-    override val annotationClassId: ClassId = Negative::class.java.classId
+    override val annotationClassId: ClassId = KonditionConsts.NegativeClassId
 
     override fun IrBuilderWithScope.produceErrorMessage(
         irContext: KonditionIrContext,

@@ -1,10 +1,8 @@
 package io.github.kitakkun.kondition.compiler.ir.requirement
 
+import io.github.kitakkun.kondition.compiler.KonditionConsts
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
 import io.github.kitakkun.kondition.compiler.ir.util.getConstArgument
-import io.github.kitakkun.kondition.core.annotation.GreaterThanOrEquals
-import io.github.kitakkun.kondition.core.annotation.GreaterThanOrEqualsDecimal
-import org.jetbrains.kotlin.descriptors.runtime.structure.classId
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -17,14 +15,10 @@ import org.jetbrains.kotlin.ir.util.toIrConst
 import org.jetbrains.kotlin.name.ClassId
 
 class GreaterThanOrEqualsLongRequirementProvider :
-    GreaterThanOrEqualsRequirementProvider<Long>(
-        GreaterThanOrEquals::class.java.classId,
-    )
+    GreaterThanOrEqualsRequirementProvider<Long>(KonditionConsts.GreaterThanOrEqualsClassId)
 
 class GreaterThanOrEqualsDecimalRequirementProvider :
-    GreaterThanOrEqualsRequirementProvider<Double>(
-        GreaterThanOrEqualsDecimal::class.java.classId,
-    )
+    GreaterThanOrEqualsRequirementProvider<Double>(KonditionConsts.GreaterThanOrEqualsDecimalClassId)
 
 sealed class GreaterThanOrEqualsRequirementProvider<T : Number>(
     override val annotationClassId: ClassId,

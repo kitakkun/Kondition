@@ -1,8 +1,7 @@
 package io.github.kitakkun.kondition.compiler.ir.requirement
 
+import io.github.kitakkun.kondition.compiler.KonditionConsts
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
-import io.github.kitakkun.kondition.core.annotation.NonEmpty
-import org.jetbrains.kotlin.descriptors.runtime.structure.classId
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -14,7 +13,7 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.name.ClassId
 
 class NonEmptyRequirementProvider : RequirementProvider {
-    override val annotationClassId: ClassId = NonEmpty::class.java.classId
+    override val annotationClassId: ClassId = KonditionConsts.NonEmptyClassId
 
     override fun IrBuilderWithScope.produceErrorMessage(
         irContext: KonditionIrContext,
