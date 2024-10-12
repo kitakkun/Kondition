@@ -16,6 +16,7 @@ dependencyResolutionManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 includeBuild("build-logic")
+include(":gradle-plugin")
 include(":compiler")
 include(":core")
 include(":test")
