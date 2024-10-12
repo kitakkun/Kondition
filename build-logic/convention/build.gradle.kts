@@ -8,13 +8,9 @@ gradlePlugin {
             id = "kondition.lint"
             implementationClass = "KonditionLintPlugin"
         }
-        register("io.github.kitakkun.kondition.conventions.publish.jvm") {
-            id = "kondition.publish.jvm"
-            implementationClass = "KonditionJvmPublicationPlugin"
-        }
-        register("io.github.kitakkun.kondition.conventions.publish.kmp") {
-            id = "kondition.publish.kmp"
-            implementationClass = "KonditionKmpPublicationPlugin"
+        register("io.github.kitakkun.kondition.conventions.publish") {
+            id = "kondition.publish"
+            implementationClass = "KonditionPublicationPlugin"
         }
     }
 }

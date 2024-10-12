@@ -17,5 +17,4 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 
 konditionLint = { id = "kondition.lint", version = "unspecified" }
-konditionJvmPublish = { id = "kondition.publish.jvm", version = "unspecified" }
-konditionKmpPublish = { id = "kondition.publish.kmp", version = "unspecified" }
+konditionPublish = { id = "kondition.publish", version = "unspecified" }

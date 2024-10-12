@@ -5,7 +5,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
 
-class KonditionJvmPublicationPlugin : Plugin<Project> {
+class KonditionPublicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             extensions.create<KonditionPublicationExtension>("konditionPublication")
