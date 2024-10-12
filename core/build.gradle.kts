@@ -38,6 +38,6 @@ konditionPublication {
 }
 
 android {
-    namespace = "io.github.kitakkun.core"
+    namespace = "io.github.kitakkun.kondition.core"
     compileSdk = 35
 }
