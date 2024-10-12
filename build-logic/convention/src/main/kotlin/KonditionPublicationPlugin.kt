@@ -7,6 +7,8 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.withType
+import org.gradle.plugins.signing.Sign
 
 class KonditionPublicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -57,6 +59,13 @@ class KonditionPublicationPlugin : Plugin<Project> {
 
                     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
                     signAllPublications()
+
+                    // avoid failure when executing publishToMavenLocal
+                    tasks.withType(Sign::class).configureEach {
+                        onlyIf {
+                            !gradle.startParameter.taskNames.contains("publishToMavenLocal")
+                        }
+                    }
                 }
             }
         }
