@@ -1,4 +1,7 @@
-on: [ workflow_dispatch ]
+on:
+  push:
+    tags:
+      - '*'
 jobs:
   publish:
     runs-on: ubuntu-latest
