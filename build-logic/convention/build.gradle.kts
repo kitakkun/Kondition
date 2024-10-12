@@ -1,5 +1,6 @@
 plugins {
     `kotlin-dsl`
+    alias(libs.plugins.buildconfig)
 }
 
 gradlePlugin {
@@ -13,6 +14,10 @@ gradlePlugin {
             implementationClass = "KonditionPublicationPlugin"
         }
     }
+}
+
+buildConfig {
+    buildConfigField("VERSION", libs.versions.kondition.get().toString())
 }
 
 dependencies {

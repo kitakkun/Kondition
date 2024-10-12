@@ -1,5 +1,6 @@
 @file:Suppress("UNUSED")
 
+import build_logic.convention.BuildConfig
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.api.Plugin
@@ -25,7 +26,7 @@ class KonditionPublicationPlugin : Plugin<Project> {
                     coordinates(
                         groupId = "io.github.kitakkun.kondition",
                         artifactId = artifactId,
-                        version = "0.0.0-alpha01"
+                        version = BuildConfig.VERSION,
                     )
 
                     pom {
