@@ -13,6 +13,11 @@ kotlin {
     jvmToolchain(17)
     jvm()
     androidTarget()
+    // linux
+    linuxX64()
+    linuxArm64()
+    // windows
+    mingwX64()
     // macos
     macosX64()
     macosArm64()
@@ -28,9 +33,6 @@ kotlin {
     tvosSimulatorArm64()
     tvosX64()
     tvosArm64()
-    // linux
-    linuxX64()
-    linuxArm64()
 }
 
 konditionPublication {
