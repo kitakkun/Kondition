@@ -13,7 +13,7 @@ You can provide requirements to parameters simply by annotating them.
 For instance:
 
 ```kotlin
-fun myFunction(@Ranged(0, 10) val value) {
+fun myFunction(@Ranged(0, 10) value: Int) {
     println(value)
 }
 ```
@@ -21,7 +21,7 @@ fun myFunction(@Ranged(0, 10) val value) {
 will be transformed to:
 
 ```kotlin
-fun myFunction(@Ranged(0, 10) val value) {
+fun myFunction(@Ranged(0, 10) value: Int) {
     require(value in 0..10) { "\"value\" in playWithInt must be in range 0..10" }
     println(value)
 }
