@@ -42,6 +42,15 @@ class KonditionIrContext(
     val lengthGreaterThanOrEquals by lazy { getKonditionNamedFunction("lengthGreaterThanOrEquals", "core.internal") }
     val lengthLessThanOrEquals by lazy { getKonditionNamedFunction("lengthLessThanOrEquals", "core.internal") }
 
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val coerceAtLeast by lazy { namedFunction("kotlin.ranges", "coerceAtLeast") { it.owner.typeParameters.isNotEmpty() } }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val coerceAtMost by lazy { namedFunction("kotlin.ranges", "coerceAtMost") { it.owner.typeParameters.isNotEmpty() } }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val coerceIn by lazy { namedFunction("kotlin.ranges", "coerceIn") { it.owner.typeParameters.isNotEmpty() } }
+
     fun namedFunction(
         packageName: String,
         name: String,
