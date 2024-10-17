@@ -1,6 +1,7 @@
 package io.github.kitakkun.kondition.compiler.ir.transformer
 
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrContext
+import io.github.kitakkun.kondition.compiler.ir.statement.FitValueProducer
 import io.github.kitakkun.kondition.compiler.ir.statement.StatementsProducer
 import org.jetbrains.kotlin.backend.common.lower.createIrBuilder
 import org.jetbrains.kotlin.backend.common.lower.irComposite
@@ -17,6 +18,7 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 class LocalVariablesCheckProducer(
     private val irContext: KonditionIrContext,
     private val statementsProducer: StatementsProducer,
+    private val fitValueProducer: FitValueProducer, // TODO: add support for local variables
 ) : IrElementTransformerVoid() {
     override fun visitVariable(declaration: IrVariable): IrStatement {
         if (!declaration.isLocal) return super.visitVariable(declaration)

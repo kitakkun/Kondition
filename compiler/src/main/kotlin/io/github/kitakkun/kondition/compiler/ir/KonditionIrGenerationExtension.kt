@@ -1,5 +1,8 @@
 package io.github.kitakkun.kondition.compiler.ir
 
+import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceAtLeastFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceAtMostFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceInFitter
 import io.github.kitakkun.kondition.compiler.ir.requirement.AlphabeticRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanLongRequirementProvider
@@ -23,6 +26,7 @@ import io.github.kitakkun.kondition.compiler.ir.requirement.NumericRequirementPr
 import io.github.kitakkun.kondition.compiler.ir.requirement.PositiveRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedLongRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.statement.FitValueProducer
 import io.github.kitakkun.kondition.compiler.ir.statement.StatementsProducer
 import io.github.kitakkun.kondition.compiler.ir.transformer.LocalVariablesCheckProducer
 import io.github.kitakkun.kondition.compiler.ir.transformer.ValueParameterCheckStatementsProducer
@@ -71,8 +75,15 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
             NonZeroRequirementProvider(),
         )
 
+        val valueFitters = listOf(
+            CoerceAtLeastFitter(),
+            CoerceAtMostFitter(),
+            CoerceInFitter(),
+        )
+
         val statementsProducer = StatementsProducer(requirementProviders)
-        moduleFragment.transformChildrenVoid(ValueParameterCheckStatementsProducer(context, statementsProducer))
-        moduleFragment.transformChildrenVoid(LocalVariablesCheckProducer(context, statementsProducer))
+        val fitValueProducer = FitValueProducer(valueFitters)
+        moduleFragment.transformChildrenVoid(ValueParameterCheckStatementsProducer(context, statementsProducer, fitValueProducer))
+        moduleFragment.transformChildrenVoid(LocalVariablesCheckProducer(context, statementsProducer, fitValueProducer))
     }
 }
