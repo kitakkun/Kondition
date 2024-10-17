@@ -23,6 +23,9 @@ object KonditionConsts {
     val CoerceAtLeastClassId by lazy { konditionAnnotationClassId("CoerceAtLeast") }
     val CoerceAtMostClassId by lazy { konditionAnnotationClassId("CoerceAtMost") }
     val CoerceInClassId by lazy { konditionAnnotationClassId("CoerceIn") }
+    val CoerceAtLeastDecimalClassId by lazy { konditionAnnotationClassId("CoerceAtLeastDecimal") }
+    val CoerceAtMostDecimalClassId by lazy { konditionAnnotationClassId("CoerceAtMostDecimal") }
+    val CoerceInDecimalClassId by lazy { konditionAnnotationClassId("CoerceInDecimal") }
 
     val NonEmptyClassId by lazy { konditionAnnotationClassId("NonEmpty") }
     val NonBlankClassId by lazy { konditionAnnotationClassId("NonBlank") }
