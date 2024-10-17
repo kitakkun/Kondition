@@ -20,6 +20,10 @@ object KonditionConsts {
     val NonPositiveClassId by lazy { konditionAnnotationClassId("NonPositive") }
     val NonZeroClassId by lazy { konditionAnnotationClassId("NonZero") }
 
+    val CoerceAtLeastClassId by lazy { konditionAnnotationClassId("CoerceAtLeast") }
+    val CoerceAtMostClassId by lazy { konditionAnnotationClassId("CoerceAtMost") }
+    val CoerceInClassId by lazy { konditionAnnotationClassId("CoerceIn") }
+
     val NonEmptyClassId by lazy { konditionAnnotationClassId("NonEmpty") }
     val NonBlankClassId by lazy { konditionAnnotationClassId("NonBlank") }
     val LengthClassId by lazy { konditionAnnotationClassId("Length") }
