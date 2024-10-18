@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irGet
 import org.jetbrains.kotlin.ir.declarations.IrDeclarationParent
 import org.jetbrains.kotlin.ir.declarations.IrValueDeclaration
+import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrGetValue
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
@@ -48,5 +49,32 @@ class FitValueProducer(
             this.initializer = fittedValueInitializer
             this.parent = parent
         }
+    }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    fun IrBuilderWithScope.fitExpression(
+        irContext: KonditionIrContext,
+        expression: IrExpression,
+        annotations: List<IrConstructorCall>,
+        parentDeclaration: IrDeclarationParent,
+    ): IrExpression {
+        var fittedExpression = expression
+
+        valueFitters.forEach { valueFitter ->
+            val annotation = annotations.firstOrNull {
+                it.type.classOrNull?.owner?.classId == valueFitter.annotationClassId
+            } ?: return@forEach
+
+            fittedExpression = with(valueFitter) {
+                produceFitVariable(
+                    irContext = irContext,
+                    parentDeclaration = parentDeclaration,
+                    originalValue = fittedExpression,
+                    annotation = annotation,
+                )
+            }
+        }
+
+        return fittedExpression
     }
 }

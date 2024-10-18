@@ -18,10 +18,15 @@ import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 class LocalVariablesCheckProducer(
     private val irContext: KonditionIrContext,
     private val statementsProducer: StatementsProducer,
-    private val fitValueProducer: FitValueProducer, // TODO: add support for local variables
+    private val fitValueProducer: FitValueProducer,
 ) : IrElementTransformerVoid() {
     override fun visitVariable(declaration: IrVariable): IrStatement {
         if (!declaration.isLocal) return super.visitVariable(declaration)
+        // If the initializer is null, the variable is not initialized at this point thus we can't check requirements.
+        // ex)
+        // val variable: Int <--- declaration
+        // variable = 10 <--- initialized with different statement(will be detected as IrSetValue)
+        val initializer = declaration.initializer ?: return super.visitVariable(declaration)
 
         val parent = declaration.parent as? IrFunction ?: return super.visitVariable(declaration)
 
@@ -35,11 +40,18 @@ class LocalVariablesCheckProducer(
             )
         }
 
-        // If the initializer is null, the variable is not initialized at this point thus we can't check requirements.
-        // ex)
-        // val variable: Int <--- declaration
-        // variable = 10 <--- initialized with different statement(will be detected as IrSetValue)
-        if (checkStatements.isEmpty() || declaration.initializer == null) return super.visitVariable(declaration)
+        val fittedInitializer = with(fitValueProducer) {
+            irBuilder.fitExpression(
+                irContext = irContext,
+                expression = initializer,
+                parentDeclaration = parent,
+                annotations = declaration.annotations,
+            )
+        }
+
+        declaration.initializer = fittedInitializer
+
+        if (checkStatements.isEmpty()) return super.visitVariable(declaration)
 
         return irBuilder.irComposite(declaration.startOffset, declaration.endOffset) {
             +declaration
@@ -62,6 +74,17 @@ class LocalVariablesCheckProducer(
                 parentDeclaration = parent,
             )
         }
+
+        val fittedValue = with(fitValueProducer) {
+            irBuilder.fitExpression(
+                irContext = irContext,
+                expression = expression.value,
+                parentDeclaration = parent,
+                annotations = expression.symbol.owner.annotations,
+            )
+        }
+
+        expression.value = fittedValue
 
         if (checkStatements.isEmpty()) return super.visitSetValue(expression)
 
