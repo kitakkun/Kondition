@@ -6,10 +6,12 @@ import io.github.kitakkun.kondition.compiler.ir.statement.StatementsProducer
 import org.jetbrains.kotlin.backend.common.lower.createIrBuilder
 import org.jetbrains.kotlin.backend.common.lower.irBlockBody
 import org.jetbrains.kotlin.ir.IrStatement
+import org.jetbrains.kotlin.ir.builders.irGet
 import org.jetbrains.kotlin.ir.declarations.IrFunction
 import org.jetbrains.kotlin.ir.declarations.IrValueDeclaration
 import org.jetbrains.kotlin.ir.expressions.IrBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrExpressionBody
+import org.jetbrains.kotlin.ir.expressions.IrGetValue
 import org.jetbrains.kotlin.ir.symbols.IrValueSymbol
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
@@ -39,12 +41,22 @@ class ValueParameterCheckStatementsProducer(
         val replacementMap: Map<IrValueSymbol, IrValueDeclaration> = with(fitValueProducer) {
             declaration.valueParameters
                 .mapNotNull {
-                    val replaceWith = irBuilder.produce(
+                    val fittedValue = irBuilder.fitExpression(
                         irContext = irContext,
-                        parent = declaration,
-                        value = it,
-                    ) ?: return@mapNotNull null
-                    it.symbol to replaceWith
+                        expression = irBuilder.irGet(it),
+                        parentDeclaration = declaration,
+                        annotations = it.annotations,
+                    )
+                    if (fittedValue is IrGetValue && fittedValue.symbol == it.symbol) return@mapNotNull null
+                    val fittedValueDeclaration = irBuilder.scope.createTemporaryVariableDeclaration(
+                        irType = fittedValue.type,
+                        startOffset = irBuilder.startOffset,
+                        endOffset = irBuilder.endOffset
+                    ).apply {
+                        this.initializer = fittedValue
+                        this.parent = declaration
+                    }
+                    it.symbol to fittedValueDeclaration
                 }.toMap()
         }
         body?.transformChildrenVoid(ValueReplacer(irContext, replacementMap))
