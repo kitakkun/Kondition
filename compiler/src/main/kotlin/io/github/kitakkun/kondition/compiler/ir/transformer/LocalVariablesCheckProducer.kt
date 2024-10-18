@@ -35,7 +35,11 @@ class LocalVariablesCheckProducer(
             )
         }
 
-        if (checkStatements.isEmpty()) return super.visitVariable(declaration)
+        // If the initializer is null, the variable is not initialized at this point thus we can't check requirements.
+        // ex)
+        // val variable: Int <--- declaration
+        // variable = 10 <--- initialized with different statement(will be detected as IrSetValue)
+        if (checkStatements.isEmpty() || declaration.initializer == null) return super.visitVariable(declaration)
 
         return irBuilder.irComposite(declaration.startOffset, declaration.endOffset) {
             +declaration

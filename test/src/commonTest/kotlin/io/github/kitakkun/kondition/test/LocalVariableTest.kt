@@ -50,4 +50,28 @@ class LocalVariableTest {
             immutable()
         }
     }
+
+    @Test
+    fun immutableLocalVariableLateInitPassTest() {
+        fun myFunction() {
+            @Numeric
+            val immutable: String
+            immutable = "1234"
+        }
+
+        myFunction()
+    }
+
+    @Test
+    fun immutableLocalVariableLateInitFailTest() {
+        fun myFunction() {
+            @Numeric
+            val immutable: String
+            immutable = "abcd"
+        }
+
+        assertFailsWith<IllegalStateException> {
+            myFunction()
+        }
+    }
 }
