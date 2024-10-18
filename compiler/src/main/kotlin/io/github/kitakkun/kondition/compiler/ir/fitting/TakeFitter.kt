@@ -17,7 +17,7 @@ class TakeFitter : ValueFitter {
         irContext: KonditionIrContext,
         parentDeclaration: IrDeclarationParent,
         originalValue: IrExpression,
-        annotation: IrConstructorCall
+        annotation: IrConstructorCall,
     ): IrExpression {
         val length = annotation.getIntConstArgument(0)
 

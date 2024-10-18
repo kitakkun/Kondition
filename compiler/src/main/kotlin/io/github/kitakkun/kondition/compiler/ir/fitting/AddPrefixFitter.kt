@@ -19,7 +19,7 @@ class AddPrefixFitter : ValueFitter {
         irContext: KonditionIrContext,
         parentDeclaration: IrDeclarationParent,
         originalValue: IrExpression,
-        annotation: IrConstructorCall
+        annotation: IrConstructorCall,
     ): IrExpression {
         val prefix = annotation.getStringConstArgument(0)
 

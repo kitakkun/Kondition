@@ -16,10 +16,8 @@ class TrimFitter : ValueFitter {
         irContext: KonditionIrContext,
         parentDeclaration: IrDeclarationParent,
         originalValue: IrExpression,
-        annotation: IrConstructorCall
-    ): IrExpression {
-        return irCall(irContext.trim).apply {
-            extensionReceiver = originalValue
-        }
+        annotation: IrConstructorCall,
+    ): IrExpression = irCall(irContext.trim).apply {
+        extensionReceiver = originalValue
     }
 }

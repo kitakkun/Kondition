@@ -35,9 +35,7 @@ class KonditionGradlePlugin : KotlinCompilerPluginSupportPlugin {
         }
     }
 
-    override fun applyToCompilation(kotlinCompilation: KotlinCompilation<*>): Provider<List<SubpluginOption>> {
-        return kotlinCompilation.target.project.provider { emptyList() }
-    }
+    override fun applyToCompilation(kotlinCompilation: KotlinCompilation<*>): Provider<List<SubpluginOption>> = kotlinCompilation.target.project.provider { emptyList() }
 
     override fun getCompilerPluginId(): String = "io.github.kitakkun.kondition.compiler"
 

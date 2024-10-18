@@ -51,7 +51,7 @@ class ValueParameterCheckStatementsProducer(
                     val fittedValueDeclaration = irBuilder.scope.createTemporaryVariableDeclaration(
                         irType = fittedValue.type,
                         startOffset = irBuilder.startOffset,
-                        endOffset = irBuilder.endOffset
+                        endOffset = irBuilder.endOffset,
                     ).apply {
                         this.initializer = fittedValue
                         this.parent = declaration

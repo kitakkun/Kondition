@@ -18,7 +18,7 @@ class RemoveSuffixFitter : ValueFitter {
         irContext: KonditionIrContext,
         parentDeclaration: IrDeclarationParent,
         originalValue: IrExpression,
-        annotation: IrConstructorCall
+        annotation: IrConstructorCall,
     ): IrExpression {
         val suffix = annotation.getStringConstArgument(0)
 

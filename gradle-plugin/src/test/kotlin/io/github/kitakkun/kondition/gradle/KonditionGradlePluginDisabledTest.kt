@@ -47,7 +47,7 @@ class KonditionGradlePluginDisabledTest {
             }
 
             rootProject.name = "sandbox"
-            """.trimIndent()
+            """.trimIndent(),
         )
         buildFile.writeText(
             """
@@ -64,7 +64,7 @@ class KonditionGradlePluginDisabledTest {
             application {
                 mainClass = "MainKt"
             }
-            """.trimIndent()
+            """.trimIndent(),
         )
         sourceFile.writeText(
             """
@@ -76,7 +76,7 @@ class KonditionGradlePluginDisabledTest {
             
             fun a(@Positive value: Int) {
             }
-        """.trimIndent()
+            """.trimIndent(),
         )
 
         val result = GradleRunner.create()

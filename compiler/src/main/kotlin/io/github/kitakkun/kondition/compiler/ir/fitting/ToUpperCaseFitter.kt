@@ -15,7 +15,7 @@ class ToUpperCaseFitter : ValueFitter {
         irContext: KonditionIrContext,
         parentDeclaration: IrDeclarationParent,
         originalValue: IrExpression,
-        annotation: IrConstructorCall
+        annotation: IrConstructorCall,
     ): IrExpression {
         val function = when (originalValue.type) {
             irContext.irBuiltIns.charType -> irContext.uppercaseChar

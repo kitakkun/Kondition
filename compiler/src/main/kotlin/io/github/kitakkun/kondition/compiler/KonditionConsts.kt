@@ -52,10 +52,8 @@ object KonditionConsts {
 
     val AbortWithClassId by lazy { konditionAnnotationClassId("AbortWith") }
 
-    fun konditionAnnotationClassId(name: String): ClassId {
-        return classId(
-            packageName = "io.github.kitakkun.kondition.core.annotation",
-            className = name,
-        )
-    }
+    fun konditionAnnotationClassId(name: String): ClassId = classId(
+        packageName = "io.github.kitakkun.kondition.core.annotation",
+        className = name,
+    )
 }
