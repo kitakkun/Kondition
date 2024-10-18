@@ -4,6 +4,9 @@ import io.github.kitakkun.kondition.core.annotation.AddPrefix
 import io.github.kitakkun.kondition.core.annotation.AddSuffix
 import io.github.kitakkun.kondition.core.annotation.RemovePrefix
 import io.github.kitakkun.kondition.core.annotation.RemoveSuffix
+import io.github.kitakkun.kondition.core.annotation.Trim
+import io.github.kitakkun.kondition.core.annotation.TrimEnd
+import io.github.kitakkun.kondition.core.annotation.TrimStart
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -43,5 +46,35 @@ class StringFittingTest {
         }
 
         myFunction("test_suffix")
+    }
+
+    @Test
+    fun trimTest() {
+        fun myFunction(@Trim value: String) {
+            assertTrue { value.takeWhile { it.isWhitespace() }.isEmpty() }
+            assertTrue { value.takeLastWhile { it.isWhitespace() }.isEmpty() }
+        }
+
+        myFunction("     test     ")
+    }
+
+    @Test
+    fun trimStartTest() {
+        fun myFunction(@TrimStart value: String) {
+            assertTrue { value.takeWhile { it.isWhitespace() }.isEmpty() }
+            assertTrue { value.takeLastWhile { it.isWhitespace() }.isNotEmpty() }
+        }
+
+        myFunction("     test     ")
+    }
+
+    @Test
+    fun trimEndTest() {
+        fun myFunction(@TrimEnd value: String) {
+            assertTrue { value.takeWhile { it.isWhitespace() }.isNotEmpty() }
+            assertTrue { value.takeLastWhile { it.isWhitespace() }.isEmpty() }
+        }
+
+        myFunction("     test     ")
     }
 }

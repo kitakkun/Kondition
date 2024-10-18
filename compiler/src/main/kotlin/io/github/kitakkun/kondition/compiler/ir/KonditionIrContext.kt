@@ -53,6 +53,9 @@ class KonditionIrContext(
 
     val removePrefix by lazy { namedFunction("kotlin.text", "removePrefix") }
     val removeSuffix by lazy { namedFunction("kotlin.text", "removeSuffix") }
+    val trim by lazy { namedFunction("kotlin.text", "trim") }
+    val trimStart by lazy { namedFunction("kotlin.text", "trimStart") }
+    val trimEnd by lazy { namedFunction("kotlin.text", "trimEnd") }
 
     fun namedFunction(
         packageName: String,

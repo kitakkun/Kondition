@@ -10,6 +10,9 @@ import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceInDecimalFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceInFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.RemovePrefixFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.RemoveSuffixFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.TrimEndFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.TrimFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.TrimStartFitter
 import io.github.kitakkun.kondition.compiler.ir.requirement.AlphabeticRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanLongRequirementProvider
@@ -93,6 +96,9 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
             AddSuffixFitter(),
             RemovePrefixFitter(),
             AddPrefixFitter(),
+            TrimFitter(),
+            TrimStartFitter(),
+            TrimEndFitter(),
         )
 
         val statementsProducer = StatementsProducer(requirementProviders)

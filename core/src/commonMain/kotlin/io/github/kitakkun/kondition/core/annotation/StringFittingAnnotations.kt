@@ -12,3 +12,11 @@ annotation class RemovePrefix(val prefix: String)
 @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
 annotation class RemoveSuffix(val suffix: String)
 
+@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
+annotation class Trim
+
+@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
+annotation class TrimStart
+
+@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
+annotation class TrimEnd

@@ -8,6 +8,9 @@ object KonditionConsts {
     val AddSuffixClassId by lazy { konditionAnnotationClassId("AddSuffix") }
     val RemovePrefixClassId by lazy { konditionAnnotationClassId("RemovePrefix") }
     val RemoveSuffixClassId by lazy { konditionAnnotationClassId("RemoveSuffix") }
+    val TrimClassId by lazy { konditionAnnotationClassId("Trim") }
+    val TrimStartClassId by lazy { konditionAnnotationClassId("TrimStart") }
+    val TrimEndClassId by lazy { konditionAnnotationClassId("TrimEnd") }
 
     val RangedClassId by lazy { konditionAnnotationClassId("Ranged") }
     val RangedDecimalClassId by lazy { konditionAnnotationClassId("RangedDecimal") }
