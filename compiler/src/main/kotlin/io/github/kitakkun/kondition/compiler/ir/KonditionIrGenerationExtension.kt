@@ -8,8 +8,12 @@ import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceAtMostDecimalFitte
 import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceAtMostFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceInDecimalFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceInFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.DropFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.DropLastFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.RemovePrefixFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.RemoveSuffixFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.TakeFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.TakeLastFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.TrimEndFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.TrimFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.TrimStartFitter
@@ -99,6 +103,10 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
             TrimFitter(),
             TrimStartFitter(),
             TrimEndFitter(),
+            TakeFitter(),
+            TakeLastFitter(),
+            DropFitter(),
+            DropLastFitter(),
         )
 
         val statementsProducer = StatementsProducer(requirementProviders)

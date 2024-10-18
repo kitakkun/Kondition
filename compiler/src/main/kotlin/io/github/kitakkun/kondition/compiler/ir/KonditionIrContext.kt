@@ -56,6 +56,10 @@ class KonditionIrContext(
     val trim by lazy { namedFunction("kotlin.text", "trim") }
     val trimStart by lazy { namedFunction("kotlin.text", "trimStart") }
     val trimEnd by lazy { namedFunction("kotlin.text", "trimEnd") }
+    val take by lazy { namedFunction("kotlin.text", "take") }
+    val takeLast by lazy { namedFunction("kotlin.text", "takeLast") }
+    val drop by lazy { namedFunction("kotlin.text", "drop") }
+    val dropLast by lazy { namedFunction("kotlin.text", "dropLast") }
 
     fun namedFunction(
         packageName: String,

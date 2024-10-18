@@ -2,12 +2,17 @@ package io.github.kitakkun.kondition.test.fitting
 
 import io.github.kitakkun.kondition.core.annotation.AddPrefix
 import io.github.kitakkun.kondition.core.annotation.AddSuffix
+import io.github.kitakkun.kondition.core.annotation.Drop
+import io.github.kitakkun.kondition.core.annotation.DropLast
 import io.github.kitakkun.kondition.core.annotation.RemovePrefix
 import io.github.kitakkun.kondition.core.annotation.RemoveSuffix
+import io.github.kitakkun.kondition.core.annotation.Take
+import io.github.kitakkun.kondition.core.annotation.TakeLast
 import io.github.kitakkun.kondition.core.annotation.Trim
 import io.github.kitakkun.kondition.core.annotation.TrimEnd
 import io.github.kitakkun.kondition.core.annotation.TrimStart
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -76,5 +81,41 @@ class StringFittingTest {
         }
 
         myFunction("     test     ")
+    }
+
+    @Test
+    fun takeTest() {
+        fun myFunction(@Take(5) value: String) {
+            assertEquals("12345", value)
+        }
+
+        myFunction("1234567890")
+    }
+
+    @Test
+    fun takeLastTest() {
+        fun myFunction(@TakeLast(5) value: String) {
+            assertEquals("67890", value)
+        }
+
+        myFunction("1234567890")
+    }
+
+    @Test
+    fun dropTest() {
+        fun myFunction(@Drop(5) value: String) {
+            assertEquals("67890", value)
+        }
+
+        myFunction("1234567890")
+    }
+
+    @Test
+    fun dropLastTest() {
+        fun myFunction(@DropLast(5) value: String) {
+            assertEquals("12345", value)
+        }
+
+        myFunction("1234567890")
     }
 }
