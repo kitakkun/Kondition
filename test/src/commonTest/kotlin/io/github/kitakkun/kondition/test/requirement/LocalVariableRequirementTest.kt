@@ -1,10 +1,10 @@
-package io.github.kitakkun.kondition.test
+package io.github.kitakkun.kondition.test.requirement
 
 import io.github.kitakkun.kondition.core.annotation.Numeric
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
-class LocalVariableTest {
+class LocalVariableRequirementTest {
     @Test
     fun mutableLocalVariablePassTest() {
         fun mutable() {

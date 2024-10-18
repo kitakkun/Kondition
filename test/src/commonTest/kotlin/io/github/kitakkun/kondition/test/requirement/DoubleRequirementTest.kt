@@ -1,11 +1,5 @@
-package io.github.kitakkun.kondition.test
+package io.github.kitakkun.kondition.test.requirement
 
-import io.github.kitakkun.kondition.core.annotation.CoerceAtLeast
-import io.github.kitakkun.kondition.core.annotation.CoerceAtLeastDecimal
-import io.github.kitakkun.kondition.core.annotation.CoerceAtMost
-import io.github.kitakkun.kondition.core.annotation.CoerceAtMostDecimal
-import io.github.kitakkun.kondition.core.annotation.CoerceIn
-import io.github.kitakkun.kondition.core.annotation.CoerceInDecimal
 import io.github.kitakkun.kondition.core.annotation.GreaterThanDecimal
 import io.github.kitakkun.kondition.core.annotation.GreaterThanOrEqualsDecimal
 import io.github.kitakkun.kondition.core.annotation.LessThanDecimal
@@ -18,10 +12,9 @@ import io.github.kitakkun.kondition.core.annotation.Positive
 import io.github.kitakkun.kondition.core.annotation.RangeRule
 import io.github.kitakkun.kondition.core.annotation.RangedDecimal
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-class DoubleTest {
+class DoubleRequirementTest {
     @Test
     fun testRanged_InclusiveInclusive() {
         fun ranged(@RangedDecimal(start = 0.0, end = 10.0) value: Double) {
@@ -234,69 +227,5 @@ class DoubleTest {
         assertFailsWith(IllegalArgumentException::class) {
             lessThanOrEquals(1.0)
         }
-    }
-
-    @Test
-    fun testCoerceIn() {
-        fun coerceInUpper(@CoerceIn(0, 10) value: Double) {
-            assertEquals(10.0, value)
-        }
-
-        fun coerceInLower(@CoerceIn(0, 10) value: Double) {
-            assertEquals(0.0, value)
-        }
-
-        coerceInUpper(50.0)
-        coerceInLower(-50.0)
-    }
-
-    @Test
-    fun testCoerceAtMost() {
-        fun coerceAtMost(@CoerceAtMost(0) value: Double) {
-            assertEquals(0.0, value)
-        }
-
-        coerceAtMost(50.0)
-    }
-
-    @Test
-    fun testCoerceAtLeast() {
-        fun coerceAtLeast(@CoerceAtLeast(0) value: Double) {
-            assertEquals(0.0, value)
-        }
-
-        coerceAtLeast(-50.0)
-    }
-
-    @Test
-    fun testCoerceInDecimal() {
-        fun coerceInUpper(@CoerceInDecimal(0.0, 10.0) value: Double) {
-            assertEquals(10.0, value)
-        }
-
-        fun coerceInLower(@CoerceInDecimal(0.0, 10.0) value: Double) {
-            assertEquals(0.0, value)
-        }
-
-        coerceInUpper(10.1)
-        coerceInLower(-0.1)
-    }
-
-    @Test
-    fun testCoerceAtMostDecimal() {
-        fun coerceAtMost(@CoerceAtMostDecimal(0.0) value: Double) {
-            assertEquals(0.0, value)
-        }
-
-        coerceAtMost(0.1)
-    }
-
-    @Test
-    fun testCoerceAtLeastDecimal() {
-        fun coerceAtLeast(@CoerceAtLeastDecimal(0.0) value: Double) {
-            assertEquals(0.0, value)
-        }
-
-        coerceAtLeast(-0.1)
     }
 }

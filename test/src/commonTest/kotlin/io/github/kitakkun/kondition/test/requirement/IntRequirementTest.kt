@@ -1,11 +1,5 @@
-package io.github.kitakkun.kondition.test
+package io.github.kitakkun.kondition.test.requirement
 
-import io.github.kitakkun.kondition.core.annotation.CoerceAtLeast
-import io.github.kitakkun.kondition.core.annotation.CoerceAtLeastDecimal
-import io.github.kitakkun.kondition.core.annotation.CoerceAtMost
-import io.github.kitakkun.kondition.core.annotation.CoerceAtMostDecimal
-import io.github.kitakkun.kondition.core.annotation.CoerceIn
-import io.github.kitakkun.kondition.core.annotation.CoerceInDecimal
 import io.github.kitakkun.kondition.core.annotation.GreaterThan
 import io.github.kitakkun.kondition.core.annotation.GreaterThanOrEquals
 import io.github.kitakkun.kondition.core.annotation.LessThan
@@ -18,13 +12,12 @@ import io.github.kitakkun.kondition.core.annotation.Positive
 import io.github.kitakkun.kondition.core.annotation.RangeRule
 import io.github.kitakkun.kondition.core.annotation.Ranged
 import kotlin.test.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-class ByteTest {
+class IntRequirementTest {
     @Test
     fun testRanged_InclusiveInclusive() {
-        fun ranged(@Ranged(start = 0, end = 10) value: Byte) {
+        fun ranged(@Ranged(start = 0, end = 10) value: Int) {
             // compiler will generate:
             // require(value in 0..10)
         }
@@ -44,7 +37,7 @@ class ByteTest {
 
     @Test
     fun testRanged_InclusiveExclusive() {
-        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.InclusiveExclusive) value: Byte) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.InclusiveExclusive) value: Int) {
             // compiler will generate:
             // require(value in 0 until 10)
         }
@@ -64,7 +57,7 @@ class ByteTest {
 
     @Test
     fun testRanged_ExclusiveInclusive() {
-        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveInclusive) value: Byte) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveInclusive) value: Int) {
             // compiler will generate:
             // require(value > 0 && value <= 10)
         }
@@ -84,7 +77,7 @@ class ByteTest {
 
     @Test
     fun testRanged_ExclusiveExclusive() {
-        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveExclusive) value: Byte) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveExclusive) value: Int) {
             // compiler will generate:
             // require(value > 0 && value < 10)
         }
@@ -104,7 +97,7 @@ class ByteTest {
 
     @Test
     fun testNegative() {
-        fun negative(@Negative value: Byte) {
+        fun negative(@Negative value: Int) {
             // compiler will generate:
             // require(value < 0) { ... }
         }
@@ -120,7 +113,7 @@ class ByteTest {
 
     @Test
     fun testNonNegative() {
-        fun nonNegative(@NonNegative value: Byte) {
+        fun nonNegative(@NonNegative value: Int) {
             // compiler will generate:
             // require(value >= 0) { ... }
         }
@@ -134,7 +127,7 @@ class ByteTest {
 
     @Test
     fun testPositive() {
-        fun positive(@Positive value: Byte) {
+        fun positive(@Positive value: Int) {
             // compiler will generate:
             // require(value > 0) { ... }
         }
@@ -150,7 +143,7 @@ class ByteTest {
 
     @Test
     fun testNonPositive() {
-        fun nonPositive(@NonPositive value: Byte) {
+        fun nonPositive(@NonPositive value: Int) {
             // compiler will generate:
             // require(value <= 0) { ... }
         }
@@ -164,7 +157,7 @@ class ByteTest {
 
     @Test
     fun testNonZero() {
-        fun nonZero(@NonZero value: Byte) {
+        fun nonZero(@NonZero value: Int) {
             // compiler will generate:
             // require(value != 0) { ... }
         }
@@ -178,7 +171,7 @@ class ByteTest {
 
     @Test
     fun testGreaterThan() {
-        fun greaterThan(@GreaterThan(0) value: Byte) {
+        fun greaterThan(@GreaterThan(0) value: Int) {
             // compiler will generate:
             // require(value > 0) { ... }
         }
@@ -194,7 +187,7 @@ class ByteTest {
 
     @Test
     fun testGreaterThanOrEquals() {
-        fun greaterThanOrEquals(@GreaterThanOrEquals(0) value: Byte) {
+        fun greaterThanOrEquals(@GreaterThanOrEquals(0) value: Int) {
             // compiler will generate:
             // require(value >= 0) { ... }
         }
@@ -208,7 +201,7 @@ class ByteTest {
 
     @Test
     fun testLessThan() {
-        fun lessThan(@LessThan(0) value: Byte) {
+        fun lessThan(@LessThan(0) value: Int) {
             // compiler will generate:
             // require(value < 0) { ... }
         }
@@ -224,7 +217,7 @@ class ByteTest {
 
     @Test
     fun testLessThanOrEquals() {
-        fun lessThanOrEquals(@LessThanOrEquals(0) value: Byte) {
+        fun lessThanOrEquals(@LessThanOrEquals(0) value: Int) {
             // compiler will generate:
             // require(value < 0) { ... }
         }
@@ -234,69 +227,5 @@ class ByteTest {
         assertFailsWith(IllegalArgumentException::class) {
             lessThanOrEquals(1)
         }
-    }
-
-    @Test
-    fun testCoerceIn() {
-        fun coerceInUpper(@CoerceIn(0, 10) value: Byte) {
-            assertEquals(10, value)
-        }
-
-        fun coerceInLower(@CoerceIn(0, 10) value: Byte) {
-            assertEquals(0, value)
-        }
-
-        coerceInUpper(50)
-        coerceInLower(-50)
-    }
-
-    @Test
-    fun testCoerceAtMost() {
-        fun coerceAtMost(@CoerceAtMost(0) value: Byte) {
-            assertEquals(0, value)
-        }
-
-        coerceAtMost(50)
-    }
-
-    @Test
-    fun testCoerceAtLeast() {
-        fun coerceAtLeast(@CoerceAtLeast(0) value: Byte) {
-            assertEquals(0, value)
-        }
-
-        coerceAtLeast(-50)
-    }
-
-    @Test
-    fun testCoerceInDecimal() {
-        fun coerceInUpper(@CoerceInDecimal(0.0, 10.0) value: Byte) {
-            assertEquals(10, value)
-        }
-
-        fun coerceInLower(@CoerceInDecimal(0.0, 10.0) value: Byte) {
-            assertEquals(0, value)
-        }
-
-        coerceInUpper(50)
-        coerceInLower(-50)
-    }
-
-    @Test
-    fun testCoerceAtMostDecimal() {
-        fun coerceAtMost(@CoerceAtMostDecimal(0.0) value: Byte) {
-            assertEquals(0, value)
-        }
-
-        coerceAtMost(50)
-    }
-
-    @Test
-    fun testCoerceAtLeastDecimal() {
-        fun coerceAtLeast(@CoerceAtLeastDecimal(0.0) value: Byte) {
-            assertEquals(0, value)
-        }
-
-        coerceAtLeast(-50)
     }
 }
