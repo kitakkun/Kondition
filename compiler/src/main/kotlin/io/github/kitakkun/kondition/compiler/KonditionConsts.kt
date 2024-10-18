@@ -15,6 +15,8 @@ object KonditionConsts {
     val TakeLastClassId by lazy { konditionAnnotationClassId("TakeLast") }
     val DropClassId by lazy { konditionAnnotationClassId("Drop") }
     val DropLastClassId by lazy { konditionAnnotationClassId("DropLast") }
+    val UpperCaseClassId by lazy { konditionAnnotationClassId("UpperCase") }
+    val LowerCaseClassId by lazy { konditionAnnotationClassId("LowerCase") }
 
     val RangedClassId by lazy { konditionAnnotationClassId("Ranged") }
     val RangedDecimalClassId by lazy { konditionAnnotationClassId("RangedDecimal") }

@@ -10,6 +10,7 @@ import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceInDecimalFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceInFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.DropFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.DropLastFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.LowerCaseFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.RemovePrefixFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.RemoveSuffixFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.TakeFitter
@@ -17,6 +18,7 @@ import io.github.kitakkun.kondition.compiler.ir.fitting.TakeLastFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.TrimEndFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.TrimFitter
 import io.github.kitakkun.kondition.compiler.ir.fitting.TrimStartFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.UpperCaseFitter
 import io.github.kitakkun.kondition.compiler.ir.requirement.AlphabeticRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanLongRequirementProvider
@@ -107,6 +109,8 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
             TakeLastFitter(),
             DropFitter(),
             DropLastFitter(),
+            UpperCaseFitter(),
+            LowerCaseFitter(),
         )
 
         val statementsProducer = StatementsProducer(requirementProviders)

@@ -37,3 +37,12 @@ For String:
 |    `@TakeLast(length: Int)`     | `value.takeLast(length)`     |
 |      `@Drop(length: Int)`       | `value.drop(length)`         |
 |    `@DropLast(length: Int)`     | `value.dropLast(length)`     |
+|          `@UpperCase`           | `value.uppercase()`          |
+|          `@LowerCase`           | `value.lowercase()`          |
+
+For Char:
+
+|  Annotation  | Preprocess              |
+|:------------:|:------------------------|
+| `@UpperCase` | `value.uppercaseChar()` |
+| `@LowerCase` | `value.lowercaseChar()` |

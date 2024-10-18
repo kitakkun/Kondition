@@ -61,6 +61,34 @@ class KonditionIrContext(
     val drop by lazy { namedFunction("kotlin.text", "drop") }
     val dropLast by lazy { namedFunction("kotlin.text", "dropLast") }
 
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val uppercaseString by lazy {
+        namedFunction("kotlin.text", "uppercase") {
+            it.owner.extensionReceiverParameter?.type == irBuiltIns.stringType && it.owner.valueParameters.isEmpty()
+        }
+    }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val uppercaseChar by lazy {
+        namedFunction("kotlin.text", "uppercaseChar") {
+            it.owner.extensionReceiverParameter?.type == irBuiltIns.charType && it.owner.valueParameters.isEmpty()
+        }
+    }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val lowercaseString by lazy {
+        namedFunction("kotlin.text", "lowercase") {
+            it.owner.extensionReceiverParameter?.type == irBuiltIns.stringType && it.owner.valueParameters.isEmpty()
+        }
+    }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val lowercaseChar by lazy {
+        namedFunction("kotlin.text", "lowercaseChar") {
+            it.owner.extensionReceiverParameter?.type == irBuiltIns.charType && it.owner.valueParameters.isEmpty()
+        }
+    }
+
     fun namedFunction(
         packageName: String,
         name: String,

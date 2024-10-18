@@ -32,3 +32,9 @@ annotation class Drop(val length: Int)
 
 @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
 annotation class DropLast(val length: Int)
+
+@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
+annotation class UpperCase
+
+@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
+annotation class LowerCase
