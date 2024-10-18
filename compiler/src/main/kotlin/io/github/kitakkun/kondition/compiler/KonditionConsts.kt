@@ -4,6 +4,11 @@ import org.jetbrains.kotlin.javac.resolve.classId
 import org.jetbrains.kotlin.name.ClassId
 
 object KonditionConsts {
+    val AddPrefixClassId by lazy { konditionAnnotationClassId("AddPrefix") }
+    val AddSuffixClassId by lazy { konditionAnnotationClassId("AddSuffix") }
+    val RemovePrefixClassId by lazy { konditionAnnotationClassId("RemovePrefix") }
+    val RemoveSuffixClassId by lazy { konditionAnnotationClassId("RemoveSuffix") }
+
     val RangedClassId by lazy { konditionAnnotationClassId("Ranged") }
     val RangedDecimalClassId by lazy { konditionAnnotationClassId("RangedDecimal") }
     val GreaterThanClassId by lazy { konditionAnnotationClassId("GreaterThan") }

@@ -51,6 +51,9 @@ class KonditionIrContext(
     @OptIn(UnsafeDuringIrConstructionAPI::class)
     val coerceIn by lazy { namedFunction("kotlin.ranges", "coerceIn") { it.owner.typeParameters.isNotEmpty() } }
 
+    val removePrefix by lazy { namedFunction("kotlin.text", "removePrefix") }
+    val removeSuffix by lazy { namedFunction("kotlin.text", "removeSuffix") }
+
     fun namedFunction(
         packageName: String,
         name: String,
