@@ -1,5 +1,24 @@
 package io.github.kitakkun.kondition.compiler.ir
 
+import io.github.kitakkun.kondition.compiler.ir.fitting.AddPrefixFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.AddSuffixFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceAtLeastDecimalFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceAtLeastFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceAtMostDecimalFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceAtMostFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceInDecimalFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.CoerceInFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.DropFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.DropLastFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.RemovePrefixFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.RemoveSuffixFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.TakeFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.TakeLastFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.ToLowerCaseFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.ToUpperCaseFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.TrimEndFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.TrimFitter
+import io.github.kitakkun.kondition.compiler.ir.fitting.TrimStartFitter
 import io.github.kitakkun.kondition.compiler.ir.requirement.AlphabeticRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.GreaterThanLongRequirementProvider
@@ -23,6 +42,7 @@ import io.github.kitakkun.kondition.compiler.ir.requirement.NumericRequirementPr
 import io.github.kitakkun.kondition.compiler.ir.requirement.PositiveRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedLongRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.statement.FitValueProducer
 import io.github.kitakkun.kondition.compiler.ir.statement.StatementsProducer
 import io.github.kitakkun.kondition.compiler.ir.transformer.LocalVariablesCheckProducer
 import io.github.kitakkun.kondition.compiler.ir.transformer.ValueParameterCheckStatementsProducer
@@ -71,8 +91,31 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
             NonZeroRequirementProvider(),
         )
 
+        val valueFitters = listOf(
+            CoerceAtLeastFitter(),
+            CoerceAtMostFitter(),
+            CoerceInFitter(),
+            CoerceAtLeastDecimalFitter(),
+            CoerceAtMostDecimalFitter(),
+            CoerceInDecimalFitter(),
+            RemoveSuffixFitter(),
+            AddSuffixFitter(),
+            RemovePrefixFitter(),
+            AddPrefixFitter(),
+            TrimFitter(),
+            TrimStartFitter(),
+            TrimEndFitter(),
+            TakeFitter(),
+            TakeLastFitter(),
+            DropFitter(),
+            DropLastFitter(),
+            ToUpperCaseFitter(),
+            ToLowerCaseFitter(),
+        )
+
         val statementsProducer = StatementsProducer(requirementProviders)
-        moduleFragment.transformChildrenVoid(ValueParameterCheckStatementsProducer(context, statementsProducer))
-        moduleFragment.transformChildrenVoid(LocalVariablesCheckProducer(context, statementsProducer))
+        val fitValueProducer = FitValueProducer(valueFitters)
+        moduleFragment.transformChildrenVoid(ValueParameterCheckStatementsProducer(context, statementsProducer, fitValueProducer))
+        moduleFragment.transformChildrenVoid(LocalVariablesCheckProducer(context, statementsProducer, fitValueProducer))
     }
 }

@@ -41,7 +41,7 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
                 return AnnotationValue(
                     start = start,
                     end = end,
-                    rule = RangeRule.entries.find { it.name == rangeRuleName } ?: RangeRule.InclusiveInclusive
+                    rule = RangeRule.entries.find { it.name == rangeRuleName } ?: RangeRule.InclusiveInclusive,
                 )
             }
         }

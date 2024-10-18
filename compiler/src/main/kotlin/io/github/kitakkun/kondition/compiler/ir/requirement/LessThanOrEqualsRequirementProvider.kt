@@ -14,11 +14,9 @@ import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.util.toIrConst
 import org.jetbrains.kotlin.name.ClassId
 
-class LessThanOrEqualsLongRequirementProvider :
-    LessThanOrEqualsRequirementProvider<Long>(KonditionConsts.LessThanOrEqualsClassId)
+class LessThanOrEqualsLongRequirementProvider : LessThanOrEqualsRequirementProvider<Long>(KonditionConsts.LessThanOrEqualsClassId)
 
-class LessThanOrEqualsDecimalRequirementProvider :
-    LessThanOrEqualsRequirementProvider<Double>(KonditionConsts.LessThanOrEqualsDecimalClassId)
+class LessThanOrEqualsDecimalRequirementProvider : LessThanOrEqualsRequirementProvider<Double>(KonditionConsts.LessThanOrEqualsDecimalClassId)
 
 sealed class LessThanOrEqualsRequirementProvider<T : Number>(
     override val annotationClassId: ClassId,

@@ -1,10 +1,10 @@
-package io.github.kitakkun.kondition.test
+package io.github.kitakkun.kondition.test.requirement
 
 import io.github.kitakkun.kondition.core.annotation.Numeric
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
-class LocalVariableTest {
+class LocalVariableRequirementTest {
     @Test
     fun mutableLocalVariablePassTest() {
         fun mutable() {
@@ -48,6 +48,30 @@ class LocalVariableTest {
 
         assertFailsWith<IllegalStateException> {
             immutable()
+        }
+    }
+
+    @Test
+    fun immutableLocalVariableLateInitPassTest() {
+        fun myFunction() {
+            @Numeric
+            val immutable: String
+            immutable = "1234"
+        }
+
+        myFunction()
+    }
+
+    @Test
+    fun immutableLocalVariableLateInitFailTest() {
+        fun myFunction() {
+            @Numeric
+            val immutable: String
+            immutable = "abcd"
+        }
+
+        assertFailsWith<IllegalStateException> {
+            myFunction()
         }
     }
 }

@@ -1,4 +1,4 @@
-package io.github.kitakkun.kondition.test
+package io.github.kitakkun.kondition.test.requirement
 
 import io.github.kitakkun.kondition.core.annotation.GreaterThan
 import io.github.kitakkun.kondition.core.annotation.GreaterThanOrEquals
@@ -14,10 +14,10 @@ import io.github.kitakkun.kondition.core.annotation.Ranged
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
-class LongTest {
+class ShortRequirementTest {
     @Test
     fun testRanged_InclusiveInclusive() {
-        fun ranged(@Ranged(start = 0, end = 10) value: Long) {
+        fun ranged(@Ranged(start = 0, end = 10) value: Short) {
             // compiler will generate:
             // require(value in 0..10)
         }
@@ -37,7 +37,7 @@ class LongTest {
 
     @Test
     fun testRanged_InclusiveExclusive() {
-        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.InclusiveExclusive) value: Long) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.InclusiveExclusive) value: Short) {
             // compiler will generate:
             // require(value in 0 until 10)
         }
@@ -57,7 +57,7 @@ class LongTest {
 
     @Test
     fun testRanged_ExclusiveInclusive() {
-        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveInclusive) value: Long) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveInclusive) value: Short) {
             // compiler will generate:
             // require(value > 0 && value <= 10)
         }
@@ -77,7 +77,7 @@ class LongTest {
 
     @Test
     fun testRanged_ExclusiveExclusive() {
-        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveExclusive) value: Long) {
+        fun ranged(@Ranged(start = 0, end = 10, rule = RangeRule.ExclusiveExclusive) value: Short) {
             // compiler will generate:
             // require(value > 0 && value < 10)
         }
@@ -97,7 +97,7 @@ class LongTest {
 
     @Test
     fun testNegative() {
-        fun negative(@Negative value: Long) {
+        fun negative(@Negative value: Short) {
             // compiler will generate:
             // require(value < 0) { ... }
         }
@@ -113,7 +113,7 @@ class LongTest {
 
     @Test
     fun testNonNegative() {
-        fun nonNegative(@NonNegative value: Long) {
+        fun nonNegative(@NonNegative value: Short) {
             // compiler will generate:
             // require(value >= 0) { ... }
         }
@@ -127,7 +127,7 @@ class LongTest {
 
     @Test
     fun testPositive() {
-        fun positive(@Positive value: Long) {
+        fun positive(@Positive value: Short) {
             // compiler will generate:
             // require(value > 0) { ... }
         }
@@ -143,7 +143,7 @@ class LongTest {
 
     @Test
     fun testNonPositive() {
-        fun nonPositive(@NonPositive value: Long) {
+        fun nonPositive(@NonPositive value: Short) {
             // compiler will generate:
             // require(value <= 0) { ... }
         }
@@ -157,7 +157,7 @@ class LongTest {
 
     @Test
     fun testNonZero() {
-        fun nonZero(@NonZero value: Long) {
+        fun nonZero(@NonZero value: Short) {
             // compiler will generate:
             // require(value != 0) { ... }
         }
@@ -171,7 +171,7 @@ class LongTest {
 
     @Test
     fun testGreaterThan() {
-        fun greaterThan(@GreaterThan(0) value: Long) {
+        fun greaterThan(@GreaterThan(0) value: Short) {
             // compiler will generate:
             // require(value > 0) { ... }
         }
@@ -187,7 +187,7 @@ class LongTest {
 
     @Test
     fun testGreaterThanOrEquals() {
-        fun greaterThanOrEquals(@GreaterThanOrEquals(0) value: Long) {
+        fun greaterThanOrEquals(@GreaterThanOrEquals(0) value: Short) {
             // compiler will generate:
             // require(value >= 0) { ... }
         }
@@ -201,7 +201,7 @@ class LongTest {
 
     @Test
     fun testLessThan() {
-        fun lessThan(@LessThan(0) value: Long) {
+        fun lessThan(@LessThan(0) value: Short) {
             // compiler will generate:
             // require(value < 0) { ... }
         }
@@ -217,7 +217,7 @@ class LongTest {
 
     @Test
     fun testLessThanOrEquals() {
-        fun lessThanOrEquals(@LessThanOrEquals(0) value: Long) {
+        fun lessThanOrEquals(@LessThanOrEquals(0) value: Short) {
             // compiler will generate:
             // require(value < 0) { ... }
         }

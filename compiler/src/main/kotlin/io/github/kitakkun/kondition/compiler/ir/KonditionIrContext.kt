@@ -42,6 +42,53 @@ class KonditionIrContext(
     val lengthGreaterThanOrEquals by lazy { getKonditionNamedFunction("lengthGreaterThanOrEquals", "core.internal") }
     val lengthLessThanOrEquals by lazy { getKonditionNamedFunction("lengthLessThanOrEquals", "core.internal") }
 
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val coerceAtLeast by lazy { namedFunction("kotlin.ranges", "coerceAtLeast") { it.owner.typeParameters.isNotEmpty() } }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val coerceAtMost by lazy { namedFunction("kotlin.ranges", "coerceAtMost") { it.owner.typeParameters.isNotEmpty() } }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val coerceIn by lazy { namedFunction("kotlin.ranges", "coerceIn") { it.owner.typeParameters.isNotEmpty() } }
+
+    val removePrefix by lazy { namedFunction("kotlin.text", "removePrefix") }
+    val removeSuffix by lazy { namedFunction("kotlin.text", "removeSuffix") }
+    val trim by lazy { namedFunction("kotlin.text", "trim") }
+    val trimStart by lazy { namedFunction("kotlin.text", "trimStart") }
+    val trimEnd by lazy { namedFunction("kotlin.text", "trimEnd") }
+    val take by lazy { namedFunction("kotlin.text", "take") }
+    val takeLast by lazy { namedFunction("kotlin.text", "takeLast") }
+    val drop by lazy { namedFunction("kotlin.text", "drop") }
+    val dropLast by lazy { namedFunction("kotlin.text", "dropLast") }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val uppercaseString by lazy {
+        namedFunction("kotlin.text", "uppercase") {
+            it.owner.extensionReceiverParameter?.type == irBuiltIns.stringType && it.owner.valueParameters.isEmpty()
+        }
+    }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val uppercaseChar by lazy {
+        namedFunction("kotlin.text", "uppercaseChar") {
+            it.owner.extensionReceiverParameter?.type == irBuiltIns.charType && it.owner.valueParameters.isEmpty()
+        }
+    }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val lowercaseString by lazy {
+        namedFunction("kotlin.text", "lowercase") {
+            it.owner.extensionReceiverParameter?.type == irBuiltIns.stringType && it.owner.valueParameters.isEmpty()
+        }
+    }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val lowercaseChar by lazy {
+        namedFunction("kotlin.text", "lowercaseChar") {
+            it.owner.extensionReceiverParameter?.type == irBuiltIns.charType && it.owner.valueParameters.isEmpty()
+        }
+    }
+
     fun namedFunction(
         packageName: String,
         name: String,

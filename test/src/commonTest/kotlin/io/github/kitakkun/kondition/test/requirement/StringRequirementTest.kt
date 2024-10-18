@@ -1,4 +1,4 @@
-package io.github.kitakkun.kondition.test
+package io.github.kitakkun.kondition.test.requirement
 
 import io.github.kitakkun.kondition.core.annotation.Alphabetic
 import io.github.kitakkun.kondition.core.annotation.Length
@@ -11,7 +11,7 @@ import io.github.kitakkun.kondition.core.annotation.Numeric
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
-class StringTest {
+class StringRequirementTest {
     @Test
     fun testNonEmpty() {
         fun nonEmptyString(@NonEmpty value: String) {
