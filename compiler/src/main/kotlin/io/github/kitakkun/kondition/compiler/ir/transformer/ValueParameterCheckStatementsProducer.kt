@@ -6,12 +6,11 @@ import io.github.kitakkun.kondition.compiler.ir.statement.StatementsProducer
 import org.jetbrains.kotlin.backend.common.lower.createIrBuilder
 import org.jetbrains.kotlin.backend.common.lower.irBlockBody
 import org.jetbrains.kotlin.ir.IrStatement
-import org.jetbrains.kotlin.ir.builders.irGet
 import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.declarations.IrValueDeclaration
 import org.jetbrains.kotlin.ir.expressions.IrBlockBody
-import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.ir.expressions.IrExpressionBody
-import org.jetbrains.kotlin.ir.expressions.IrGetValue
+import org.jetbrains.kotlin.ir.symbols.IrValueSymbol
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 import org.jetbrains.kotlin.ir.visitors.IrElementTransformerVoid
 import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
@@ -35,35 +34,25 @@ class ValueParameterCheckStatementsProducer(
             }
         }
 
-        val fittedValues = with(fitValueProducer) {
-            declaration.valueParameters.associateWith {
-                irBuilder.produce(
-                    irContext = irContext,
-                    parent = declaration,
-                    value = it,
-                )
-            }
-        }
-
         val body = declaration.body
 
-        body?.transformChildrenVoid(
-            object : IrElementTransformerVoid() {
-                override fun visitGetValue(expression: IrGetValue): IrExpression {
-                    val targetEntry = fittedValues.toList().firstOrNull { it.first.symbol == expression.symbol }
-                    val replaceTarget = targetEntry?.second?.symbol
-                    if (replaceTarget != null) {
-                        return irBuilder.irGet(replaceTarget.owner)
-                    }
-                    return expression
-                }
-            }
-        )
+        val replacementMap: Map<IrValueSymbol, IrValueDeclaration> = with(fitValueProducer) {
+            declaration.valueParameters
+                .mapNotNull {
+                    val replaceWith = irBuilder.produce(
+                        irContext = irContext,
+                        parent = declaration,
+                        value = it,
+                    ) ?: return@mapNotNull null
+                    it.symbol to replaceWith
+                }.toMap()
+        }
+        body?.transformChildrenVoid(ValueReplacer(irContext, replacementMap))
 
         when (body) {
-            is IrBlockBody -> body.statements.addAll(0, additionalStatements + fittedValues.values.filterNotNull())
+            is IrBlockBody -> body.statements.addAll(0, additionalStatements + replacementMap.values.filterNotNull())
             is IrExpressionBody -> irBuilder.irBlockBody(body.expression) {
-                +(additionalStatements + fittedValues.values.filterNotNull())
+                +(additionalStatements + replacementMap.values)
                 +body.expression
             }
         }
