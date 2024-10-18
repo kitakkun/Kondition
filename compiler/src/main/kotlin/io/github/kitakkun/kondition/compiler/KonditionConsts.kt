@@ -4,6 +4,14 @@ import org.jetbrains.kotlin.javac.resolve.classId
 import org.jetbrains.kotlin.name.ClassId
 
 object KonditionConsts {
+    val AddPrefixClassId by lazy { konditionAnnotationClassId("AddPrefix") }
+    val AddSuffixClassId by lazy { konditionAnnotationClassId("AddSuffix") }
+    val RemovePrefixClassId by lazy { konditionAnnotationClassId("RemovePrefix") }
+    val RemoveSuffixClassId by lazy { konditionAnnotationClassId("RemoveSuffix") }
+    val TrimClassId by lazy { konditionAnnotationClassId("Trim") }
+    val TrimStartClassId by lazy { konditionAnnotationClassId("TrimStart") }
+    val TrimEndClassId by lazy { konditionAnnotationClassId("TrimEnd") }
+
     val RangedClassId by lazy { konditionAnnotationClassId("Ranged") }
     val RangedDecimalClassId by lazy { konditionAnnotationClassId("RangedDecimal") }
     val GreaterThanClassId by lazy { konditionAnnotationClassId("GreaterThan") }
@@ -19,6 +27,13 @@ object KonditionConsts {
     val PositiveClassId by lazy { konditionAnnotationClassId("Positive") }
     val NonPositiveClassId by lazy { konditionAnnotationClassId("NonPositive") }
     val NonZeroClassId by lazy { konditionAnnotationClassId("NonZero") }
+
+    val CoerceAtLeastClassId by lazy { konditionAnnotationClassId("CoerceAtLeast") }
+    val CoerceAtMostClassId by lazy { konditionAnnotationClassId("CoerceAtMost") }
+    val CoerceInClassId by lazy { konditionAnnotationClassId("CoerceIn") }
+    val CoerceAtLeastDecimalClassId by lazy { konditionAnnotationClassId("CoerceAtLeastDecimal") }
+    val CoerceAtMostDecimalClassId by lazy { konditionAnnotationClassId("CoerceAtMostDecimal") }
+    val CoerceInDecimalClassId by lazy { konditionAnnotationClassId("CoerceInDecimal") }
 
     val NonEmptyClassId by lazy { konditionAnnotationClassId("NonEmpty") }
     val NonBlankClassId by lazy { konditionAnnotationClassId("NonBlank") }
