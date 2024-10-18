@@ -33,3 +33,7 @@ For String:
 | `@RemovePrefix(prefix: String)` | `value.removePrefix(prefix)` |
 |  `@AddSuffix(prefix: String)`   | `"$value$suffix"`            |
 | `@RemoveSuffix(prefix: String)` | `value.removeSuffix(suffix)` |
+|      `@Take(length: Int)`       | `value.take(length)`         |
+|    `@TakeLast(length: Int)`     | `value.takeLast(length)`     |
+|      `@Drop(length: Int)`       | `value.drop(length)`         |
+|    `@DropLast(length: Int)`     | `value.dropLast(length)`     |
