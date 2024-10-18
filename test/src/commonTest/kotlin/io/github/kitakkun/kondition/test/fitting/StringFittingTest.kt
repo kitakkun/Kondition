@@ -4,15 +4,15 @@ import io.github.kitakkun.kondition.core.annotation.AddPrefix
 import io.github.kitakkun.kondition.core.annotation.AddSuffix
 import io.github.kitakkun.kondition.core.annotation.Drop
 import io.github.kitakkun.kondition.core.annotation.DropLast
-import io.github.kitakkun.kondition.core.annotation.LowerCase
 import io.github.kitakkun.kondition.core.annotation.RemovePrefix
 import io.github.kitakkun.kondition.core.annotation.RemoveSuffix
 import io.github.kitakkun.kondition.core.annotation.Take
 import io.github.kitakkun.kondition.core.annotation.TakeLast
+import io.github.kitakkun.kondition.core.annotation.ToLowerCase
+import io.github.kitakkun.kondition.core.annotation.ToUpperCase
 import io.github.kitakkun.kondition.core.annotation.Trim
 import io.github.kitakkun.kondition.core.annotation.TrimEnd
 import io.github.kitakkun.kondition.core.annotation.TrimStart
-import io.github.kitakkun.kondition.core.annotation.UpperCase
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -123,7 +123,7 @@ class StringFittingTest {
 
     @Test
     fun upperCaseTest() {
-        fun myFunction(@UpperCase value: String) {
+        fun myFunction(@ToUpperCase value: String) {
             assertTrue { value.all { it.isUpperCase() } }
         }
 
@@ -132,7 +132,7 @@ class StringFittingTest {
 
     @Test
     fun lowerCaseTest() {
-        fun myFunction(@LowerCase value: String) {
+        fun myFunction(@ToLowerCase value: String) {
             assertTrue { value.all { it.isLowerCase() } }
         }
 

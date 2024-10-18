@@ -9,8 +9,8 @@ import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrExpression
 import org.jetbrains.kotlin.name.ClassId
 
-class UpperCaseFitter : ValueFitter {
-    override val annotationClassId: ClassId = KonditionConsts.UpperCaseClassId
+class ToUpperCaseFitter : ValueFitter {
+    override val annotationClassId: ClassId = KonditionConsts.ToUpperCaseClassId
     override fun IrBuilderWithScope.produceFitVariable(
         irContext: KonditionIrContext,
         parentDeclaration: IrDeclarationParent,
