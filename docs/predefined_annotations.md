@@ -36,6 +36,8 @@
 | `@MaxLength`  | `value.length <= length`                   | :white_check_mark: |
 | `@UpperCased` | `value.upppercase() == value`              | :white_check_mark: |
 | `@LowerCased` | `value.lowercase() == value`               | :white_check_mark: |
+|  `@Prefixed`  | `value.startsWith(prefix)`                 | :white_check_mark: |
+|  `@Suffixed`  | `value.endsWith(suffix)`                   | :white_check_mark: |
 
 ## Char
 
