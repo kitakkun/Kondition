@@ -34,3 +34,12 @@
 |   `@Length`   | `value.length = length`                    | :white_check_mark: |
 | `@MinLength`  | `value.length >= length`                   | :white_check_mark: |
 | `@MaxLength`  | `value.length <= length`                   | :white_check_mark: |
+| `@UpperCased` | `value.upppercase() == value`              | :white_check_mark: |
+| `@LowerCased` | `value.lowercase() == value`               | :white_check_mark: |
+
+## Char
+
+|  Annotation   | Will check                        |     Supported      |
+|:-------------:|:----------------------------------|:------------------:|
+| `@UpperCased` | `value.upppercaseChar() == value` | :white_check_mark: |
+| `@LowerCased` | `value.lowercaseChar() == value`  | :white_check_mark: |
