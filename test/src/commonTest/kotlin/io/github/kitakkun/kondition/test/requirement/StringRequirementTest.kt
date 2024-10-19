@@ -8,6 +8,8 @@ import io.github.kitakkun.kondition.core.annotation.MinLength
 import io.github.kitakkun.kondition.core.annotation.NonBlank
 import io.github.kitakkun.kondition.core.annotation.NonEmpty
 import io.github.kitakkun.kondition.core.annotation.Numeric
+import io.github.kitakkun.kondition.core.annotation.Prefixed
+import io.github.kitakkun.kondition.core.annotation.Suffixed
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -123,6 +125,26 @@ class StringRequirementTest {
 
         assertFailsWith(IllegalArgumentException::class) {
             maxLength("01234567890")
+        }
+    }
+
+    @Test
+    fun testPrefixed() {
+        fun prefixed(@Prefixed("prefix_") value: String) {}
+
+        prefixed("prefix_value")
+        assertFailsWith(IllegalArgumentException::class) {
+            prefixed("non_prefix_value")
+        }
+    }
+
+    @Test
+    fun testSuffixed() {
+        fun suffixed(@Suffixed("_suffix") value: String) {}
+
+        suffixed("value_suffix")
+        assertFailsWith(IllegalArgumentException::class) {
+            suffixed("value_suffix_not")
         }
     }
 }

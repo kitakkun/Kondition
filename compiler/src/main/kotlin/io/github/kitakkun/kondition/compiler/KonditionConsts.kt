@@ -49,6 +49,8 @@ object KonditionConsts {
     val AlphabeticClassId by lazy { konditionAnnotationClassId("Alphabetic") }
     val NumericClassId by lazy { konditionAnnotationClassId("Numeric") }
     val MatchRegexClassId by lazy { konditionAnnotationClassId("MatchRegex") }
+    val PrefixedClassId by lazy { konditionAnnotationClassId("Prefixed") }
+    val SuffixedClassId by lazy { konditionAnnotationClassId("Suffixed") }
 
     val AbortWithClassId by lazy { konditionAnnotationClassId("AbortWith") }
 

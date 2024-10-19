@@ -89,6 +89,20 @@ class KonditionIrContext(
         }
     }
 
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val startsWith by lazy {
+        namedFunction("kotlin.text", "startsWith") {
+            it.owner.extensionReceiverParameter?.type == irBuiltIns.stringType && it.owner.valueParameters.size == 2
+        }
+    }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val endsWith by lazy {
+        namedFunction("kotlin.text", "endsWith") {
+            it.owner.extensionReceiverParameter?.type == irBuiltIns.stringType && it.owner.valueParameters.size == 2
+        }
+    }
+
     fun namedFunction(
         packageName: String,
         name: String,
