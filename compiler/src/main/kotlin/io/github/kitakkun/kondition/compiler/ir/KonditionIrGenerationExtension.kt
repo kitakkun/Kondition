@@ -29,6 +29,7 @@ import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanDecimalRequi
 import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanLongRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanOrEqualsDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.LessThanOrEqualsLongRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.LowerCasedRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.MatchRegexRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.MaxLengthRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.MinLengthRequirementProvider
@@ -40,8 +41,11 @@ import io.github.kitakkun.kondition.compiler.ir.requirement.NonPositiveRequireme
 import io.github.kitakkun.kondition.compiler.ir.requirement.NonZeroRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.NumericRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.PositiveRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.PrefixedRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedDecimalRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.requirement.RangedLongRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.SuffixedRequirementProvider
+import io.github.kitakkun.kondition.compiler.ir.requirement.UpperCasedRequirementProvider
 import io.github.kitakkun.kondition.compiler.ir.statement.FitValueProducer
 import io.github.kitakkun.kondition.compiler.ir.statement.StatementsProducer
 import io.github.kitakkun.kondition.compiler.ir.transformer.LocalVariablesCheckProducer
@@ -70,6 +74,11 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
             LengthRequirementProvider(),
             MinLengthRequirementProvider(),
             MaxLengthRequirementProvider(),
+
+            PrefixedRequirementProvider(),
+            SuffixedRequirementProvider(),
+            UpperCasedRequirementProvider(),
+            LowerCasedRequirementProvider(),
 
             // number ranges
             RangedLongRequirementProvider(),

@@ -2,12 +2,16 @@ package io.github.kitakkun.kondition.test.requirement
 
 import io.github.kitakkun.kondition.core.annotation.Alphabetic
 import io.github.kitakkun.kondition.core.annotation.Length
+import io.github.kitakkun.kondition.core.annotation.LowerCased
 import io.github.kitakkun.kondition.core.annotation.MatchRegex
 import io.github.kitakkun.kondition.core.annotation.MaxLength
 import io.github.kitakkun.kondition.core.annotation.MinLength
 import io.github.kitakkun.kondition.core.annotation.NonBlank
 import io.github.kitakkun.kondition.core.annotation.NonEmpty
 import io.github.kitakkun.kondition.core.annotation.Numeric
+import io.github.kitakkun.kondition.core.annotation.Prefixed
+import io.github.kitakkun.kondition.core.annotation.Suffixed
+import io.github.kitakkun.kondition.core.annotation.UpperCased
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
@@ -123,6 +127,46 @@ class StringRequirementTest {
 
         assertFailsWith(IllegalArgumentException::class) {
             maxLength("01234567890")
+        }
+    }
+
+    @Test
+    fun testPrefixed() {
+        fun prefixed(@Prefixed("prefix_") value: String) {}
+
+        prefixed("prefix_value")
+        assertFailsWith(IllegalArgumentException::class) {
+            prefixed("non_prefix_value")
+        }
+    }
+
+    @Test
+    fun testSuffixed() {
+        fun suffixed(@Suffixed("_suffix") value: String) {}
+
+        suffixed("value_suffix")
+        assertFailsWith(IllegalArgumentException::class) {
+            suffixed("value_suffix_not")
+        }
+    }
+
+    @Test
+    fun testLowerCased() {
+        fun lowerCased(@LowerCased value: String) {}
+
+        lowerCased("value")
+        assertFailsWith(IllegalArgumentException::class) {
+            lowerCased("Value")
+        }
+    }
+
+    @Test
+    fun testUpperCased() {
+        fun upperCased(@UpperCased value: String) {}
+       
+        upperCased("VALUE")
+        assertFailsWith(IllegalArgumentException::class) {
+            upperCased("value")
         }
     }
 }
