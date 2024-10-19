@@ -31,3 +31,9 @@ annotation class Prefixed(val prefix: String)
 
 @Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
 annotation class Suffixed(val suffix: String)
+
+@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
+annotation class UpperCased
+
+@Target(AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.LOCAL_VARIABLE)
+annotation class LowerCased
