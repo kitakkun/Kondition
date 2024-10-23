@@ -14,6 +14,9 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             from(files("$rootDir/versions-root/libs.versions.toml"))
+            System.getenv("KOTLIN_VERSION")?.let {
+                version("kotlin", it)
+            }
         }
     }
 }

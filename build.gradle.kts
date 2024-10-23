@@ -8,3 +8,8 @@ plugins {
     alias(libs.plugins.konditionLint) apply false
     alias(libs.plugins.konditionPublish) apply false
 }
+
+allprojects {
+    group = "io.github.kitakkun.kondition"
+    version = rootProject.libs.versions.kondition.get()
+}

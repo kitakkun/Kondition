@@ -1,5 +1,6 @@
 package io.github.kitakkun.kondition.compiler.fir
 
+import VersionSpecificAPI
 import io.github.kitakkun.kondition.compiler.KonditionConsts
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.reportOn
@@ -9,10 +10,8 @@ import org.jetbrains.kotlin.fir.analysis.checkers.context.CheckerContext
 import org.jetbrains.kotlin.fir.analysis.checkers.context.findClosest
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.FirAnnotationChecker
 import org.jetbrains.kotlin.fir.declarations.FirVariable
-import org.jetbrains.kotlin.fir.declarations.evaluateAs
 import org.jetbrains.kotlin.fir.declarations.toAnnotationClassLikeSymbol
 import org.jetbrains.kotlin.fir.expressions.FirAnnotation
-import org.jetbrains.kotlin.fir.expressions.FirLiteralExpression
 import org.jetbrains.kotlin.fir.types.classId
 import org.jetbrains.kotlin.fir.types.coneType
 import org.jetbrains.kotlin.name.ClassId
@@ -40,9 +39,8 @@ object OutOfRangeValueChecker : FirAnnotationChecker(mppKind = MppCheckerKind.Co
         val variableClassId = variable.returnTypeRef.coneType.classId ?: return
 
         expression.argumentMapping.mapping.values
-            .mapNotNull { it.evaluateAs<FirLiteralExpression<*>>(context.session) }
             .forEach { literalExpression ->
-                val value = literalExpression.value
+                val value = VersionSpecificAPI.INSTANCE.evaluateAsLiteralValue(literalExpression, context.session)
                 when (value) {
                     is Long -> {
                         if (shouldShowOutOfRangeWarning(value, variableClassId, context.session)) {

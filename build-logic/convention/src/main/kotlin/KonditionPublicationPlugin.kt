@@ -1,6 +1,5 @@
 @file:Suppress("UNUSED")
 
-import build_logic.convention.BuildConfig
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.api.Plugin
@@ -25,11 +24,7 @@ class KonditionPublicationPlugin : Plugin<Project> {
                 if (artifactId.isBlank()) error("Artifact ID must be specified.")
 
                 configure<MavenPublishBaseExtension> {
-                    coordinates(
-                        groupId = "io.github.kitakkun.kondition",
-                        artifactId = artifactId,
-                        version = BuildConfig.VERSION,
-                    )
+                    coordinates(artifactId = artifactId)
 
                     pom {
                         name.set("Kondition")

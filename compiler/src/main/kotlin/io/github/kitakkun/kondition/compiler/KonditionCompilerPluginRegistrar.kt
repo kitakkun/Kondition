@@ -1,5 +1,6 @@
 package io.github.kitakkun.kondition.compiler
 
+import VersionSpecificAPI
 import io.github.kitakkun.kondition.compiler.fir.KonditionFirExtensionRegistrar
 import io.github.kitakkun.kondition.compiler.ir.KonditionIrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
@@ -13,6 +14,7 @@ class KonditionCompilerPluginRegistrar : CompilerPluginRegistrar() {
     override val supportsK2: Boolean = true
 
     override fun ExtensionStorage.registerExtensions(configuration: CompilerConfiguration) {
+        VersionSpecificAPI.INSTANCE = VersionSpecificAPIImpl
         FirExtensionRegistrarAdapter.registerExtension(KonditionFirExtensionRegistrar())
         IrGenerationExtension.registerExtension(KonditionIrGenerationExtension(configuration))
     }
