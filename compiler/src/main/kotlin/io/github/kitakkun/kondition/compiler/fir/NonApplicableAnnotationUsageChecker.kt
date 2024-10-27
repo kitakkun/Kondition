@@ -9,7 +9,6 @@ import org.jetbrains.kotlin.fir.declarations.FirCallableDeclaration
 import org.jetbrains.kotlin.fir.declarations.evaluateAs
 import org.jetbrains.kotlin.fir.declarations.findArgumentByName
 import org.jetbrains.kotlin.fir.declarations.getTargetType
-import org.jetbrains.kotlin.fir.declarations.toAnnotationClass
 import org.jetbrains.kotlin.fir.declarations.toAnnotationClassId
 import org.jetbrains.kotlin.fir.expressions.FirArrayLiteral
 import org.jetbrains.kotlin.fir.expressions.FirGetClassCall
@@ -29,10 +28,7 @@ object NonApplicableAnnotationUsageChecker :
         context: CheckerContext,
         reporter: DiagnosticReporter,
     ) {
-        val directAnnotationClasses =
-            declaration.annotations.mapNotNull { it.toAnnotationClass(context.session) }
-
-        if (directAnnotationClasses.isEmpty()) return
+        if (declaration.annotations.isEmpty()) return
 
         val applicableClassIdsMap = declaration.annotations
             .associateWith { annotation ->
@@ -55,16 +51,15 @@ object NonApplicableAnnotationUsageChecker :
                         }
                     }
             }
-            .filter {
-                it.value.isNotEmpty()
-            }
-            .mapValues {
-                it.value.reduce { a, b ->
+            .mapNotNull { (annotation, metaAnnotations) ->
+                if (metaAnnotations.isEmpty()) return@mapNotNull null
+                val commonMetaAnnotations = metaAnnotations.reduce { a, b ->
                     a.intersect(b.toSet()).toList()
                 }
-            }.filter {
-                it.value.isNotEmpty()
+                if (commonMetaAnnotations.isEmpty()) return@mapNotNull null
+                annotation to commonMetaAnnotations
             }
+            .toMap()
 
         val declarationClassId = declaration.returnTypeRef.coneType.classId ?: return
 
