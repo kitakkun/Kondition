@@ -9,7 +9,7 @@ object KonditionErrorMessages : BaseDiagnosticRendererFactory() {
     override val MAP: KtDiagnosticFactoryToRendererMap = KtDiagnosticFactoryToRendererMap("kondition").apply {
         put(
             KonditionErrors.KONDITION_ANNOTATION_USED_AGAINST_NON_APPLICABLE_TYPE,
-            "Annotation {0} is not applicable to the type {1}. Applicable types are: {2}",
+            "Annotation {0} cannot be applied to the type {1}. Applicable types are: {2}",
             rendererA = TO_STRING,
             rendererB = TO_STRING,
             rendererC = TO_STRING,
