@@ -1,13 +1,19 @@
 package io.github.kitakkun.kondition.compiler.fir.checker
 
+import io.github.kitakkun.kondition.compiler.fir.KonditionFirExtensionRegistrar
+import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
+import org.jetbrains.kotlin.cli.common.arguments.K2JVMCompilerArguments
+import org.jetbrains.kotlin.cli.common.computeKotlinPaths
+import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.cli.jvm.compiler.EnvironmentConfigFiles
 import org.jetbrains.kotlin.cli.jvm.compiler.KotlinCoreEnvironment
-import org.jetbrains.kotlin.cli.jvm.compiler.VfsBasedProjectEnvironment
+import org.jetbrains.kotlin.cli.jvm.compiler.toAbstractProjectEnvironment
+import org.jetbrains.kotlin.cli.jvm.config.addJvmClasspathRoot
+import org.jetbrains.kotlin.cli.jvm.config.configureJdkClasspathRoots
+import org.jetbrains.kotlin.cli.jvm.configureStandardLibs
 import org.jetbrains.kotlin.com.intellij.openapi.project.Project
 import org.jetbrains.kotlin.com.intellij.openapi.util.Disposer
 import org.jetbrains.kotlin.com.intellij.openapi.util.text.StringUtilRt
-import org.jetbrains.kotlin.com.intellij.openapi.vfs.StandardFileSystems
-import org.jetbrains.kotlin.com.intellij.openapi.vfs.VirtualFileManager
 import org.jetbrains.kotlin.com.intellij.psi.PsiFileFactory
 import org.jetbrains.kotlin.com.intellij.psi.impl.PsiFileFactoryImpl
 import org.jetbrains.kotlin.com.intellij.testFramework.LightVirtualFile
@@ -66,51 +72,103 @@ class CompilerTest {
         val moduleName = Name.identifier("myModule")
         configuration.put(CommonConfigurationKeys.MODULE_NAME, moduleName.asString())
         configuration.put(CommonConfigurationKeys.USE_FIR, true)
-        val coreEnvironment = KotlinCoreEnvironment.createForProduction(
-            disposable,
-            configuration,
-            EnvironmentConfigFiles.JVM_CONFIG_FILES,
+//        configuration.addKotlinSourceRoot("/Users/kitakkun/Documents/GitHub/kotlin/kondition/core/src/kotlin", isCommon = true)
+        configuration.addJvmClasspathRoot(File("/Users/kitakkun/Documents/GitHub/kotlin/kondition/core/build/libs/core-jvm.jar"))
+        configuration.configureJdkClasspathRoots()
+        val messageCollector = MessageCollector.NONE
+        configuration.put(CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY, messageCollector)
+        val arguments = K2JVMCompilerArguments()
+        configuration.configureStandardLibs(computeKotlinPaths(messageCollector, arguments), arguments)
+//        configuration.configureStandardLibs(KotlinPathsFromBaseDirectory(),K2JVMCompilerArguments())
+//        configuration.addKotlinSourceRoots(
+//            listOf("/Users/kitakkun/Documents/GitHub/kotlin/kondition/core/src")
+//        )
+
+        val environment = KotlinCoreEnvironment.createForProduction(
+            projectDisposable = disposable,
+            configuration = configuration,
+            configFiles = EnvironmentConfigFiles.JVM_CONFIG_FILES,
         )
+
+        val project = environment.project
+        val abstractProjectEnvironment = environment.toAbstractProjectEnvironment()
+
+//        val coreEnvironment = KotlinCoreEnvironment.createForProduction(
+//            disposable,
+//            configuration,
+//            configFiles = EnvironmentConfigFiles.JVM_CONFIG_FILES,
+//        )
+//        coreEnvironment.addKotlinSourceRoots(listOf(File("../core/src/kotlin")))
+//
+//        val coreModule = BinaryModuleData.createDependencyModuleData(
+//            name = Name.identifier("core"),
+//            platform = CommonPlatforms.defaultCommonPlatform,
+//        )
+//
+//        val coreLibraryScope = PsiBasedProjectFileSearchScope(ProjectScope.getLibrariesScope(coreEnvironment.project))
+//
+//        FirCommonSessionFactory.createLibrarySession(
+//            mainModuleName = Name.identifier("core"),
+//            sessionProvider = FirProjectSessionProvider(),
+//            moduleDataProvider = SingleModuleDataProvider(coreModule),
+//            projectEnvironment = coreEnvironment.toAbstractProjectEnvironment(),
+//            extensionRegistrars = emptyList(),
+//            librariesScope = coreLibraryScope,
+//            resolvedKLibs = emptyList(),
+//            packageAndMetadataPartProvider = JvmPackagePartProvider(
+//                languageVersionSettings = configuration.languageVersionSettings,
+//                scope = GlobalSearchScope.allScope(coreEnvironment.project),
+//            ),
+//            languageVersionSettings = configuration.languageVersionSettings,
+//            registerExtraComponents = {},
+//        )
 
         // FirSession
         val moduleData = FirModuleDataImpl(
             name = moduleName,
-            dependencies = emptyList(),
+            dependencies = listOf(),
             dependsOnDependencies = emptyList(),
             friendDependencies = emptyList(),
             platform = CommonPlatforms.defaultCommonPlatform,
         )
-        val projectEnvironment = VfsBasedProjectEnvironment(
-            project = coreEnvironment.project,
-            localFileSystem = VirtualFileManager.getInstance().getFileSystem(StandardFileSystems.FILE_PROTOCOL),
-            getPackagePartProviderFn = coreEnvironment::createPackagePartProvider,
-        )
-//        val librariesScope = PsiBasedProjectFileSearchScope(ProjectScope.getLibrariesScope(coreEnvironment.project))
 
         val firSession = FirCommonSessionFactory.createModuleBasedSession(
             moduleData = moduleData,
             sessionProvider = FirProjectSessionProvider(),
-            projectEnvironment = projectEnvironment,
+            projectEnvironment = abstractProjectEnvironment,
             incrementalCompilationContext = null,
-            extensionRegistrars = FirExtensionRegistrar.getInstances(coreEnvironment.project) + TestRegistrar,
+            extensionRegistrars = FirExtensionRegistrar.getInstances(project) + KonditionFirExtensionRegistrar(),
             languageVersionSettings = configuration.languageVersionSettings,
             lookupTracker = configuration.get(CommonConfigurationKeys.LOOKUP_TRACKER),
             enumWhenTracker = configuration.get(CommonConfigurationKeys.ENUM_WHEN_TRACKER),
             importTracker = configuration.get(CommonConfigurationKeys.IMPORT_TRACKER),
             registerExtraComponents = {},
-            init = {},
+            init = { },
         )
 
+        val annotationFiles = File("../core/src/commonMain/kotlin").walk()
+            .filter { it.isFile && it.extension == "kt" }
+            .map {
+                it.toKtFile(project)
+            }
+
+
+        annotationFiles.forEach {
+            println(it.virtualFilePath)
+        }
         val kotlinFile = File.createTempFile("inmemory", ".kt")
         kotlinFile.writeText(
             """
-                fun hoge() { }
+                import io.github.kitakkun.kondition.core.annotation.NonEmpty
+                
+                fun hoge(@NonEmpty value: Int) { }
             """.trimIndent()
         )
+        kotlinFile.toKtFile(project)
+
         val output = buildResolveAndCheckFirFromKtFiles(
-            ktFiles = listOf(
-                kotlinFile.toKtFile(coreEnvironment.project),
-            ),
+//            ktFiles = listOf(kotlinFile.toKtFile(project)) + annotationFiles.toList(),
+            ktFiles = annotationFiles.toList(),
             session = firSession,
             diagnosticsReporter = DiagnosticReporterFactory.createReporter(),
         )
@@ -130,7 +188,7 @@ class CompilerTest {
             KotlinLanguage.INSTANCE,
             StringUtilRt.convertLineSeparators(readText())
         ) {
-            override fun getPath(): String = "${this@toKtFile.path}/$name"
+            override fun getPath(): String = this@toKtFile.path
         }
 
         virtualFile.charset = StandardCharsets.UTF_8

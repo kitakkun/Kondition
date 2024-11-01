@@ -7,6 +7,8 @@ plugins {
 dependencies {
     implementation(libs.kotlin.compiler.embeddable)
     testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.reflect)
+    testImplementation(libs.mockk)
 }
 
 konditionPublication {

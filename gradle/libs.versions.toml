@@ -8,12 +8,16 @@ maven-publish = "0.29.0"
 buildconfig = "5.5.0"
 junit-jupiter = "5.7.1"
 agp = "8.7.0"
+mockk = "1.13.13"
 
 [libraries]
 kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlin-gradle-plugin-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api", version.ref = "kotlin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
 maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish" }
