@@ -1,19 +1,11 @@
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-        google()
-        gradlePluginPortal()
-    }
+rootProject.name = "build-logic"
 
-    versionCatalogs {
-        create("libs") {
-            from(files("../versions-root/libs.versions.toml"))
-            System.getenv("KOTLIN_VERSION")?.let {
-                version("kotlin", it)
-            }
-        }
-    }
+pluginManagement {
+    includeBuild("../gradle-conventions-settings")
+}
+
+plugins {
+    id("settings-conventions")
 }
 
 include(":convention")
-rootProject.name = "build-logic"

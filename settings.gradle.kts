@@ -1,30 +1,12 @@
 pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-}
-
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    versionCatalogs {
-        create("libs") {
-            from(files("$rootDir/versions-root/libs.versions.toml"))
-            System.getenv("KOTLIN_VERSION")?.let {
-                version("kotlin", it)
-            }
-        }
-    }
+    includeBuild("gradle-conventions-settings")
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version("0.4.0")
+    id("settings-conventions")
 }
 
 includeBuild("build-logic")
