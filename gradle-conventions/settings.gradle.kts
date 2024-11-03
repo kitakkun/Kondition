@@ -1,4 +1,4 @@
-rootProject.name = "build-logic"
+rootProject.name = "gradle-conventions"
 
 pluginManagement {
     includeBuild("../gradle-conventions-settings")
@@ -7,5 +7,3 @@ pluginManagement {
 plugins {
     id("settings-conventions")
 }
-
-include(":convention")

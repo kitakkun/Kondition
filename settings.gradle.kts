@@ -1,5 +1,6 @@
 pluginManagement {
     includeBuild("gradle-conventions-settings")
+    includeBuild("gradle-conventions")
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
@@ -9,7 +10,6 @@ plugins {
     id("settings-conventions")
 }
 
-includeBuild("build-logic")
 include(":gradle-plugin")
 include(":compiler")
 include(":core")
