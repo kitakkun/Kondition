@@ -1,3 +1,5 @@
+rootProject.name = "Kondition"
+
 pluginManagement {
     includeBuild("gradle-conventions-settings")
     includeBuild("gradle-conventions")
@@ -15,5 +17,3 @@ include(":compiler")
 include(":core")
 include(":test")
 include(":examples:playground")
-
-rootProject.name = "Kondition"
