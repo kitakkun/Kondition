@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
 
 plugins {
-    alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.konditionCompilerModule)
     alias(libs.plugins.konditionLint)
     alias(libs.plugins.konditionPublish)
 }
@@ -24,5 +24,3 @@ dependencies {
 konditionPublication {
     artifactId = "compiler"
 }
-
-version = "${kotlinVersion}-${libs.versions.kondition.get()}"
