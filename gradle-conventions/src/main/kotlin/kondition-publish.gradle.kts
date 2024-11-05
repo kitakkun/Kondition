@@ -1,4 +1,5 @@
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
+import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.withType
@@ -47,7 +48,7 @@ afterEvaluate {
             }
         }
 
-        publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
+        publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
         signAllPublications()
 
         // avoid failure when executing publishToMavenLocal
