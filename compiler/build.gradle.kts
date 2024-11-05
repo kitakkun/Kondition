@@ -8,15 +8,6 @@ plugins {
 
 val kotlinVersion = object {}.loadPropertyFromResources("project.properties", "project.version")
 
-kotlin {
-    sourceSets {
-        main {
-            val kotlinVersion = kotlinVersion.replace(".", "_")
-            kotlin.setSrcDirs(kotlin.srcDirs + file("src/main/v$kotlinVersion"))
-        }
-    }
-}
-
 dependencies {
     implementation(libs.kotlin.compiler.embeddable)
 }
