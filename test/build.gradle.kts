@@ -32,8 +32,15 @@ kotlin {
 
 dependencies {
     commonTestImplementation(projects.core)
-    kotlinCompilerPluginClasspath(projects.compiler)
-    kotlinNativeCompilerPluginClasspath(projects.compiler)
+
+    kotlinCompilerPluginClasspath(projects.compiler.common)
+    kotlinCompilerPluginClasspath(projects.compiler.k2)
+    kotlinCompilerPluginClasspath(projects.compiler.backend)
+    kotlinCompilerPluginClasspath(projects.compiler.cli)
+    kotlinNativeCompilerPluginClasspath(projects.compiler.cli)
+    kotlinNativeCompilerPluginClasspath(projects.compiler.common)
+    kotlinNativeCompilerPluginClasspath(projects.compiler.backend)
+    kotlinNativeCompilerPluginClasspath(projects.compiler.k2)
 
     commonTestImplementation(libs.kotlin.test)
 }

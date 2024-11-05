@@ -13,7 +13,10 @@ plugins {
 }
 
 include(":gradle-plugin")
-include(":compiler")
+include(":compiler:common")
+include(":compiler:cli")
+include(":compiler:k2")
+include(":compiler:backend")
 include(":core")
 include(":test")
 include(":examples:playground")

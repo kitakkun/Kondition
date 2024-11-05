@@ -18,7 +18,7 @@ class KonditionCompilerPlugin : KotlinCompilerPluginSupportPlugin {
     override fun getPluginArtifact(): SubpluginArtifact {
         return SubpluginArtifact(
             groupId = KonditionPluginConst.GROUP_ID,
-            artifactId = "compiler",
+            artifactId = "compiler-cli",
             version = KonditionPluginConst.kotlinPrefixedVersion,
         )
     }
