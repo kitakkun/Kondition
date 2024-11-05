@@ -1,10 +1,5 @@
 plugins {
     `kotlin-dsl`
-    alias(libs.plugins.buildconfig)
-}
-
-buildConfig {
-    buildConfigField("VERSION", libs.versions.kondition.get().toString())
 }
 
 dependencies {
