@@ -1,6 +1,5 @@
 package io.github.kitakkun.kondition.compiler.k2
 
-import VersionSpecificAPI
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.declarations.evaluateAs
 import org.jetbrains.kotlin.fir.expressions.FirExpression
