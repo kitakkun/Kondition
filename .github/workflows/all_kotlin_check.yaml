@@ -44,24 +44,24 @@ jobs:
             ~/.gradle/caches/jars-*
             ~/.gradle/caches/transforms-*
             ~/.gradle/caches/modules-*
-          key: gradle-dependencies-${{ steps.cache-key.outputs.week }}-${{ hashFiles('gradle/libs.versions.toml', '**/*.gradle.kts', 'build-logic/**/*.{kt,kts}') }}
-          restore-keys: gradle-dependencies-${{ steps.cache-key.outputs.week }}-
+          key: gradle-dependencies-${{ steps.cache-key.outputs.week }}-${{ hashFiles('gradle/libs.versions.toml', '**/*.gradle.kts', 'gradle-conventions-settings/**/*.{kt,kts}', 'gradle-conventions/**/*.{kt,kts}') }}-${{ matrix.kotlin }}
+          restore-keys: gradle-dependencies-${{ steps.cache-key.outputs.week }}-${{ matrix.kotlin }}-
       - uses: actions/cache@v4
         with:
           path: |
             ~/.konan
             ~/.gradle/native
-          key: ${{ runner.os }}-kotlin-native-${{ steps.cache-key.outputs.week }}-${{ hashFiles('gradle/libs.versions.toml', '**/*.gradle.kts') }}
-          restore-keys: ${{ runner.os }}-kotlin-native-${{ steps.cache-key.outputs.week }}-
+          key: ${{ runner.os }}-kotlin-native-${{ steps.cache-key.outputs.week }}-${{ hashFiles('gradle/libs.versions.toml', '**/*.gradle.kts') }}-${{ matrix.kotlin }}
+          restore-keys: ${{ runner.os }}-kotlin-native-${{ steps.cache-key.outputs.week }}-${{ matrix.kotlin }}-
       - uses: actions/cache@v4
         with:
           path: |
             ~/.gradle/caches/build-cache-*
             ~/.gradle/caches/[0-9]*.*
             .gradle
-          key: ${{ runner.os }}-gradle-build-${{ github.workflow }}-${{ steps.cache-key.outputs.week }}-${{ github.sha }}
-          restore-keys: ${{ runner.os }}-gradle-build-${{ github.workflow }}-${{ steps.cache-key.outputs.week }}-
+          key: ${{ runner.os }}-gradle-build-${{ github.workflow }}-${{ steps.cache-key.outputs.week }}-${{ github.sha }}-${{ matrix.kotlin }}
+          restore-keys: ${{ runner.os }}-gradle-build-${{ github.workflow }}-${{ steps.cache-key.outputs.week }}-${{ matrix.kotlin }}-
       - name: Build
         env:
           KOTLIN_VERSION: ${{ matrix.kotlin }}
-        run: ./gradlew publishToMavenLocal build
+        run: ./gradlew compiler-test:allTests
