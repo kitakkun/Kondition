@@ -1,25 +1,22 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-}
+rootProject.name = "Kondition"
 
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
+pluginManagement {
+    includeBuild("gradle-conventions-settings")
+    includeBuild("gradle-conventions")
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-includeBuild("build-logic")
-include(":gradle-plugin")
-include(":compiler")
-include(":core")
-include(":test")
-include(":examples:playground")
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version("0.4.0")
+    id("settings-conventions")
+}
 
-rootProject.name = "Kondition"
+include(":gradle-plugin")
+include(":compiler:common")
+include(":compiler:cli")
+include(":compiler:k2")
+include(":compiler:backend")
+include(":core")
+include(":compiler-test")
+include(":examples:playground")

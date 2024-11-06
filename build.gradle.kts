@@ -7,4 +7,10 @@ plugins {
     alias(libs.plugins.maven.publish) apply false
     alias(libs.plugins.konditionLint) apply false
     alias(libs.plugins.konditionPublish) apply false
+    alias(libs.plugins.konditionCompilerModule) apply false
+}
+
+allprojects {
+    group = "io.github.kitakkun.kondition"
+    version = rootProject.libs.versions.kondition.get()
 }
