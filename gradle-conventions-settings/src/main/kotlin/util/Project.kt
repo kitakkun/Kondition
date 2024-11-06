@@ -1,4 +1,4 @@
-package extension
+package util
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
