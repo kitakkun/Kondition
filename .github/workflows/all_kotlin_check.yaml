@@ -13,7 +13,7 @@ jobs:
         id: make-kotlin-versions
         run: |
           # split by "," and trim whitespaces
-          versions=$(jq -R -s -c 'split(",") | map(gsub("^\\s+|\\s+$"; ""))' versions-root/supported-kotlin-versions.txt)
+          versions=$(jq -R -s -c 'split(",") | map(gsub("^\\s+|\\s+$"; "")) | map(select(length > 0))' versions-root/supported-kotlin-versions.txt)
           echo "value=${versions}" >> $GITHUB_OUTPUT
 
   build:
