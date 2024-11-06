@@ -5,7 +5,8 @@
 [![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://github.com/kitakkun/Kondition/blob/master/LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Android_JVM_iOS_macOS_watchOS_tvOS_Linux_Windows-blue)
 
-Kondition is a multiplatform compiler plugin which ensures that your Kotlin code runs under certain conditions.
+Kondition is a multiplatform compiler plugin which ensures that your Kotlin code runs under certain
+conditions.
 You can provide requirements to parameters simply by annotating them.
 
 ## Example
@@ -41,7 +42,7 @@ repositories {
 }
 
 plugins {
-    id("io.github.kitakkun.kondition") version "0.0.1-alpha03"
+    id("io.github.kitakkun.kondition") version "0.0.1-alpha04"
 }
 ```
 
