@@ -34,7 +34,7 @@ jobs:
           distribution: 'adopt'
       - name: publish to MavenCentral
         run: |
-          versions=$(echo "${{ needs.get-kotlin-versions.outputs.kotlin-versions }}" | jq -r '.')
+          versions=$(echo '${{ needs.get-kotlin-versions.outputs.kotlin-versions }}' | jq -r '.')
           first_version=$(echo $versions | jq -r '.[0]')
           
           if [ "${{ matrix.kotlin }}" == "$first_version" ]; then
