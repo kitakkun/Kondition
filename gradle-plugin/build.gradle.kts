@@ -22,8 +22,8 @@ dependencies {
 gradlePlugin {
     plugins {
         create("kondition") {
-            id = "io.github.kitakkun.kondition"
-            implementationClass = "io.github.kitakkun.kondition.gradle.KonditionGradlePlugin"
+            id = "com.kitakkun.kondition"
+            implementationClass = "com.kitakkun.kondition.gradle.KonditionGradlePlugin"
         }
     }
 }

@@ -11,6 +11,6 @@ plugins {
 }
 
 allprojects {
-    group = "io.github.kitakkun.kondition"
+    group = "com.kitakkun.kondition"
     version = rootProject.libs.versions.kondition.get()
 }

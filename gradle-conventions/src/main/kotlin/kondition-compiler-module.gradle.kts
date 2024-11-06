@@ -33,6 +33,8 @@ sealed interface RangedKotlinVersion {
 val directoryNameRegex = "^(v|pre)(_\\d){1,3}\\d?$".toRegex()
 
 configure<KotlinJvmProjectExtension> {
+    jvmToolchain(17)
+
     sourceSets.forEach { sourceSet ->
         val srcDirs = sourceSet.kotlin.srcDirs
         val sourceSetRootPath = srcDirs.first().toPath().parent
