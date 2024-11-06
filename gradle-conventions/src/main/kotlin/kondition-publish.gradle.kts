@@ -1,8 +1,5 @@
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.SonatypeHost
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.withType
 
 open class KonditionPublicationExtension {
     var artifactId: String = ""
@@ -54,7 +51,7 @@ afterEvaluate {
         // avoid failure when executing publishToMavenLocal
         tasks.withType(org.gradle.plugins.signing.Sign::class).configureEach {
             onlyIf {
-                !gradle.startParameter.taskNames.contains("publishToMavenLocal")
+                !gradle.startParameter.taskNames.toString().contains("publishToMavenLocal")
             }
         }
     }
