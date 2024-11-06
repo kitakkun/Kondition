@@ -1,6 +1,6 @@
 # Kondition
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.kitakkun.kondition/compiler)](https://central.sonatype.com/search?namespace=io.github.kitakkun.kondition)
+[![Maven Central](https://img.shields.io/maven-central/v/com.kitakkun.kondition/compiler)](https://central.sonatype.com/search?namespace=com.kitakkun.kondition)
 [![Kotlin](https://img.shields.io/badge/kotlin-2.0.0--2.0.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://github.com/kitakkun/Kondition/blob/master/LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Android_JVM_iOS_macOS_watchOS_tvOS_Linux_Windows-blue)
@@ -42,7 +42,7 @@ repositories {
 }
 
 plugins {
-    id("io.github.kitakkun.kondition") version "0.0.1-alpha04"
+    id("com.kitakkun.kondition") version "0.0.1-alpha04"
 }
 ```
 
