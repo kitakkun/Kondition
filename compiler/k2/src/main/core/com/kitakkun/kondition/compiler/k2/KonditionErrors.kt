@@ -11,6 +11,7 @@ object KonditionErrors {
     val RETURN_IMPOSSIBLE_FOR_NON_UNIT_TYPE by error1<PsiElement, String>()
     val OUT_OF_RANGE by error2<PsiElement, Number, ClassId>()
     val KONDITION_ANNOTATION_USED_AGAINST_NON_APPLICABLE_TYPE by error3<PsiElement, ClassId, ClassId, List<ClassId>>()
+    val INVALID_RANGE by error2<PsiElement, String, ClassId>()
 
     init {
         RootDiagnosticRendererFactory.registerFactory(KonditionErrorMessages)

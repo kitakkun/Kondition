@@ -25,5 +25,11 @@ object KonditionErrorMessages : BaseDiagnosticRendererFactory() {
             rendererA = TO_STRING,
             rendererB = TO_STRING,
         )
+        put(
+            KonditionErrors.INVALID_RANGE,
+            "The specified range {0} is invalid for {1}. Applying this setting may lead to unexpected behavior or could be ignored.",
+            rendererA = TO_STRING,
+            rendererB = TO_STRING,
+        )
     }
 }
