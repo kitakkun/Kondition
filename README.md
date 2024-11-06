@@ -41,7 +41,7 @@ repositories {
 }
 
 plugins {
-    id("io.github.kitakkun.kondition") version "0.0.1-alpha02"
+    id("io.github.kitakkun.kondition") version "0.0.1-alpha03"
 }
 ```
 
