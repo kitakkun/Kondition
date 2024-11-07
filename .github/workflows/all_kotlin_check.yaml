@@ -7,10 +7,9 @@ on:
 jobs:
   get-kotlin-versions:
     if: |
-      ((github.event.action == 'labeled') && 
-      (github.event.label.name == 'compiler')) ||
-      ((github.event.action == 'synchronize') &&
-      contains(github.event.pull_request.labels.*.name, 'compiler'))
+      github.ref == 'refs/heads/main' ||
+      (github.event.action == 'labeled' && github.event.label.name == 'compiler') ||
+      (github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'compiler'))
     runs-on: ubuntu-latest
     outputs:
       kotlin-versions: ${{ steps.make-kotlin-versions.outputs.value }}
