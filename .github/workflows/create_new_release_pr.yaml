@@ -1,11 +1,14 @@
 name: Update Version and Create PR
-
 on:
   workflow_dispatch:
     inputs:
       NEW_VERSION:
         description: 'The new version to update to'
         required: true
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   update-version:
