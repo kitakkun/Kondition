@@ -1,8 +1,16 @@
 on:
-  merge_group:
-    types: [ "checks_requested" ]
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [ opened, synchronize, labeled ]
+  workflow_dispatch:
 jobs:
   get-kotlin-versions:
+    if: |
+      ((github.event.action == 'labeled') && 
+      (github.event.label.name == 'compiler')) ||
+      ((github.event.action == 'synchronize') &&
+      contains(github.event.pull_request.labels.*.name, 'compiler')
     runs-on: ubuntu-latest
     outputs:
       kotlin-versions: ${{ steps.make-kotlin-versions.outputs.value }}
