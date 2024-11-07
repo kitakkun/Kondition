@@ -38,7 +38,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: "release/${{ github.event.inputs.NEW_VERSION }}"
-          title: "Release ${{ github.event.inputs.NEW_VERSION }}"
-          body: "This PR updates kondition to version ${{ github.event.inputs.NEW_VERSION }}"
+          branch: "release/${{ env.NEW_VERSION }}"
+          title: "Release ${{ env.NEW_VERSION }}"
+          body: "This PR updates kondition to version ${{ env.NEW_VERSION }}"
           base: main
