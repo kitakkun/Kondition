@@ -1,12 +1,5 @@
 name: Update Version and Create PR
-on:
-  workflow_dispatch:
-    inputs:
-      NEW_VERSION:
-        description: 'The new version to update to'
-        required: true
-        default: '0.0.0-test'
-  push:
+on: create
 
 permissions:
   contents: write
@@ -15,17 +8,23 @@ permissions:
 jobs:
   update-version:
     runs-on: ubuntu-latest
-
+    if:
+      contains( github.ref_name, 'release/' )
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up NEW_VERSION environment variable
-        run: echo "NEW_VERSION=${{ github.event.inputs.NEW_VERSION }}" >> $GITHUB_ENV
+        run: |
+          NEW_VERSION=${{ github.ref_name }}
+          # Remove the 'release/' prefix to extract the version
+          NEW_VERSION=${NEW_VERSION#release/}
+          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
 
       - name: Update version in version catalog
         run: |
           VERSION_CATALOG="versions-root/libs.versions.toml"
+          echo "VERSION_CATALOG=$VERSION_CATALOG" >> $GITHUB_ENV
           sed -i "s/^kondition = \".*\"/kondition = \"$NEW_VERSION\"/" "$VERSION_CATALOG"
 
       - name: Commit changes
@@ -36,7 +35,7 @@ jobs:
           git commit -m "Bump to $NEW_VERSION"
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: "release/${{ github.event.inputs.NEW_VERSION }}"
