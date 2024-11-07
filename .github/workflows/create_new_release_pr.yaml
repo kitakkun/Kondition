@@ -1,0 +1,44 @@
+name: Update Version and Create PR
+on: create
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    if:
+      contains( github.ref_name, 'release/' )
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up NEW_VERSION environment variable
+        run: |
+          NEW_VERSION=${{ github.ref_name }}
+          # Remove the 'release/' prefix to extract the version
+          NEW_VERSION=${NEW_VERSION#release/}
+          echo "NEW_VERSION=${NEW_VERSION}" >> $GITHUB_ENV
+
+      - name: Update version in version catalog
+        run: |
+          VERSION_CATALOG="versions-root/libs.versions.toml"
+          echo "VERSION_CATALOG=$VERSION_CATALOG" >> $GITHUB_ENV
+          sed -i "s/^kondition = \".*\"/kondition = \"$NEW_VERSION\"/" "$VERSION_CATALOG"
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add "$VERSION_CATALOG"
+          git commit -m "Bump to $NEW_VERSION"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: "release/${{ env.NEW_VERSION }}"
+          title: "Release ${{ env.NEW_VERSION }}"
+          body: "This PR updates kondition to version ${{ env.NEW_VERSION }}"
+          base: main

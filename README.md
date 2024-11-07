@@ -42,7 +42,7 @@ repositories {
 }
 
 plugins {
-    id("com.kitakkun.kondition") version "0.0.1-alpha04"
+    id("com.kitakkun.kondition") version "<version>"
 }
 ```
 
