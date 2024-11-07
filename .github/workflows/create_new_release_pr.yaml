@@ -5,6 +5,8 @@ on:
       NEW_VERSION:
         description: 'The new version to update to'
         required: true
+        default: '0.0.0-test'
+  push:
 
 permissions:
   contents: write
