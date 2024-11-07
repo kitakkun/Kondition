@@ -1,0 +1,40 @@
+name: Update Version and Create PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      NEW_VERSION:
+        description: 'The new version to update to'
+        required: true
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up NEW_VERSION environment variable
+        run: echo "NEW_VERSION=${{ github.event.inputs.NEW_VERSION }}" >> $GITHUB_ENV
+
+      - name: Update version in version catalog
+        run: |
+          VERSION_CATALOG="versions-root/libs.versions.toml"
+          sed -i "s/^kondition = \".*\"/kondition = \"$NEW_VERSION\"/" "$VERSION_CATALOG"
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add "$VERSION_CATALOG"
+          git commit -m "Bump to $NEW_VERSION"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: "release/${{ github.event.inputs.NEW_VERSION }}"
+          title: "Release ${{ github.event.inputs.NEW_VERSION }}"
+          body: "This PR updates kondition to version ${{ github.event.inputs.NEW_VERSION }}"
+          base: main
