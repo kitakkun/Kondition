@@ -9,9 +9,7 @@ object KonditionPluginConst {
     const val CORE_LIBRARY_DEPENDENCY_NOTATION = "$GROUP_ID:core:${BuildConfig.VERSION}"
 
     val kotlinVersion by lazy { loadKotlinVersion() }
-    val kotlinPrefixedVersion by lazy { "${kotlinVersion}-${BuildConfig.VERSION}" }
+    val kotlinPrefixedVersion by lazy { "$kotlinVersion-${BuildConfig.VERSION}" }
 
-    private fun loadKotlinVersion(): String {
-        return object {}.loadPropertyFromResources("project.properties", "project.version")
-    }
+    private fun loadKotlinVersion(): String = object {}.loadPropertyFromResources("project.properties", "project.version")
 }
