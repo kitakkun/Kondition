@@ -56,6 +56,14 @@ object KonditionConsts {
 
     val AbortWithClassId by lazy { konditionAnnotationClassId("AbortWith") }
 
+    val TypeSpecificClassId by lazy { konditionAnnotationClassId("TypeSpecific") }
+    val RequirementKonditionClassId by lazy { konditionAnnotationClassId("RequirementKondition") }
+    val FittingKonditionClassId by lazy { konditionAnnotationClassId("FittingKondition") }
+    val KonditionClassId by lazy { konditionAnnotationClassId("Kondition") }
+    val ValidatorClassId by lazy { konditionAnnotationClassId("Validator") }
+    val FitterClassId by lazy { konditionAnnotationClassId("Fitter") }
+    val ErrorMessageProviderClassId by lazy { konditionAnnotationClassId("ErrorMessageProvider") }
+
     fun konditionAnnotationClassId(name: String): ClassId = classId(
         packageName = "com.kitakkun.kondition.core.annotation",
         className = name,

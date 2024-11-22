@@ -7,7 +7,7 @@ import kotlin.reflect.KClass
  */
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS)
-internal annotation class TypeSpecific(val classes: Array<KClass<*>>)
+annotation class TypeSpecific(val classes: Array<KClass<*>>)
 
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS)
