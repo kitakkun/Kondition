@@ -1,4 +1,4 @@
-package com.kitakkun.kondition.test.edge_cases
+package com.kitakkun.kondition.test.edgecases
 
 import com.kitakkun.kondition.core.annotation.CoerceAtMost
 import com.kitakkun.kondition.core.annotation.NonEmpty
