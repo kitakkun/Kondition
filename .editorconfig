@@ -2,3 +2,9 @@
 ktlint_code_style = intellij_idea
 insert_final_newline = true
 max_line_length = off
+ij_kotlin_name_count_to_use_star_import = 999
+ij_kotlin_name_count_to_use_star_import_for_members = 999
+indent_style = space
+tab_width = 4
+indent_size = 4
+charset = utf-8
