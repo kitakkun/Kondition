@@ -1,7 +1,7 @@
 package com.kitakkun.kondition.compiler.cli
 
 import com.kitakkun.kondition.compiler.backend.KonditionIrGenerationExtension
-import com.kitakkun.kondition.compiler.k2.KonditionFirExtensionRegistrar
+import com.kitakkun.kondition.compiler.k2.extensions.KonditionFirExtensionRegistrar
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
