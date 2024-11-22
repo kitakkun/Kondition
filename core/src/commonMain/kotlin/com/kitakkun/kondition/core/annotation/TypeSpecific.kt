@@ -20,7 +20,7 @@ internal annotation class TypeSpecific(val classes: Array<KClass<*>>)
         Short::class,
         Float::class,
         Double::class,
-    ]
+    ],
 )
 internal annotation class NumberOnly
 
