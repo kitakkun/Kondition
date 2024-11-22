@@ -1,6 +1,8 @@
-package com.kitakkun.kondition.compiler.k2
+package com.kitakkun.kondition.compiler.k2.checkers
 
 import com.kitakkun.kondition.compiler.common.KonditionConsts
+import com.kitakkun.kondition.compiler.k2.api.VersionSpecificAPI
+import com.kitakkun.kondition.compiler.k2.diagnostics.KonditionErrors
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.reportOn
 import org.jetbrains.kotlin.fir.analysis.checkers.MppCheckerKind

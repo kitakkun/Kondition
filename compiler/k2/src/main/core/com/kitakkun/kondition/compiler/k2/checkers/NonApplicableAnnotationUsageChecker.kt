@@ -1,5 +1,7 @@
-package com.kitakkun.kondition.compiler.k2
+package com.kitakkun.kondition.compiler.k2.checkers
 
+import com.kitakkun.kondition.compiler.k2.diagnostics.KonditionErrors
+import com.kitakkun.kondition.compiler.k2.utils.MetaAnnotationsResolver
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.reportOn
 import org.jetbrains.kotlin.fir.analysis.checkers.MppCheckerKind
@@ -20,8 +22,7 @@ import org.jetbrains.kotlin.name.Name
 
 object NonApplicableAnnotationUsageChecker :
     FirCallableDeclarationChecker(mppKind = MppCheckerKind.Common) {
-    private val TypeSpecificAnnotationClassId =
-        classId("com.kitakkun.kondition.core.annotation", "TypeSpecific")
+    private val TypeSpecificAnnotationClassId = classId("com.kitakkun.kondition.core.annotation", "TypeSpecific")
 
     override fun check(
         declaration: FirCallableDeclaration,

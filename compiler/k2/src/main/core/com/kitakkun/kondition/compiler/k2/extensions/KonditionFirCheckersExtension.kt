@@ -1,5 +1,9 @@
-package com.kitakkun.kondition.compiler.k2
+package com.kitakkun.kondition.compiler.k2.extensions
 
+import com.kitakkun.kondition.compiler.k2.checkers.AbortStrategyChecker
+import com.kitakkun.kondition.compiler.k2.checkers.InvalidRangeChecker
+import com.kitakkun.kondition.compiler.k2.checkers.NonApplicableAnnotationUsageChecker
+import com.kitakkun.kondition.compiler.k2.checkers.OutOfRangeValueChecker
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.analysis.checkers.declaration.DeclarationCheckers
 import org.jetbrains.kotlin.fir.analysis.checkers.declaration.FirCallableDeclarationChecker
@@ -14,9 +18,6 @@ class KonditionFirCheckersExtension(session: FirSession) : FirAdditionalCheckers
         override val callableDeclarationCheckers: Set<FirCallableDeclarationChecker> = setOf(NonApplicableAnnotationUsageChecker)
     }
     override val expressionCheckers = object : ExpressionCheckers() {
-        override val annotationCheckers: Set<FirAnnotationChecker> = setOf(
-            OutOfRangeValueChecker,
-            InvalidRangeChecker,
-        )
+        override val annotationCheckers: Set<FirAnnotationChecker> = setOf(OutOfRangeValueChecker, InvalidRangeChecker)
     }
 }

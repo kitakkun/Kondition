@@ -1,4 +1,4 @@
-package com.kitakkun.kondition.compiler.k2
+package com.kitakkun.kondition.compiler.k2.utils
 
 import org.jetbrains.kotlin.fir.FirSession
 import org.jetbrains.kotlin.fir.declarations.toAnnotationClass
