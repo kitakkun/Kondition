@@ -12,6 +12,7 @@ object KonditionErrors {
     val OUT_OF_RANGE by error2<PsiElement, Number, ClassId>()
     val KONDITION_ANNOTATION_USED_AGAINST_NON_APPLICABLE_TYPE by error3<PsiElement, ClassId, ClassId, List<ClassId>>()
     val INVALID_RANGE by error2<PsiElement, String, ClassId>()
+    val CANT_HAVE_BOTH_VALIDATOR_AND_FITTER by error1<PsiElement, ClassId>()
 
     init {
         RootDiagnosticRendererFactory.registerFactory(KonditionErrorMessages)

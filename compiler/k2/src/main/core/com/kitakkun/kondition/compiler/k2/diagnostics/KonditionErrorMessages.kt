@@ -31,5 +31,10 @@ object KonditionErrorMessages : BaseDiagnosticRendererFactory() {
             rendererA = TO_STRING,
             rendererB = TO_STRING,
         )
+        put(
+            KonditionErrors.CANT_HAVE_BOTH_VALIDATOR_AND_FITTER,
+            "Custom Konditions can't have both validator and fitter.",
+            rendererA = TO_STRING,
+        )
     }
 }
