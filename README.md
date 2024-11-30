@@ -1,7 +1,7 @@
 # Kondition
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.kitakkun.kondition/core)](https://central.sonatype.com/search?namespace=com.kitakkun.kondition)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.0.0--2.0.21-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.0.0--2.1.0-blue.svg?logo=kotlin)](http://kotlinlang.org)
 [![License](https://img.shields.io/badge/license-Apache-blue.svg)](https://github.com/kitakkun/Kondition/blob/master/LICENSE)
 ![Platform](https://img.shields.io/badge/platform-Android_JVM_iOS_macOS_watchOS_tvOS_Linux_Windows-blue)
 

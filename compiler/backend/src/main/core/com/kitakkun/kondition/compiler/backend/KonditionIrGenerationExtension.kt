@@ -1,5 +1,7 @@
 package com.kitakkun.kondition.compiler.backend
 
+import com.kitakkun.kondition.compiler.backend.api.VersionSpecificAPI
+import com.kitakkun.kondition.compiler.backend.api.VersionSpecificAPIImpl
 import com.kitakkun.kondition.compiler.backend.fitting.AddPrefixFitter
 import com.kitakkun.kondition.compiler.backend.fitting.AddSuffixFitter
 import com.kitakkun.kondition.compiler.backend.fitting.CoerceAtLeastDecimalFitter
@@ -62,6 +64,7 @@ class KonditionIrGenerationExtension(configuration: CompilerConfiguration) : IrG
     private val messageCollector = configuration.get(CLIConfigurationKeys.MESSAGE_COLLECTOR_KEY, MessageCollector.NONE)
 
     override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
+        VersionSpecificAPI.INSTANCE = VersionSpecificAPIImpl
         val context = KonditionIrContext(pluginContext, messageCollector)
 
         val requirementProviders = listOf(

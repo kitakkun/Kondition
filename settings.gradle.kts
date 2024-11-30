@@ -8,7 +8,7 @@ pluginManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version("0.4.0")
+    id("org.gradle.toolchains.foojay-resolver-convention") version ("0.4.0")
     id("settings-conventions")
 }
 
@@ -19,4 +19,3 @@ include(":compiler:k2")
 include(":compiler:backend")
 include(":core")
 include(":compiler-test")
-include(":examples:playground")

@@ -53,9 +53,16 @@ class KonditionIrContext(
 
     val removePrefix by lazy { namedFunction("kotlin.text", "removePrefix") }
     val removeSuffix by lazy { namedFunction("kotlin.text", "removeSuffix") }
-    val trim by lazy { namedFunction("kotlin.text", "trim") }
-    val trimStart by lazy { namedFunction("kotlin.text", "trimStart") }
-    val trimEnd by lazy { namedFunction("kotlin.text", "trimEnd") }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val trim by lazy { namedFunction("kotlin.text", "trim") { it.owner.valueParameters.isEmpty() } }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val trimStart by lazy { namedFunction("kotlin.text", "trimStart") { it.owner.valueParameters.isEmpty() } }
+
+    @OptIn(UnsafeDuringIrConstructionAPI::class)
+    val trimEnd by lazy { namedFunction("kotlin.text", "trimEnd") { it.owner.valueParameters.isEmpty() } }
+
     val take by lazy { namedFunction("kotlin.text", "take") }
     val takeLast by lazy { namedFunction("kotlin.text", "takeLast") }
     val drop by lazy { namedFunction("kotlin.text", "drop") }
