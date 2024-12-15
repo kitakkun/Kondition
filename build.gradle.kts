@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.konditionLint) apply false
     alias(libs.plugins.konditionPublish) apply false
     alias(libs.plugins.konditionCompilerModule) apply false
+    alias(libs.plugins.gradleTestKitSupport) apply false
 }
 
 allprojects {
