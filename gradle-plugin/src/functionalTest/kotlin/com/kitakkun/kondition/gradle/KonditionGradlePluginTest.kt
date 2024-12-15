@@ -40,14 +40,14 @@ class TestProject(
 
                         fun a(@Positive value: Int) {
                         }
-                    """.trimIndent()
-                    ).withPath("", "main").build()
+                        """.trimIndent(),
+                    ).withPath("", "main").build(),
                 )
                 kotlin = Kotlin.ofTarget(17)
                 plugins(
                     Plugin.application,
                     Plugin("org.jetbrains.kotlin.jvm", BuildConfigForTest.KOTLIN_VERSION),
-                    Plugin("com.kitakkun.kondition", BuildConfigForTest.VERSION)
+                    Plugin("com.kitakkun.kondition", BuildConfigForTest.VERSION),
                 )
                 withGroovy(
                     """
@@ -58,7 +58,7 @@ class TestProject(
                     kondition {
                         enabled = $enableKonditionCompiler
                     }
-                    """.trimIndent()
+                    """.trimIndent(),
                 )
             }
         }
