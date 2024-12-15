@@ -13,8 +13,8 @@ plugins {
 
 // avoid failure when executing publishToMavenLocal or running testkit
 tasks.withType(org.gradle.plugins.signing.Sign::class).configureEach {
-    isRequired = gradle.startParameter.taskNames.any {
-        it == "publishTestKitSupportForJavaPublicationToFunctionalTestRepository" || it.contains("publishToMavenLocal")
+    isRequired = gradle.startParameter.taskNames.none {
+        it.contains("functionalTest") || it.contains("publishToMavenLocal")
     }
 }
 
