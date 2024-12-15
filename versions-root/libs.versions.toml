@@ -6,20 +6,23 @@ kotlin = "2.1.0"
 spotless = "6.25.0"
 maven-publish = "0.29.0"
 buildconfig = "5.5.0"
-junit-jupiter = "5.7.1"
 agp = "8.7.0"
+gradle-testkit-support-plugin = "0.10"
+gradle-testkit-support = "0.17"
+gradle-testkit-truth = "1.6.1"
 
 [libraries]
 kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlin-gradle-plugin-api = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin-api", version.ref = "kotlin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
 maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish" }
 
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
-junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+gradle-testkit-support = { module = "com.autonomousapps:gradle-testkit-support", version.ref = "gradle-testkit-support" }
+gradle-testkit-truth = { module = "com.autonomousapps:gradle-testkit-truth", version.ref = "gradle-testkit-truth" }
 
 [plugins]
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -28,6 +31,7 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
+gradleTestKitSupport = { id = "com.autonomousapps.testkit", version.ref = "gradle-testkit-support-plugin" }
 
 konditionLint = { id = "kondition-lint", version = "unspecified" }
 konditionPublish = { id = "kondition-publish", version = "unspecified" }

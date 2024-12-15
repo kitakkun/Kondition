@@ -11,6 +11,13 @@ plugins {
     id("com.vanniktech.maven.publish")
 }
 
+// avoid failure when executing publishToMavenLocal or running testkit
+tasks.withType(org.gradle.plugins.signing.Sign::class).configureEach {
+    isRequired = gradle.startParameter.taskNames.any {
+        it == "publishTestKitSupportForJavaPublicationToFunctionalTestRepository" || it.contains("publishToMavenLocal")
+    }
+}
+
 afterEvaluate {
     val extension = extensions.getByType(KonditionPublicationExtension::class.java)
     val artifactId = extension.artifactId
@@ -47,12 +54,5 @@ afterEvaluate {
 
         publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
         signAllPublications()
-
-        // avoid failure when executing publishToMavenLocal
-        tasks.withType(org.gradle.plugins.signing.Sign::class).configureEach {
-            onlyIf {
-                !gradle.startParameter.taskNames.toString().contains("publishToMavenLocal")
-            }
-        }
     }
 }
