@@ -9,5 +9,6 @@ class KonditionFirExtensionRegistrar : FirExtensionRegistrar() {
         VersionSpecificAPI.INSTANCE = VersionSpecificAPIImpl
 
         +::KonditionFirCheckersExtension
+        +::KonditionInterfaceGenerationExtension
     }
 }
