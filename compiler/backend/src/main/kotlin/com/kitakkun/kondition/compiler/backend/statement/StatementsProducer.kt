@@ -2,6 +2,7 @@ package com.kitakkun.kondition.compiler.backend.statement
 
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
 import com.kitakkun.kondition.compiler.backend.requirement.RequirementProvider
+import com.kitakkun.kondition.compiler.backend.util.setValueArgument
 import org.jetbrains.kotlin.ir.IrStatement
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
@@ -49,8 +50,8 @@ class StatementsProducer(
                 )
             }
             irCall(requirementCheckFunction).apply {
-                putValueArgument(0, condition)
-                putValueArgument(1, message)
+                setValueArgument(0, condition)
+                setValueArgument(1, message)
             }
         }
     }

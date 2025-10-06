@@ -1,8 +1,10 @@
 package com.kitakkun.kondition.compiler.backend.requirement
 
-import com.kitakkun.kondition.compiler.common.KonditionConsts
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
 import com.kitakkun.kondition.compiler.backend.util.getConstArgument
+import com.kitakkun.kondition.compiler.backend.util.setExtensionReceiver
+import com.kitakkun.kondition.compiler.backend.util.setValueArgument
+import com.kitakkun.kondition.compiler.common.KonditionConsts
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -39,8 +41,8 @@ sealed class LessThanRequirementProvider<T : Number>(
         val threshold = annotation.getConstArgument<T>(0) ?: error("can't get argument of annotation.")
 
         return irCall(irContext.lessThan).apply {
-            extensionReceiver = irGet(value)
-            putValueArgument(0, threshold.toIrConst(value.type))
+            setExtensionReceiver(irGet(value))
+            setValueArgument(0, threshold.toIrConst(value.type))
         }
     }
 }

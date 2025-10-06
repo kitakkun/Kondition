@@ -1,7 +1,8 @@
 package com.kitakkun.kondition.compiler.backend.requirement
 
-import com.kitakkun.kondition.compiler.common.KonditionConsts
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
+import com.kitakkun.kondition.compiler.backend.util.setExtensionReceiver
+import com.kitakkun.kondition.compiler.common.KonditionConsts
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irConcat
@@ -45,7 +46,7 @@ class LowerCasedRequirementProvider : RequirementProvider {
 
         return irEquals(
             irCall(function).apply {
-                extensionReceiver = irGet(value)
+                setExtensionReceiver(irGet(value))
             },
             irGet(value)
         )

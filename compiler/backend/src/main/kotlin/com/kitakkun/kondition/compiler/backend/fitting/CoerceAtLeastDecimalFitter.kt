@@ -2,6 +2,9 @@ package com.kitakkun.kondition.compiler.backend.fitting
 
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
 import com.kitakkun.kondition.compiler.backend.util.getConstArgument
+import com.kitakkun.kondition.compiler.backend.util.setExtensionReceiver
+import com.kitakkun.kondition.compiler.backend.util.setTypeArgument
+import com.kitakkun.kondition.compiler.backend.util.setValueArgument
 import com.kitakkun.kondition.compiler.common.KonditionConsts
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
@@ -22,9 +25,9 @@ class CoerceAtLeastDecimalFitter : ValueFitter {
         val minimumValue = annotation.getConstArgument<Double>(0)
 
         return irCall(irContext.coerceAtLeast).apply {
-            extensionReceiver = originalValue
-            putTypeArgument(0, originalValue.type)
-            putValueArgument(0, minimumValue.toIrConst(originalValue.type))
+            setExtensionReceiver(originalValue)
+            setTypeArgument(0, originalValue.type)
+            setValueArgument(0, minimumValue.toIrConst(originalValue.type))
         }
     }
 }

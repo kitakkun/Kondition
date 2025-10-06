@@ -1,7 +1,8 @@
 package com.kitakkun.kondition.compiler.backend.requirement
 
-import com.kitakkun.kondition.compiler.common.KonditionConsts
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
+import com.kitakkun.kondition.compiler.backend.util.setExtensionReceiver
+import com.kitakkun.kondition.compiler.common.KonditionConsts
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -28,6 +29,6 @@ class NumericRequirementProvider : RequirementProvider {
         value: IrValueDeclaration,
         annotation: IrConstructorCall,
     ): IrExpression = irCall(irContext.isNumericFunction).apply {
-        extensionReceiver = irGet(value)
+        setExtensionReceiver(irGet(value))
     }
 }

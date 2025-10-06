@@ -1,7 +1,9 @@
 package com.kitakkun.kondition.compiler.backend.fitting
 
-import com.kitakkun.kondition.compiler.common.KonditionConsts
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
+import com.kitakkun.kondition.compiler.backend.util.setExtensionReceiver
+import com.kitakkun.kondition.compiler.backend.util.setValueArgument
+import com.kitakkun.kondition.compiler.common.KonditionConsts
 import org.jetbrains.kotlin.backend.jvm.ir.getIntConstArgument
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
@@ -22,8 +24,8 @@ class TakeFitter : ValueFitter {
         val length = annotation.getIntConstArgument(0)
 
         return irCall(irContext.take).apply {
-            extensionReceiver = originalValue
-            putValueArgument(0, irInt(length))
+            setExtensionReceiver(originalValue)
+            setValueArgument(0, irInt(length))
         }
     }
 }

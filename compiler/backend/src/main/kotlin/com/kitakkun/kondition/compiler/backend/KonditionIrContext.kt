@@ -1,5 +1,7 @@
 package com.kitakkun.kondition.compiler.backend
 
+import com.kitakkun.kondition.compiler.backend.util.extensionReceiverParameterOrNull
+import com.kitakkun.kondition.compiler.backend.util.valueParameters
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
@@ -55,13 +57,13 @@ class KonditionIrContext(
     val removeSuffix by lazy { namedFunction("kotlin.text", "removeSuffix") }
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
-    val trim by lazy { namedFunction("kotlin.text", "trim") { it.owner.valueParameters.isEmpty() } }
+    val trim by lazy { namedFunction("kotlin.text", "trim") { it.owner.valueParameters().isEmpty() } }
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
-    val trimStart by lazy { namedFunction("kotlin.text", "trimStart") { it.owner.valueParameters.isEmpty() } }
+    val trimStart by lazy { namedFunction("kotlin.text", "trimStart") { it.owner.valueParameters().isEmpty() } }
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
-    val trimEnd by lazy { namedFunction("kotlin.text", "trimEnd") { it.owner.valueParameters.isEmpty() } }
+    val trimEnd by lazy { namedFunction("kotlin.text", "trimEnd") { it.owner.valueParameters().isEmpty() } }
 
     val take by lazy { namedFunction("kotlin.text", "take") }
     val takeLast by lazy { namedFunction("kotlin.text", "takeLast") }
@@ -71,42 +73,42 @@ class KonditionIrContext(
     @OptIn(UnsafeDuringIrConstructionAPI::class)
     val uppercaseString by lazy {
         namedFunction("kotlin.text", "uppercase") {
-            it.owner.extensionReceiverParameter?.type == irBuiltIns.stringType && it.owner.valueParameters.isEmpty()
+            it.owner.extensionReceiverParameterOrNull()?.type == irBuiltIns.stringType && it.owner.valueParameters().isEmpty()
         }
     }
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
     val uppercaseChar by lazy {
         namedFunction("kotlin.text", "uppercaseChar") {
-            it.owner.extensionReceiverParameter?.type == irBuiltIns.charType && it.owner.valueParameters.isEmpty()
+            it.owner.extensionReceiverParameterOrNull()?.type == irBuiltIns.charType && it.owner.valueParameters().isEmpty()
         }
     }
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
     val lowercaseString by lazy {
         namedFunction("kotlin.text", "lowercase") {
-            it.owner.extensionReceiverParameter?.type == irBuiltIns.stringType && it.owner.valueParameters.isEmpty()
+            it.owner.extensionReceiverParameterOrNull()?.type == irBuiltIns.stringType && it.owner.valueParameters().isEmpty()
         }
     }
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
     val lowercaseChar by lazy {
         namedFunction("kotlin.text", "lowercaseChar") {
-            it.owner.extensionReceiverParameter?.type == irBuiltIns.charType && it.owner.valueParameters.isEmpty()
+            it.owner.extensionReceiverParameterOrNull()?.type == irBuiltIns.charType && it.owner.valueParameters().isEmpty()
         }
     }
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
     val startsWith by lazy {
         namedFunction("kotlin.text", "startsWith") {
-            it.owner.extensionReceiverParameter?.type == irBuiltIns.stringType && it.owner.valueParameters.size == 2
+            it.owner.extensionReceiverParameterOrNull()?.type == irBuiltIns.stringType && it.owner.valueParameters().size == 2
         }
     }
 
     @OptIn(UnsafeDuringIrConstructionAPI::class)
     val endsWith by lazy {
         namedFunction("kotlin.text", "endsWith") {
-            it.owner.extensionReceiverParameter?.type == irBuiltIns.stringType && it.owner.valueParameters.size == 2
+            it.owner.extensionReceiverParameterOrNull()?.type == irBuiltIns.stringType && it.owner.valueParameters().size == 2
         }
     }
 

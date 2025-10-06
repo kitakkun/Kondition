@@ -1,8 +1,10 @@
 package com.kitakkun.kondition.compiler.backend.requirement
 
-import com.kitakkun.kondition.compiler.common.KonditionConsts
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
 import com.kitakkun.kondition.compiler.backend.util.getConstArgument
+import com.kitakkun.kondition.compiler.backend.util.setExtensionReceiver
+import com.kitakkun.kondition.compiler.backend.util.setValueArgument
+import com.kitakkun.kondition.compiler.common.KonditionConsts
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -35,8 +37,8 @@ class LengthRequirementProvider : RequirementProvider {
     ): IrExpression {
         val length = annotation.getConstArgument<Int>(0) ?: error("couldn't parse length")
         return irCall(irContext.lengthEquals).apply {
-            extensionReceiver = irGet(value)
-            putValueArgument(0, irInt(length))
+            setExtensionReceiver(irGet(value))
+            setValueArgument(0, irInt(length))
         }
     }
 }

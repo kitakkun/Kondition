@@ -1,7 +1,9 @@
 package com.kitakkun.kondition.compiler.backend.fitting
 
-import com.kitakkun.kondition.compiler.common.KonditionConsts
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
+import com.kitakkun.kondition.compiler.backend.util.setExtensionReceiver
+import com.kitakkun.kondition.compiler.backend.util.setValueArgument
+import com.kitakkun.kondition.compiler.common.KonditionConsts
 import org.jetbrains.kotlin.backend.jvm.ir.getStringConstArgument
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
@@ -23,8 +25,8 @@ class RemoveSuffixFitter : ValueFitter {
         val suffix = annotation.getStringConstArgument(0)
 
         return irCall(irContext.removeSuffix).apply {
-            extensionReceiver = originalValue
-            putValueArgument(0, irString(suffix))
+            setExtensionReceiver(originalValue)
+            setValueArgument(0, irString(suffix))
         }
     }
 }

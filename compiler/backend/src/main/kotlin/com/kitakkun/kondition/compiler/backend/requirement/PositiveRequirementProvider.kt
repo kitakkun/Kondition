@@ -1,8 +1,10 @@
 package com.kitakkun.kondition.compiler.backend.requirement
 
-import com.kitakkun.kondition.compiler.common.KonditionConsts
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
 import com.kitakkun.kondition.compiler.backend.util.irZero
+import com.kitakkun.kondition.compiler.backend.util.setExtensionReceiver
+import com.kitakkun.kondition.compiler.backend.util.setValueArgument
+import com.kitakkun.kondition.compiler.common.KonditionConsts
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -33,7 +35,7 @@ class PositiveRequirementProvider : RequirementProvider {
         value: IrValueDeclaration,
         annotation: IrConstructorCall,
     ): IrExpression = irCall(irContext.greaterThan).apply {
-        extensionReceiver = irGet(value)
-        putValueArgument(0, irZero(value.type.classOrFail.owner.classId!!))
+        setExtensionReceiver(irGet(value))
+        setValueArgument(0, irZero(value.type.classOrFail.owner.classId!!))
     }
 }

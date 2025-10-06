@@ -1,9 +1,11 @@
 package com.kitakkun.kondition.compiler.backend.requirement
 
-import com.kitakkun.kondition.compiler.common.KonditionConsts
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
 import com.kitakkun.kondition.compiler.backend.util.getConstArgument
 import com.kitakkun.kondition.compiler.backend.util.getEnumNameOfArgument
+import com.kitakkun.kondition.compiler.backend.util.setExtensionReceiver
+import com.kitakkun.kondition.compiler.backend.util.setValueArgument
+import com.kitakkun.kondition.compiler.common.KonditionConsts
 import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
 import org.jetbrains.kotlin.ir.builders.irCall
 import org.jetbrains.kotlin.ir.builders.irGet
@@ -95,18 +97,18 @@ sealed class RangedNumberRequirementProvider<T : Number>(override val annotation
         }
 
         val irCompareStart = irCall(startCompareFunction).apply {
-            extensionReceiver = irGetValueParameter
-            putValueArgument(0, start.toIrConst(valueType))
+            setExtensionReceiver(irGetValueParameter)
+            setValueArgument(0, start.toIrConst(valueType))
         }
 
         val irCompareEnd = irCall(endCompareFunction).apply {
-            extensionReceiver = irGetValueParameter
-            putValueArgument(0, end.toIrConst(valueType))
+            setExtensionReceiver(irGetValueParameter)
+            setValueArgument(0, end.toIrConst(valueType))
         }
 
         return irCall(irContext.booleanAndFunction).apply {
             dispatchReceiver = irCompareStart
-            putValueArgument(0, irCompareEnd)
+            setValueArgument(0, irCompareEnd)
         }
     }
 }

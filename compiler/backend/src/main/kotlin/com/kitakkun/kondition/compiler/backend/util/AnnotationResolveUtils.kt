@@ -1,11 +1,12 @@
 package com.kitakkun.kondition.compiler.backend.util
 
 import com.kitakkun.kondition.compiler.backend.api.VersionSpecificAPI
+import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrGetEnumValue
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
 
-@OptIn(UnsafeDuringIrConstructionAPI::class)
+@OptIn(UnsafeDuringIrConstructionAPI::class, DeprecatedForRemovalCompilerApi::class)
 fun IrConstructorCall.getEnumNameOfArgument(index: Int): String? {
     val irGetEnumValue = getValueArgument(index) as? IrGetEnumValue ?: return null
     return irGetEnumValue.symbol.owner.name.asString()

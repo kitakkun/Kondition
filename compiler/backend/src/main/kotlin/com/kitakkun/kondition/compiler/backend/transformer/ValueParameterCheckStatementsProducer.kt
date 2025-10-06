@@ -3,6 +3,7 @@ package com.kitakkun.kondition.compiler.backend.transformer
 import com.kitakkun.kondition.compiler.backend.KonditionIrContext
 import com.kitakkun.kondition.compiler.backend.statement.FitValueProducer
 import com.kitakkun.kondition.compiler.backend.statement.StatementsProducer
+import com.kitakkun.kondition.compiler.backend.util.valueParameters
 import org.jetbrains.kotlin.backend.common.lower.createIrBuilder
 import org.jetbrains.kotlin.backend.common.lower.irBlockBody
 import org.jetbrains.kotlin.ir.IrStatement
@@ -33,7 +34,7 @@ class ValueParameterCheckStatementsProducer(
         val irBuilder = irContext.irBuiltIns.createIrBuilder(declaration.symbol)
 
         val requireStatements = with(statementsProducer) {
-            declaration.valueParameters.flatMap {
+            declaration.valueParameters().flatMap {
                 irBuilder.produce(
                     irContext = irContext,
                     parentDeclaration = declaration,
@@ -50,7 +51,7 @@ class ValueParameterCheckStatementsProducer(
                 // So, we need transform them in visitField instead.
                 emptyMap()
             } else {
-                declaration.valueParameters
+                declaration.valueParameters()
                     .mapNotNull {
                         val fittedValue = irBuilder.fitExpression(
                             irContext = irContext,
