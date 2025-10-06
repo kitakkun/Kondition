@@ -19,7 +19,8 @@ object InvalidRangeChecker : FirAnnotationChecker(MppCheckerKind.Common) {
         KonditionConsts.CoerceInDecimalClassId,
     )
 
-    override fun check(expression: FirAnnotation, context: CheckerContext, reporter: DiagnosticReporter) {
+    context(context: CheckerContext, reporter: DiagnosticReporter)
+    override fun check(expression: FirAnnotation) {
         val annotationClassId = expression.toAnnotationClassId(context.session) ?: return
 
         if (annotationClassId !in rangedAnnotationClassIds) return
@@ -36,7 +37,6 @@ object InvalidRangeChecker : FirAnnotationChecker(MppCheckerKind.Common) {
                 factory = KonditionErrors.INVALID_RANGE,
                 a = "($start, $end)",
                 b = annotationClassId,
-                context = context,
             )
         }
     }

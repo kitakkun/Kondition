@@ -24,11 +24,8 @@ object NonApplicableAnnotationUsageChecker :
     FirCallableDeclarationChecker(mppKind = MppCheckerKind.Common) {
     private val TypeSpecificAnnotationClassId = classId("com.kitakkun.kondition.core.annotation", "TypeSpecific")
 
-    override fun check(
-        declaration: FirCallableDeclaration,
-        context: CheckerContext,
-        reporter: DiagnosticReporter,
-    ) {
+    context(context: CheckerContext, reporter: DiagnosticReporter)
+    override fun check(declaration: FirCallableDeclaration) {
         if (declaration.annotations.isEmpty()) return
 
         val applicableClassIdsMap = declaration.annotations
@@ -67,7 +64,6 @@ object NonApplicableAnnotationUsageChecker :
         applicableClassIdsMap.forEach { (annotation, classIds) ->
             if (declarationClassId !in classIds) {
                 reporter.reportOn(
-                    context = context,
                     source = declaration.source,
                     factory = KonditionErrors.KONDITION_ANNOTATION_USED_AGAINST_NON_APPLICABLE_TYPE,
                     a = annotation.toAnnotationClassId(context.session)!!,

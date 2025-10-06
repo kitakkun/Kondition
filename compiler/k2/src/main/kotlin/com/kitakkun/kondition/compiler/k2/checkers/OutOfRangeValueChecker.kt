@@ -10,9 +10,10 @@ import org.jetbrains.kotlin.fir.analysis.checkers.MppCheckerKind
 import org.jetbrains.kotlin.fir.analysis.checkers.context.CheckerContext
 import org.jetbrains.kotlin.fir.analysis.checkers.context.findClosest
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.FirAnnotationChecker
-import org.jetbrains.kotlin.fir.declarations.FirVariable
 import org.jetbrains.kotlin.fir.declarations.toAnnotationClassLikeSymbol
 import org.jetbrains.kotlin.fir.expressions.FirAnnotation
+import org.jetbrains.kotlin.fir.symbols.SymbolInternals
+import org.jetbrains.kotlin.fir.symbols.impl.FirVariableSymbol
 import org.jetbrains.kotlin.fir.types.classId
 import org.jetbrains.kotlin.fir.types.coneType
 import org.jetbrains.kotlin.name.ClassId
@@ -32,11 +33,13 @@ object OutOfRangeValueChecker : FirAnnotationChecker(mppKind = MppCheckerKind.Co
         KonditionConsts.LessThanOrEqualsDecimalClassId,
     )
 
-    override fun check(expression: FirAnnotation, context: CheckerContext, reporter: DiagnosticReporter) {
+    @OptIn(SymbolInternals::class)
+    context(context: CheckerContext, reporter: DiagnosticReporter)
+    override fun check(expression: FirAnnotation) {
         val annotationClassSymbol = expression.toAnnotationClassLikeSymbol(context.session) ?: return
         if (annotationClassSymbol.classId !in numberAnnotations) return
 
-        val variable = context.findClosest<FirVariable>() ?: return
+        val variable = context.findClosest<FirVariableSymbol<*>>()?.fir ?: return
         val variableClassId = variable.returnTypeRef.coneType.classId ?: return
 
         expression.argumentMapping.mapping.values
@@ -46,7 +49,6 @@ object OutOfRangeValueChecker : FirAnnotationChecker(mppKind = MppCheckerKind.Co
                     is Long -> {
                         if (shouldShowOutOfRangeWarning(value, variableClassId, context.session)) {
                             reporter.reportOn(
-                                context = context,
                                 source = literalExpression.source,
                                 factory = KonditionErrors.OUT_OF_RANGE,
                                 a = value,
@@ -58,7 +60,6 @@ object OutOfRangeValueChecker : FirAnnotationChecker(mppKind = MppCheckerKind.Co
                     is Double -> {
                         if (shouldShowOutOfRangeWarning(value, variableClassId, context.session)) {
                             reporter.reportOn(
-                                context = context,
                                 source = literalExpression.source,
                                 factory = KonditionErrors.OUT_OF_RANGE,
                                 a = value,

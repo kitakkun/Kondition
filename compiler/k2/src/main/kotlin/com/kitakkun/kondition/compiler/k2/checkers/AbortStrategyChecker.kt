@@ -19,7 +19,8 @@ object AbortStrategyChecker : FirFunctionChecker(mppKind = MppCheckerKind.Common
         Return,
     }
 
-    override fun check(declaration: FirFunction, context: CheckerContext, reporter: DiagnosticReporter) {
+    context(context: CheckerContext, reporter: DiagnosticReporter)
+    override fun check(declaration: FirFunction) {
         val annotation = declaration.getAnnotationByClassId(KonditionConsts.AbortWithClassId, context.session) ?: return
         val enumValueArgumentInfo = annotation.argumentMapping.mapping.values.single().extractEnumValueArgumentInfo() ?: return
         val enumValue = AbortStrategy.entries.find { it.name == enumValueArgumentInfo.enumEntryName.asString() } ?: return
@@ -29,7 +30,6 @@ object AbortStrategyChecker : FirFunctionChecker(mppKind = MppCheckerKind.Common
             AbortStrategy.ReturnWithNull -> TODO()
             AbortStrategy.Return -> {
                 reporter.reportOn(
-                    context = context,
                     source = declaration.source,
                     factory = KonditionErrors.RETURN_IMPOSSIBLE_FOR_NON_UNIT_TYPE,
                     a = declaration.nameOrSpecialName.asString(),
