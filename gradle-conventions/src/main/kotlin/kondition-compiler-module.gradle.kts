@@ -7,5 +7,8 @@ plugins {
 configure<KotlinJvmProjectExtension> {
     jvmToolchain(17)
 
-    compilerOptions.freeCompilerArgs.add("-Xcontext-parameters")
+    compilerOptions.freeCompilerArgs.addAll(
+        "-Xcontext-parameters",
+        "-opt-in=org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI",
+    )
 }
