@@ -1,15 +1,25 @@
 rootProject.name = "Kondition"
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
-    includeBuild("gradle-conventions-settings")
     includeBuild("gradle-conventions")
+
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        google()
+    }
 }
 
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version ("0.4.0")
-    id("settings-conventions")
 }
 
 include(":gradle-plugin")
