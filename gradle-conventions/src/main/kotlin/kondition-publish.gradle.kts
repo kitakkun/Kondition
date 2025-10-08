@@ -1,5 +1,4 @@
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import com.vanniktech.maven.publish.SonatypeHost
 
 open class KonditionPublicationExtension {
     var artifactId: String = ""
@@ -52,7 +51,7 @@ afterEvaluate {
             }
         }
 
-        publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+        publishToMavenCentral()
         signAllPublications()
     }
 }
