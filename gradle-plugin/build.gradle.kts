@@ -1,10 +1,10 @@
 plugins {
+    `java-gradle-plugin`
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.konditionPublish)
     alias(libs.plugins.konditionLint)
     alias(libs.plugins.buildconfig)
     alias(libs.plugins.gradleTestKitSupport)
-    `java-gradle-plugin`
 }
 
 dependencies {
