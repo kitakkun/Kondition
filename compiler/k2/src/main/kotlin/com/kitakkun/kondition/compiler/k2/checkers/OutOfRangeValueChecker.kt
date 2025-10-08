@@ -1,7 +1,6 @@
 package com.kitakkun.kondition.compiler.k2.checkers
 
 import com.kitakkun.kondition.compiler.common.KonditionConsts
-import com.kitakkun.kondition.compiler.k2.api.VersionSpecificAPI
 import com.kitakkun.kondition.compiler.k2.diagnostics.KonditionErrors
 import org.jetbrains.kotlin.diagnostics.DiagnosticReporter
 import org.jetbrains.kotlin.diagnostics.reportOn
@@ -10,8 +9,10 @@ import org.jetbrains.kotlin.fir.analysis.checkers.MppCheckerKind
 import org.jetbrains.kotlin.fir.analysis.checkers.context.CheckerContext
 import org.jetbrains.kotlin.fir.analysis.checkers.context.findClosest
 import org.jetbrains.kotlin.fir.analysis.checkers.expression.FirAnnotationChecker
+import org.jetbrains.kotlin.fir.declarations.evaluateAs
 import org.jetbrains.kotlin.fir.declarations.toAnnotationClassLikeSymbol
 import org.jetbrains.kotlin.fir.expressions.FirAnnotation
+import org.jetbrains.kotlin.fir.expressions.FirLiteralExpression
 import org.jetbrains.kotlin.fir.symbols.SymbolInternals
 import org.jetbrains.kotlin.fir.symbols.impl.FirVariableSymbol
 import org.jetbrains.kotlin.fir.types.classId
@@ -44,7 +45,7 @@ object OutOfRangeValueChecker : FirAnnotationChecker(mppKind = MppCheckerKind.Co
 
         expression.argumentMapping.mapping.values
             .forEach { literalExpression ->
-                val value = VersionSpecificAPI.INSTANCE.evaluateAsLiteralValue(literalExpression, context.session)
+                val value = literalExpression.evaluateAs<FirLiteralExpression>(context.session)?.value
                 when (value) {
                     is Long -> {
                         if (shouldShowOutOfRangeWarning(value, variableClassId, context.session)) {
