@@ -1,7 +1,7 @@
 package com.kitakkun.kondition.compiler.backend.util
 
-import com.kitakkun.kondition.compiler.backend.api.VersionSpecificAPI
 import org.jetbrains.kotlin.DeprecatedForRemovalCompilerApi
+import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
 import org.jetbrains.kotlin.ir.expressions.IrGetEnumValue
 import org.jetbrains.kotlin.ir.symbols.UnsafeDuringIrConstructionAPI
@@ -18,5 +18,6 @@ fun IrConstructorCall.getEnumNameOfArgument(index: Int): String? {
  */
 @Suppress("UNCHECKED_CAST")
 fun <T> IrConstructorCall.getConstArgument(index: Int): T? {
-    return VersionSpecificAPI.INSTANCE.getConstArgument<T>(this, index)
+    val irConst = arguments[index] as? IrConst
+    return irConst?.value as? T
 }
